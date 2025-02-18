@@ -71,6 +71,7 @@ const login = async (req, res) => {
       {
         id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
       },
       process.env.JWT_SECRET
@@ -98,9 +99,9 @@ const profile = async (req, res) => {
         const user = await User.findById(userData.id);
         if (!user) return res.status(404).json({ message: "user topilmadi" });
 
-        const { _id, name, email } = user;
+        const { _id, name, username, email } = user;
 
-        res.status(200).json({ _id, name, email });
+        res.status(200).json({ _id, name, username, email });
       } catch (error) {
         res.status(404).json({ error, message: "user topilmadi error" });
       }
