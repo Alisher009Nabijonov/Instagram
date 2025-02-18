@@ -14,6 +14,11 @@ const register = async (req, res) => {
     let user = await User.findOne({ email: req.body.email });
     if (user) return res.status(400).json({ message: "Email already taken." });
 
+    let username = await User.findOne({ username: req.body.username });
+
+    if (username)
+      return res.status(400).json({ message: "username already exist" });
+
     if (password.length < 6)
       return res
         .status(401)
@@ -24,6 +29,7 @@ const register = async (req, res) => {
 
     user = new User({
       name: req.body.name,
+      username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
     });
@@ -33,6 +39,7 @@ const register = async (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
+        username: user.username,
         name: user.name,
         email: user.email,
       },
