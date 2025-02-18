@@ -2,7 +2,7 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>Assalomu alaykum</div>
+    <div>Va alekum alisher qalesan</div>
   )
 }
 
