@@ -13,6 +13,11 @@ import SignUp from "./Pages/SignUp";
 import Home from "./components/Home";
 import MainLayout from "./Layout/MianLayout"; // Fixed typo
 import Profil from "./components/Profil";
+import axios from "axios";
+
+// axios defaults 
+axios.defaults.baseURL = "http://localhost:5000"
+axios.defaults.withCredentials = true;
 
 function App() {
   const routes = createBrowserRouter(

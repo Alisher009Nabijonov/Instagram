@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { NavLink, Outlet } from "react-router-dom";
 import { FaGooglePlay } from "react-icons/fa";
 import { FaMicrosoft } from "react-icons/fa";
+
+// axios 
+import axios from "axios";
+
 const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const response = await axios.post("/api/auth/register", { email, username, name, password });
+      alert(response.data.message)
+    } catch (error) {
+      console.log("error while signing up", error);
+      alert(error)
+    }
+  }
+
+
   return (
     <>
       <div className="register">
@@ -22,11 +44,11 @@ const SignUp = () => {
               <h2>OR</h2>
               <div className="login_line"></div>
             </div>
-            <form className="register_form">
-              <input type="email" placeholder="Mobile phone or email address" />
-              <input type="password" placeholder="Password" />
-              <input type="text" placeholder="First and last name" />
-              <input type="text" placeholder="Username" />
+            <form onSubmit={handleSubmit} className="register_form">
+              <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Mobile phone or email address" />
+              <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" />
+              <input value={name} onChange={e => setName(e.target.value)} type="text" placeholder="First and last name" />
+              <input value={username} onChange={e => setUsername(e.target.value)} type="text" placeholder="Username" />
               <p className="register_p">
                 People who use our service may have uploaded your contact
                 information to Instagram. Learn more
