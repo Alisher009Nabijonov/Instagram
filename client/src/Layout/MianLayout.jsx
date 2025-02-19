@@ -13,6 +13,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaInstagram } from "react-icons/fa6";
 // assets img
 import UserImg from "../assets/user.jpg";
+
 const MianLaayout = () => {
   let [bars, setBars] = useState("close");
   const toggleBars = () => {
