@@ -7,9 +7,25 @@ import { MdOutlineGridOn } from "react-icons/md";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { RiShieldUserFill } from "react-icons/ri";
 import { MdOutlinePhotoCamera } from "react-icons/md";
-// assets
+
+// heroui
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@heroui/react";
+
+
+
 import UserImg from "../assets/user.jpg";
 const Profil = () => {
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [note, setNote] = useState("");
   const [savedNote, setSavedNote] = useState("");
@@ -40,7 +56,50 @@ const Profil = () => {
   };
 
   return (
+
+
+
     <>
+
+      <Button onPress={onOpen}>Open Modal</Button>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
+                  risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
+                  quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
+                  risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
+                  quam.
+                </p>
+                <p>
+                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor
+                  adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit
+                  officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit incididunt
+                  nisi consectetur esse laborum eiusmod pariatur proident Lorem eiusmod et. Culpa
+                  deserunt nostrud ad veniam.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Action
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+
       {/* <div className="min-h-screen bg-black text-white">
         <div className="mx-auto  px-8 py-8">
           <div className="flex items-center gap-20">
@@ -296,33 +355,30 @@ const Profil = () => {
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
-                selectedCategory === 1
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(1)}
             >
               <MdOutlineGridOn className="h-3 w-3" />
               Publications
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                selectedCategory === 2
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 2
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(2)}
             >
               <IoBookmarkSharp className="h-3 w-3" />
               Saved
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                selectedCategory === 3
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(3)}
             >
               <RiShieldUserFill className="h-3 w-3" />
