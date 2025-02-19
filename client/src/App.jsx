@@ -12,6 +12,7 @@ import NavbarLayout from "./Layout/Navbar";
 import SignUp from "./Pages/SignUp";
 import Home from "./components/Home";
 import MainLayout from "./Layout/MianLayout"; // Fixed typo
+import Profil from "./components/Profil";
 
 function App() {
   const routes = createBrowserRouter(
@@ -19,6 +20,7 @@ function App() {
       <Route element={<NavbarLayout />}>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
+          <Route path="/profil" element={<Profil />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
