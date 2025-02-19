@@ -109,7 +109,7 @@ const Profil = () => {
               <h3 className="text-xl">First steps</h3>
             </div>
             {selectedCategory === 1 && (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-4 w-250">
                 <div className="flex flex-col items-center gap-4 rounded-lg border border-zinc-800 p-6 text-center">
                   <p className="rounded-full bg-zinc-800 p-4">
                     <MdOutlinePhotoCamera className="h-8 w-8" />

@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginImg from "../assets/login.jpg";
 import { FcGoogle } from "react-icons/fc";
 import { FaGooglePlay } from "react-icons/fa";
 import { FaMicrosoft } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
-
+// axios
+import axios from 'axios'
 const Login = () => {
+
+  const [email ,setEmail] = useState("");
+  const [password ,setPassword] = useState("");
+
+
+  const handelSubmitlogin = async (e) =>{
+    e.preventDefault();
+
+    try{
+      const response = await axios.post("/api/auth/login", { email, password});
+      alert(response.data.message)
+    }catch (error) {
+         console.log("login error", error);
+         alert(error.response.data.message)
+    }
+  }
+
   return (  
     <>
       <div className="login">
@@ -18,9 +36,9 @@ const Login = () => {
               <div>
                 <h1 className="login_logo_h1">Instagram</h1>
               </div>
-              <form className="login_form">
-                <input type="email" placeholder="Phone, username or email" />
-                <input type="password" placeholder="Password" />
+              <form onSubmit={handelSubmitlogin} className="login_form">
+                <input value={email}  onChange={e => setEmail(e.target.value)} type="email" placeholder="Phone, username or email" />
+                <input value={password}  onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" />
                 <button>Login</button>
               </form>
               <div className="login_or">
