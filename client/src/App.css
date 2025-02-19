@@ -1,12 +1,13 @@
-* {
+@import "tailwindcss";
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-body {
+} */
+ body {
   color: white;
   background-color: black;
-  max-width: 1550px;
+  /* max-width: 1550px; */
   margin: 0 auto;
 }
 .login {
@@ -171,13 +172,7 @@ body {
   }
 }
 
-.h1a {
-  color: #fff;
-}
 
-.home {
-  color: white;
-}
 
 .register {
   width: 100%;
@@ -273,10 +268,78 @@ body {
 .login_right_bottom1 {
   margin-bottom: 30px;
 }
+
+
+
+
+
+
+
+
+.sidebar {
+  width: 400px;
+  height: 100vh;
+  position: fixed;
+  background-color: black;
+  left: -400px;
+  top: 0;
+  transition: all 0.5s;
+  color: white;
+  z-index: 99;
+  border-right: 2px solid rgb(136, 134, 134);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.open {
+  left: 48px;
+}
+
+.close {
+  left: -400px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 .flex {
   width: 100%;
   font-family: "Roboto";
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .home_link_div {
   display: flex;
@@ -315,7 +378,6 @@ body {
   width: 100%;
   display: flex;
   margin: 0 auto;
-  /* justify-content: end; */
 }
 .profil {
   width: 100%;
@@ -429,7 +491,6 @@ body {
 .div_pablications_items {
   width: 99%;
   margin: 8px auto;
-  /* overflow-x: scroll; */
   display: flex;
   align-items: center;
   gap: 8px;
@@ -517,29 +578,7 @@ body {
 .marks_p1{
   width: 40%;
 }
-/* search sidebar */
-.sidebar {
-  width: 400px;
-  height: 100vh;
-  position: fixed;
-  background-color: black;
-  left: -400px;
-  top: 0;
-  transition: all 0.5s;
-  color: white;
-  z-index: 99;
-  border-right: 2px solid rgb(136, 134, 134);
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
 
-.open {
-  left: 63px;
-}
-
-.close {
-  left: -400px;
-}
 .home_link_div a{
   display: flex;
   align-items: center;
@@ -597,7 +636,6 @@ body {
 }
 
 
-/* home */
 .home{
   width: 100%;
   height: auto;
@@ -665,4 +703,4 @@ body {
   color: #333;
   margin-top: 10px;
   word-wrap: break-word;
-}
+} */
