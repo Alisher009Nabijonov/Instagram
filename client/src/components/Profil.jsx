@@ -7,8 +7,20 @@ import { MdOutlineGridOn } from "react-icons/md";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { RiShieldUserFill } from "react-icons/ri";
 import { MdOutlinePhotoCamera } from "react-icons/md";
+import { FaPhone } from "react-icons/fa";
+
 // assets
 import UserImg from "../assets/user.jpg";
+
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@heroui/react";
 const Profil = () => {
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [note, setNote] = useState("");
@@ -28,7 +40,7 @@ const Profil = () => {
   };
 
   // modal
-
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -220,10 +232,32 @@ const Profil = () => {
         </div>
       </div> */}
       <div className="max-w-4xl mx-auto py-8 px-6">
-        <div className="flex items-center justify-between px-15 py-4 gap-5">
+        <div className="flex items-center justify-between px-15 py-3 gap-5">
           <div>
             <img src={UserImg} alt="" className="w-30 rounded-full" />
           </div>
+          {/* <div className="z-99 absolute flex-col bg-neutral-500 py-2 px-4 top-2 rounded-sm ">
+            {!savedNote ? (
+              <div className="flex-col">
+                <div>
+                  <input
+                    type="text"
+                    value={note}
+                    onChange={handleNoteChange}
+                    placeholder="Write a note..."
+                    className="note_input"
+                  />
+                </div>
+                <div>
+                  <button onClick={saveNote} className="note_btn">
+                    Save Note
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p className="saved_note">{savedNote}</p>
+            )}
+          </div> */}
           <div>
             <div className="flex items-center gap-4">
               <h1 className="text-xl">Alisher_009_28</h1>
@@ -246,17 +280,18 @@ const Profil = () => {
         </div>
         <div className="">
           <div
-            className="cursor-pointer w-20 h-20 rounded-full bg-neutral-800 flex items-center justify-center text-4xl mt-10"
+            className="cursor-pointer w-20 h-20 rounded-full bg-neutral-800 flex items-center justify-center text-4xl mt-8"
             onClick={openModal}
           >
             +
           </div>
-          <h2 className="cursor-pointer ml-8 mt-2" onClick={openModal}>
+          <h2 className="cursor-pointer ml-6 mt-2" onClick={openModal}>
             Add
           </h2>
         </div>
         {isModalOpen && (
           <div
+            id="modal_oyna_form"
             className="fixed inset-0 flex items-center justify-center bg-opacity-100  z-50"
             onClick={closeModal}
           >
@@ -329,6 +364,161 @@ const Profil = () => {
               Marks
             </h3>
           </div>
+        </div>
+        {selectedCategory === 1 && (
+          <div>
+            <h1>First steps</h1>
+            <div className="flex w-full gap-2">
+              <div className="flex gap-2">
+                <div className="border-1 border-neutral-700 py-3 px-5 w-75">
+                  <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
+                    <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
+                  </p>
+                  <h2 className="text-lg font-semibold text-center mb-4">
+                    Share photo
+                  </h2>
+                  <p className="text-sm mb-2 text-zinc-400">
+                    Photos you share will appear on your profile
+                  </p>
+                  <button
+                    onPress={onOpen}
+                    className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                  >
+                    Share your first photo
+                  </button>
+                </div>
+                <div className="border-1 border-neutral-700 py-3 px-5 w-75">
+                  <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
+                    <FaPhone className="h-8 w-8 text-zinc-400" />
+                  </p>
+                  <h2 className="text-lg font-semibold text-center mb-4">
+                    Add phone number
+                  </h2>
+                  <p className="text-sm mb-2 text-zinc-400">
+                    Add your phone number so you can reset your password, find
+                    friends, and more.
+                  </p>
+                  <button
+                    onPress={onOpen}
+                    className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                  >
+                    Add phone number
+                  </button>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <div className="border-1 border-neutral-700 py-3 px-5 w-75">
+                  <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
+                    <CgProfile className="h-8 w-8 text-zinc-400" />
+                  </p>
+                  <h2 className="text-lg font-semibold text-center mb-4">
+                    Add a profile photo
+                  </h2>
+                  <p className="text-sm mb-2 text-zinc-400">
+                    Add a profile photo so your friends can recognize you.
+                  </p>
+                  <button
+                    onPress={onOpen}
+                    className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                  >
+                    Add profil photo
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {selectedCategory === 2 && (
+          <div className="flex flex-col items-center gap-8 py-12">
+            <div className="flex w-full justify-between px-4 text-sm">
+              <p className="text-zinc-400">
+                The list of saved items is visible only to you.
+              </p>
+              <p className="cursor-pointer text-blue-500 hover:text-blue-400">
+                + New selection
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-4 text-center">
+              <p className="rounded-full bg-zinc-800 p-4">
+                <IoBookmarkSharp className="h-12 w-12" />
+              </p>
+              <h1 className="text-2xl font-semibold">Save</h1>
+              <p className="max-w-md text-zinc-400">
+                Save photos and videos you want to watch again. No one will be
+                notified, and only you can see the saved items.
+              </p>
+            </div>
+          </div>
+        )}
+        {selectedCategory === 3 && (
+          <div className="flex flex-col items-center gap-4 py-12 text-center">
+            <p className="rounded-full bg-zinc-800 p-4">
+              <RiShieldUserFill className="h-12 w-12" />
+            </p>
+            <h1 className="text-2xl font-semibold">Photo with you</h1>
+            <p className="max-w-md text-zinc-400">
+              This shows people who have tagged you in their photos.
+            </p>
+          </div>
+        )}
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  Modal Title
+                </ModalHeader>
+                <ModalBody>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pulvinar risus non risus hendrerit venenatis.
+                    Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                  </p>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pulvinar risus non risus hendrerit venenatis.
+                    Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                  </p>
+                  <p>
+                    Magna exercitation reprehenderit magna aute tempor cupidatat
+                    consequat elit dolor adipisicing. Mollit dolor eiusmod sunt
+                    ex incididunt cillum quis. Velit duis sit officia eiusmod
+                    Lorem aliqua enim laboris do dolor eiusmod. Et mollit
+                    incididunt nisi consectetur esse laborum eiusmod pariatur
+                    proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
+                  </p>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onPress={onClose}>
+                    Action
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      </div>
+      <div className="login_bottom_link_bottom">
+        <div className="link">
+          <a href="">Meta</a>
+          <a href="">Information</a>
+          <a href="">Blog</a>
+          <a href="">Vacancies</a>
+          <a href="">Help</a>
+          <a href="">API</a>
+          <a href="">Confidentiality</a>
+          <a href="">Terms and Conditions</a>
+          <a href="">Places</a>
+          <a href="">Instagram Lite</a>
+          <a href="">Threads</a>
+          <a href="">Uploading Contacts and Non-Users</a>
+          <a href="">Meta Verified</a>
+        </div>
+        <div className="year_versia">
+          <h3 className="year_versia_h3">© 2025 Instagram from Meta</h3>
         </div>
       </div>
     </>

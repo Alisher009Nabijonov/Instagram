@@ -272,7 +272,10 @@
 
 
 
-
+#modal_oyna_form {
+  background: rgba(0, 0, 0, 0.7);
+  height: 100vh;
+}
 
 .outlet{
   width: 100%;
