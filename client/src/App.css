@@ -274,7 +274,9 @@
 
 
 
-
+.outlet{
+  width: 100%;
+}
 
 .sidebar {
   width: 400px;

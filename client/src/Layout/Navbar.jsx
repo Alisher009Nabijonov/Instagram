@@ -5,11 +5,7 @@ const NabarLayout = () => {
   return (
     <>
       <div>
-        <nav>
-          {/* <NavLink to="/register">
-            <span className="login_span_register">Register</span>
-          </NavLink> */}
-        </nav>
+        <nav></nav>
         <main>
           <Outlet />
         </main>

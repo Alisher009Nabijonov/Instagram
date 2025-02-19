@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@heroui/modal": "^2.2.11",
     "@heroui/system": "^2.4.10",
     "@heroui/theme": "^2.4.9",
