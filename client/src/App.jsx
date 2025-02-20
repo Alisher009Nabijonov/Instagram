@@ -14,9 +14,13 @@ import Home from "./components/Home";
 import MainLayout from "./Layout/MianLayout"; // Fixed typo
 import Profil from "./components/Profil";
 import axios from "axios";
+import People from "./components/People";
+import Rels from "./components/Rels";
+import Interesting from "./components/Interesting";
+import Notification from "./components/Notification";
 
-// axios defaults 
-axios.defaults.baseURL = "http://localhost:5000"
+// axios defaults
+axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -26,6 +30,10 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="/profil" element={<Profil />} />
+          <Route path="/people" element={<People />} />
+          <Route path="/reels" element={<Rels />} />
+          <Route path="/interesting" element={<Interesting />} />
+          <Route path="/notification" element={<Notification/>}/>
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />

@@ -272,7 +272,10 @@
 
 
 
-
+#modal_oyna_form {
+  background: rgba(0, 0, 0, 0.7);
+  height: 100vh;
+}
 
 .outlet{
   width: 100%;
@@ -302,17 +305,98 @@
 }
 
 
+#responsive_sidebar_max{
+  display: none;
+}
+
+
+/* From Uiverse.io by csemszepp */ 
+.custum-file-upload {
+  height: 100px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #e8e8e8;
+  background-color: #212121;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px #e8e8e8;
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 20px;
+  fill: #e8e8e8;
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: #e8e8e8;
+}
+
+.custum-file-upload input {
+  display: none;
+}
 
 
 
 
 
 
-
-
-
-
-
+@media (max-width: 1250px){
+    #max_width_tet_none span {
+      display: none;
+    }
+}
+@media (max-width: 1150px){
+  #home_left_people{
+    display: none;
+  }
+  #home_right_user{
+    width: 100%;
+  }
+}
+@media (max-width: 767px){
+  /* #minelayout_resposive{
+    flex-direction: column-reverse;
+  }
+  #max_width_tet_none{
+    display: flex;
+    align-items: center;
+  }
+  #nav_responsive{
+    display: flex; 
+    align-items: center;
+  }
+  #responsive_icon_insta{
+    display: none;
+  } */
+   #max_width_tet_none{
+    display: none;
+   }
+   #responsive_sidebar_max{
+    display: flex;
+   }
+   .login_bottom_link_bottom{
+    display: none;
+   }
+}
 
 
 
