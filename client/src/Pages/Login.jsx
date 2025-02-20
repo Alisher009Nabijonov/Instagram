@@ -3,28 +3,31 @@ import LoginImg from "../assets/login.jpg";
 import { FcGoogle } from "react-icons/fc";
 import { FaGooglePlay } from "react-icons/fa";
 import { FaMicrosoft } from "react-icons/fa";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 // axios
-import axios from 'axios'
+import axios from "axios";
+
+import toast from "react-hot-toast"
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [email ,setEmail] = useState("");
-  const [password ,setPassword] = useState("");
-
-
-  const handelSubmitlogin = async (e) =>{
+  const handelSubmitlogin = async (e) => {
     e.preventDefault();
 
-    try{
-      const response = await axios.post("/api/auth/login", { email, password});
-      alert(response.data.message)
-    }catch (error) {
-         console.log("login error", error);
-         alert(error.response.data.message)
+    try {
+      const response = await axios.post("/api/auth/login", { email, password });
+      toast.success(response.data.message);
+      navigate("/profil");
+      window.location.reload()
+    } catch (error) {
+      console.log("login error", error);
+      toast.error(error.response.data.message);
     }
-  }
+  };
 
-  return (  
+  return (
     <>
       <div className="login">
         <div className="login_main">
@@ -37,8 +40,18 @@ const Login = () => {
                 <h1 className="login_logo_h1">Instagram</h1>
               </div>
               <form onSubmit={handelSubmitlogin} className="login_form">
-                <input value={email}  onChange={e => setEmail(e.target.value)} type="email" placeholder="Phone, username or email" />
-                <input value={password}  onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" />
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Phone, username or email"
+                />
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="Password"
+                />
                 <button>Login</button>
               </form>
               <div className="login_or">

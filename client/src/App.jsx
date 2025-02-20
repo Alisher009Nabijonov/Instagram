@@ -23,6 +23,12 @@ import Notification from "./components/Notification";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
+// context  
+import { UserProvider } from "./userContext";
+
+// toast 
+import { Toaster } from "react-hot-toast";
+
 function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -41,7 +47,13 @@ function App() {
     )
   );
 
-  return <RouterProvider router={routes} />;
+  return (
+    <UserProvider>
+      <RouterProvider router={routes} />
+      <Toaster/>
+    </UserProvider>
+  );
+
 }
 
 export default App;
