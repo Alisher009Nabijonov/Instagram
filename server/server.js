@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.route");
+const fallowRoutes = require("./routes/fallow.route");
+const userRoutes = require("./routes/user.routes");
 
 // const
 
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/auth", authRoutes);
+app.use("/api", fallowRoutes);
+app.use("/api/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to home back end");
