@@ -63,7 +63,7 @@ const Profil = () => {
 
       <Button onPress={onOpen}>Open Modal</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
+        <ModalContent className="bg-gray-900 ">
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
