@@ -6,7 +6,7 @@ const MianLaayout = () => {
   return (
     <>
       <div>
-        <div className="flex">
+        <div id="minelayout_resposive" className="flex">
           <div>
             <Sidebar />
           </div>
