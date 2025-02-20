@@ -91,9 +91,9 @@ const Profil = () => {
               <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
                 View archive
               </button>
-              <button className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
+              <Button onPress={onOpen} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
                 <IoIosSettings className="h-6 w-6" />
-              </button>
+              </Button>
             </div>
             <div className="flex items-center gap-6">
               <h2 className="cursor-pointer mt-3">0 publications</h2>
@@ -115,6 +115,7 @@ const Profil = () => {
         </div>
         {isModalOpen && (
           <div
+          id="modal_oyna_form"
             className="fixed inset-0 flex items-center justify-center bg-opacity-100  z-50"
             onClick={closeModal}
           >
@@ -296,7 +297,7 @@ const Profil = () => {
           </div>
         )}
         <Modal
-          className="bg-neutral-700 w-100 rounded-sm"
+          className="bg-neutral-800 w-100 rounded-sm"
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           backdropClassName="bg-black/50"
@@ -304,20 +305,13 @@ const Profil = () => {
           <ModalContent>
             {(onClose) => (
               <>
-                <ModalHeader className="flex flex-col gap-1">
-                  Creating a current
+                <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
+                settings
                 </ModalHeader>
                 <ModalBody>
-                  <div className="h-0.5 bg-neutral-600"></div>
-                  <input
-                    type="text"
-                    placeholder="Title of the current"
-                    className="my-4 bg-neutral-800 py-1 px-2 rounded-sm"
-                  />
-                  <div className="h-0.5 bg-neutral-600"></div>
-                  <h1 className="text-blue-500 cursor-pointer text-center mt-2">
-                    Next
-                  </h1>
+                  <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
+                  <div className="w-full h-0.5 bg-neutral-600"></div>
+                  <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
                 </ModalBody>
               </>
             )}

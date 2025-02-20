@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // assets
 import UserImg from "../assets/user.jpg";
 import HomeImg from "../assets/home_chack.jpg";
@@ -6,8 +6,12 @@ import { NavLink } from "react-router-dom";
 
 // react icon
 import { FaRegHeart } from "react-icons/fa";
+// contex
+import { UserContext } from "../userContext";
 
 const Home = () => {
+    let user = useContext(UserContext);
+  
   const people = [
     {
       id: 1,
@@ -160,7 +164,7 @@ const Home = () => {
               className="w-12 h-12 rounded-full"
             />
             <div>
-              <h3 className="font-semibold">Nabijonov_00928</h3>
+              <h3 className="font-semibold">{user ? user.username : "user name"}</h3>
             </div>
             <button className="cursor-pointer ml-auto text-sm text-blue-600 hover:text-white">
               switch

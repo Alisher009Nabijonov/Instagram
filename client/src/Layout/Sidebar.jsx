@@ -25,6 +25,7 @@ import { Badge, Avatar } from "@heroui/react";
 
 // assets
 import ModalImg from "../assets/creat_video.jpg";
+import LogoImg from '../assets/logo_img.jpg'
 const Sidebar = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [bars, setBars] = useState("close");
@@ -64,7 +65,7 @@ const Sidebar = () => {
       >
         <NavLink to="/" className="flex items-center gap-2 px-4 mb-8">
           <FaInstagram id="responsive_icon_insta" className="w-7 h-7" />
-          <span className="text-xl font-semibold">Instagram</span>
+          <span className="text-xl font-semibold"><img src={LogoImg} alt="" /></span>
         </NavLink>
 
         <nav id="nav_responsive" className="space-y-1">
@@ -81,7 +82,7 @@ const Sidebar = () => {
             className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             <CiSearch className="w-6 h-6" />
-            <span className="text-[15px]">Search query</span>
+            <span className="text-[15px]">Search </span>
           </div>
 
           <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
@@ -114,10 +115,10 @@ const Sidebar = () => {
           </div>
 
           <div className="flex items-center gap-4 px-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-            <Button onPress={onOpen} className="p-0  m-0 ">
+            <button onPress={onOpen} className="py-2  m-0 flex items-center gap-4">
               <MdOutlineCreateNewFolder className="w-6 h-6 " />
               <span className="text-[15px]">Create</span>
-            </Button>
+            </button>
           </div>
 
           <NavLink

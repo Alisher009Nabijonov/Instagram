@@ -346,11 +346,18 @@ body {
 .custum-file-upload input {
   display: none;
 }
+#responsive_icon_insta{
+  display: none;
+}
 
 @media (max-width: 1250px) {
   #max_width_tet_none span {
     display: none;
   }
+  #responsive_icon_insta{
+    display: flex;
+  }
+  
 }
 @media (max-width: 1150px) {
   #home_left_people {
