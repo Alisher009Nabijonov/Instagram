@@ -66,28 +66,6 @@ const Profil = () => {
           <div className="w-30">
             <img src={UserImg} alt="" className=" rounded-full" />
           </div>
-          {/* <div className="z-99 absolute flex-col bg-neutral-500 py-2 px-4 top-2 rounded-sm ">
-              {!savedNote ? (
-                <div className="flex-col">
-                  <div>
-                    <input
-                      type="text"
-                      value={note}
-                      onChange={handleNoteChange}
-                      placeholder="Write a note..."
-                      className="note_input"
-                    />
-                  </div>
-                  <div>
-                    <button onClick={saveNote} className="note_btn">
-                      Save Note
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <p className="saved_note">{savedNote}</p>
-              )}
-            </div> */}
           <div>
             <div className="flex items-center gap-4">
               <h1 className="text-xl">Alisher_009_28</h1>

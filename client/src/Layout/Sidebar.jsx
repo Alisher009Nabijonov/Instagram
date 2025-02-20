@@ -1,4 +1,3 @@
-"use client";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -51,13 +50,11 @@ const Sidebar = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadedImage(reader.result); // Yuklangan faylning data URL-ni o'rnatamiz
+        setUploadedImage(reader.result); 
       };
       reader.readAsDataURL(file);
     }
   };
-
-
 
   return (
     <>
@@ -103,7 +100,7 @@ const Sidebar = () => {
 
           <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
             {/* <Badge color="danger" content="0"> */}
-              <FaFacebookMessenger className="w-6 h-6" />
+            <FaFacebookMessenger className="w-6 h-6" />
             {/* </Badge>  */}
             <span className="text-[15px]">Messages</span>
           </div>
@@ -117,7 +114,7 @@ const Sidebar = () => {
           </div>
 
           <div className="flex items-center gap-4 px-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-           <Button onPress={onOpen} className="p-0  m-0 ">  
+            <Button onPress={onOpen} className="p-0  m-0 ">
               <MdOutlineCreateNewFolder className="w-6 h-6 " />
               <span className="text-[15px]">Create</span>
             </Button>
@@ -170,7 +167,7 @@ const Sidebar = () => {
         </p>
       </div>
       <Modal
-      id="modal_oyna_form"
+        id="modal_oyna_form"
         className="bg-neutral-800 w-100 rounded-xl"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -182,11 +179,20 @@ const Sidebar = () => {
                 Creating a publication
               </ModalHeader>
               <ModalBody>
-              {uploadedImage ? (
-                <img src={uploadedImage} alt="Uploaded preview" className="w-30 mx-auto my-4" />
-              ) : (
-                <img src={ModalImg} alt="Default preview" className="w-30 mx-auto my-4" />
-              )}                <h1 className="text-xl text-center my-5">
+                {uploadedImage ? (
+                  <img
+                    src={uploadedImage}
+                    alt="Uploaded preview"
+                    className="w-30 mx-auto my-4"
+                  />
+                ) : (
+                  <img
+                    src={ModalImg}
+                    alt="Default preview"
+                    className="w-30 mx-auto my-4"
+                  />
+                )}{" "}
+                <h1 className="text-xl text-center my-5">
                   Drag and drop photos and videos hera
                 </h1>
                 <label for="file" class="custum-file-upload mx-auto">
@@ -215,7 +221,7 @@ const Sidebar = () => {
                   <div class="text">
                     <span>Click to upload image</span>
                   </div>
-                  <input id="file" type="file" onChange={handleFileUpload}/>
+                  <input id="file" type="file" onChange={handleFileUpload} />
                 </label>{" "}
               </ModalBody>
             </>

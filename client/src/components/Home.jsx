@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 // assets
 import UserImg from "../assets/user.jpg";
 import HomeImg from "../assets/home_chack.jpg";
@@ -57,7 +57,7 @@ const Home = () => {
 
   return (
     <>
-       <div
+      <div
         id="responsive_sidebar_max"
         className="z-999 fixed top-0 w-full flex items-center justify-between border-b-1 py-2 px-10 bg-black"
       >
@@ -99,16 +99,20 @@ const Home = () => {
                     className="w-10 h-10 rounded-full"
                   />
                   <div>
-                    <h3 className="font-semibold text-gray-200">{person.name}</h3>
+                    <h3 className="font-semibold text-gray-200">
+                      {person.name}
+                    </h3>
                     <p className="text-sm text-gray-400">{person.userName}</p>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        <p className="text-xl">
-          <NavLink to="/notification"><FaRegHeart /></NavLink>
-        </p>
+          <p className="text-xl">
+            <NavLink to="/notification">
+              <FaRegHeart />
+            </NavLink>
+          </p>
         </div>
       </div>
 
@@ -157,7 +161,6 @@ const Home = () => {
             />
             <div>
               <h3 className="font-semibold">Nabijonov_00928</h3>
-              {/* <p className="text-neutral-400 text-sm">Nabijonov_5355</p> */}
             </div>
             <button className="cursor-pointer ml-auto text-sm text-blue-600 hover:text-white">
               switch
