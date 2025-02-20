@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoIosSettings } from "react-icons/io";
 import { MdOutlineGridOn } from "react-icons/md";
@@ -22,7 +22,19 @@ import {
 
 
 import UserImg from "../assets/user.jpg";
+
+// contex 
+import { UserContext } from "../userContext";
+
 const Profil = () => {
+
+  const { user } = useContext(UserContext);
+
+  if (user) {
+    alert(user)
+  } else {
+    alert("user yoq")
+  }
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

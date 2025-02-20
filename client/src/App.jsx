@@ -23,6 +23,10 @@ import Notification from "./components/Notification";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
+// context  
+
+import { UserProvider } from "./userContext";
+
 function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -33,7 +37,7 @@ function App() {
           <Route path="/people" element={<People />} />
           <Route path="/reels" element={<Rels />} />
           <Route path="/interesting" element={<Interesting />} />
-          <Route path="/notification" element={<Notification/>}/>
+          <Route path="/notification" element={<Notification />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
@@ -41,7 +45,12 @@ function App() {
     )
   );
 
-  return <RouterProvider router={routes} />;
+  return (
+    <UserProvider>
+      <RouterProvider router={routes} />
+    </UserProvider>
+  );
+
 }
 
 export default App;
