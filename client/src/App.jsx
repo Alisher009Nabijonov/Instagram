@@ -23,11 +23,12 @@ import Notification from "./components/Notification";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
-// context  
+// context
 import { UserProvider } from "./userContext";
 
-// toast 
+// toast
 import { Toaster } from "react-hot-toast";
+import Direct from "./components/Direct";
 
 function App() {
   const routes = createBrowserRouter(
@@ -40,6 +41,7 @@ function App() {
           <Route path="/reels" element={<Rels />} />
           <Route path="/interesting" element={<Interesting />} />
           <Route path="/notification" element={<Notification />} />
+          <Route path="/direct" element={<Direct />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
@@ -50,10 +52,9 @@ function App() {
   return (
     <UserProvider>
       <RouterProvider router={routes} />
-      <Toaster/>
+      <Toaster />
     </UserProvider>
   );
-
 }
 
 export default App;

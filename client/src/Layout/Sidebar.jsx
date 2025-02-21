@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
@@ -25,7 +24,7 @@ import { Badge, Avatar } from "@heroui/react";
 
 // assets
 import ModalImg from "../assets/creat_video.jpg";
-import LogoImg from '../assets/logo_img.jpg'
+import LogoImg from "../assets/logo_img.jpg";
 const Sidebar = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [bars, setBars] = useState("close");
@@ -51,11 +50,48 @@ const Sidebar = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadedImage(reader.result); 
+        setUploadedImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  const people = [
+    {
+      id: 1,
+      img: UserImg,
+      name: "Nabijonov_00928",
+      userName: "Nabijonov_5355",
+      btn: "Subscribe",
+    },
+    {
+      id: 2,
+      img: UserImg,
+      name: "Nabijonov_00928",
+      userName: "Nabijonov_5355",
+      btn: "Subscribe",
+    },
+    {
+      id: 3,
+      img: UserImg,
+      name: "Bobur_009",
+      userName: "Bobur_009",
+      btn: "Subscribe",
+    },
+    {
+      id: 3,
+      img: UserImg,
+      name: "Muhammadali_007",
+      userName: "Muhammadali_007",
+      btn: "Subscribe",
+    },
+  ];
+  // search
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredPeople = people.filter((person) =>
+    person.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -65,69 +101,85 @@ const Sidebar = () => {
       >
         <NavLink to="/" className="flex items-center gap-2 px-4 mb-8">
           <FaInstagram id="responsive_icon_insta" className="w-7 h-7" />
-          <span className="text-xl font-semibold"><img src={LogoImg} alt="" /></span>
+          <span className="text-xl font-semibold">
+            <img src={LogoImg} alt="" />
+          </span>
         </NavLink>
 
-        <nav id="nav_responsive" className="space-y-1">
-          <NavLink
-            to="/"
-            className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
-          >
-            <GoHome className="w-6 h-6" />
-            <span className="text-[15px]">Home</span>
-          </NavLink>
+        <nav
+          id="nav_responsive"
+          className="space-y-1 flex flex-col justify-between "
+        >
+          <div>
+            <NavLink
+              to="/"
+              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
+            >
+              <GoHome className="w-6 h-6" />
+              <span className="text-[15px]">Home</span>
+            </NavLink>
 
-          <div
-            onClick={toggleBars}
-            className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
-          >
-            <CiSearch className="w-6 h-6" />
-            <span className="text-[15px]">Search </span>
-          </div>
+            <div
+              onClick={toggleBars}
+              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+            >
+              <CiSearch className="w-6 h-6" />
+              <span className="text-[15px]">Search </span>
+            </div>
 
-          <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-            <NavLink to="/interesting" className="flex items-center gap-4">
-              <TbBrandSafari className="w-6 h-6" />
-              <span className="text-[15px]">Interesting</span>
+            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+              <NavLink to="/interesting" className="flex items-center gap-4">
+                <TbBrandSafari className="w-6 h-6" />
+                <span className="text-[15px]">Interesting</span>
+              </NavLink>
+            </div>
+
+            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+              <NavLink to="/reels" className="flex items-center gap-4">
+                <BiMoviePlay className="w-6 h-6" />
+                <span className="text-[15px]">Reels</span>
+              </NavLink>
+            </div>
+
+            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+              <NavLink
+                to="/direct"
+                className="flex items-center gap-4 rounded-lg hover:bg-neutral-800 transition-colors"
+              >
+                {/* <Badge color="danger" content="0"> */}
+                <FaFacebookMessenger className="w-6 h-6" />
+                {/* </Badge>  */}
+                <span className="text-[15px]">Messages</span>
+              </NavLink>
+            </div>
+
+            <div
+              onClick={toggleNoti}
+              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+            >
+              <FaRegHeart className="w-6 h-6" />
+              <span className="text-[15px]">Notifications</span>
+            </div>
+
+            <div className="flex items-center gap-4 px-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+              <button
+                onPress={onOpen}
+                className="py-2  m-0 flex items-center gap-4"
+              >
+                <MdOutlineCreateNewFolder className="w-6 h-6 " />
+                <span className="text-[15px]">Create</span>
+              </button>
+            </div>
+
+            <NavLink
+              to="/profil"
+              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
+            >
+              <CgProfile className="w-6 h-6" />
+              <span className="text-[15px]">Profile</span>
             </NavLink>
           </div>
-
-          <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-            <NavLink to="/reels" className="flex items-center gap-4">
-              <BiMoviePlay className="w-6 h-6" />
-              <span className="text-[15px]">Reels</span>
-            </NavLink>
-          </div>
-
-          <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-            {/* <Badge color="danger" content="0"> */}
-            <FaFacebookMessenger className="w-6 h-6" />
-            {/* </Badge>  */}
-            <span className="text-[15px]">Messages</span>
-          </div>
-
-          <div
-            onClick={toggleNoti}
-            className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
-          >
-            <FaRegHeart className="w-6 h-6" />
-            <span className="text-[15px]">Notifications</span>
-          </div>
-
-          <div className="flex items-center gap-4 px-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-            <button onPress={onOpen} className="py-2  m-0 flex items-center gap-4">
-              <MdOutlineCreateNewFolder className="w-6 h-6 " />
-              <span className="text-[15px]">Create</span>
-            </button>
-          </div>
-
-          <NavLink
-            to="/profil"
-            className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
-          >
-            <CgProfile className="w-6 h-6" />
-            <span className="text-[15px]">Profile</span>
-          </NavLink>
+          <div>{/* <h1>ddfghj</h1> */}</div>
         </nav>
       </div>
 
@@ -167,7 +219,7 @@ const Sidebar = () => {
           </NavLink>
         </p>
       </div>
-      <Modal
+      {/* <Modal
         id="modal_oyna_form"
         className="bg-neutral-800 w-100 rounded-xl"
         isOpen={isOpen}
@@ -228,7 +280,7 @@ const Sidebar = () => {
             </>
           )}
         </ModalContent>
-      </Modal>
+      </Modal> */}
 
       {/* Search Sidebar */}
       <div
@@ -249,24 +301,27 @@ const Sidebar = () => {
           <input
             type="search"
             placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-neutral-800 text-white placeholder-neutral-400 rounded-lg px-4 py-2 focus:outline-none"
           />
           <hr className="my-6 border-neutral-800" />
 
-          <div className="flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors">
-            <img
-              src={UserImg || "/placeholder.svg"}
-              alt=""
-              className="w-12 h-12 rounded-full"
-            />
-            <div>
-              <h3 className="font-semibold">Nabijonov_00928</h3>
-              <p className="text-neutral-400 text-sm">Nabijonov_5355</p>
+          {filteredPeople.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors"
+            >
+              <img src={item.img} alt="" className="w-12 h-12 rounded-full" />
+              <div>
+                <h3 className="font-semibold">{item.name}</h3>
+                <p className="text-neutral-400 text-sm">{item.userName}</p>
+              </div>
+              <button className="ml-auto text-sm text-neutral-400 hover:text-white">
+                ×
+              </button>
             </div>
-            <button className="ml-auto text-sm text-neutral-400 hover:text-white">
-              ×
-            </button>
-          </div>
+          ))}
         </div>
       </div>
 

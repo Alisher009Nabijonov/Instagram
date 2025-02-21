@@ -1,6 +1,10 @@
 import React from "react";
 // assets
 import UserImg from "../assets/user.jpg";
+// userContext
+
+// import { UserContext } from "../userContext";
+
 const People = () => {
   const people = [
     {
@@ -48,6 +52,7 @@ const People = () => {
             className="w-12 h-12 rounded-full"
           />
           <div>
+          {/* <h1 className="text-xl">{user ? user.username : "user name"}</h1> */}
             <h3 className="font-semibold">Nabijonov_00928</h3>
             <p className="text-neutral-400 text-sm">Nabijonov_5355</p>
           </div>

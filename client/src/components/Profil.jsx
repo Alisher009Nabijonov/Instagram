@@ -1,5 +1,3 @@
-
-
 import { useContext, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoIosSettings } from "react-icons/io";
