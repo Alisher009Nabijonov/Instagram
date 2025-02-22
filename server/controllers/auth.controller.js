@@ -39,9 +39,11 @@ const register = async (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
-        username: user.username,
         name: user.name,
+        username: user.username,
         email: user.email,
+        fallowers: user.fallowers,
+        fallowing: user.fallowing,
       },
       process.env.JWT_SECRET
     );
@@ -73,6 +75,8 @@ const login = async (req, res) => {
         name: user.name,
         username: user.username,
         email: user.email,
+        fallowers: user.fallowers,
+        fallowing: user.fallowing,
       },
       process.env.JWT_SECRET
     );
@@ -99,9 +103,11 @@ const profile = async (req, res) => {
         const user = await User.findById(userData.id);
         if (!user) return res.status(404).json({ message: "user topilmadi" });
 
-        const { _id, name, username, email } = user;
+        const { _id, name, username, email, fallowers, fallowing } = user;
 
-        res.status(200).json({ _id, name, username, email });
+        res
+          .status(200)
+          .json({ _id, name, username, email, fallowers, fallowing });
       } catch (error) {
         res.status(404).json({ error, message: "user topilmadi error" });
       }

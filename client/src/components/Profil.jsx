@@ -26,27 +26,27 @@ import {
   useDisclosure,
 } from "@heroui/react";
 
-import UserImg from "../assets/user.jpg";
+import UserImg1 from '../assets/1.png'
 
 // contex
 import { UserContext } from "../userContext";
 
 // react-router-dom
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Profil = () => {
   const navigate = useNavigate();
   let user = useContext(UserContext);
-
   if (!user) {
     navigate("/login");
   }
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [note, setNote] = useState("");
   const [savedNote, setSavedNote] = useState("");
+  const [settings, setSettings] = useState(false);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -73,12 +73,22 @@ const Profil = () => {
     setIsModalOpen(false);
   };
 
+  const handleFallowers = () => {
+
+  }
+
+  const handleSettings = () => {
+    setSettings(true)
+    onOpen(true)
+  }
+
   return (
     <>
       <div className="max-w-4xl mx-auto py-8 px-6">
+
         <div className="flex items-center justify-between px-15 py-4 gap-5">
           <div>
-            <img src={UserImg} alt="" className="w-30 rounded-full" />
+            <img src={UserImg1} alt="" className="w-30 rounded-full" />
           </div>
           <div>
             <div className="flex items-center gap-4">
@@ -89,17 +99,19 @@ const Profil = () => {
               <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
                 View archive
               </button>
-              <Button onPress={onOpen} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
+              <Button onPress={handleSettings} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
                 <IoIosSettings className="h-6 w-6" />
               </Button>
             </div>
             <div className="flex items-center gap-6">
               <h2 className="cursor-pointer mt-3">0 publications</h2>
-              <h2 className="cursor-pointer mt-3">0 subscribers</h2>
-              <h2 className="cursor-pointer mt-3">2 subscriptions</h2>
+              <h2 className="cursor-pointer mt-3"><span>{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
+              <h2 className="cursor-pointer mt-3"><span>{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
             </div>
           </div>
         </div>
+
+
         <div className="">
           <div
             className="cursor-pointer w-20 h-20 rounded-full bg-neutral-800 flex items-center justify-center text-4xl mt-10"
@@ -113,7 +125,7 @@ const Profil = () => {
         </div>
         {isModalOpen && (
           <div
-          id="modal_oyna_form"
+            id="modal_oyna_form"
             className="fixed inset-0 flex items-center justify-center bg-opacity-100  z-50"
             onClick={closeModal}
           >
@@ -153,33 +165,30 @@ const Profil = () => {
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
-                selectedCategory === 1
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(1)}
             >
               <MdOutlineGridOn className="h-3 w-3" />
               Publications
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                selectedCategory === 2
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 2
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(2)}
             >
               <IoBookmarkSharp className="h-3 w-3" />
               Saved
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                selectedCategory === 3
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(3)}
             >
               <RiShieldUserFill className="h-3 w-3" />
@@ -294,27 +303,7 @@ const Profil = () => {
             </p>
           </div>
         )}
-        <Modal
-          className="bg-neutral-800 w-100 rounded-sm"
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          backdropClassName="bg-black/50"
-        >
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
-                settings
-                </ModalHeader>
-                <ModalBody>
-                  <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
-                  <div className="w-full h-0.5 bg-neutral-600"></div>
-                  <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
-                </ModalBody>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
+
       </div>
       <div className="login_bottom_link_bottom">
         <div className="link">
@@ -336,6 +325,29 @@ const Profil = () => {
           <h3 className="year_versia_h3">© 2025 Instagram from Meta</h3>
         </div>
       </div>
+
+      <Modal
+        className="bg-neutral-800 w-100 rounded-sm"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        backdropClassName="bg-black/50"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <div>
+              <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
+                settings
+              </ModalHeader>
+              <ModalBody>
+                <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
+                <div className="w-full h-0.5 bg-neutral-600"></div>
+                <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
+              </ModalBody>
+            </div>
+          )}
+        </ModalContent>
+      </Modal>
+
     </>
   );
 };
