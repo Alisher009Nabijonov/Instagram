@@ -1,27 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 // assets
 import UserImg from "../assets/user.jpg";
+import { UserContext } from "../userContext";
 // userContext
 
 // import { UserContext } from "../userContext";
 
 const People = () => {
-  const people = [
-    {
-      id: 1,
-      img: UserImg,
-      name: "Nabijonov_00928",
-      userName: "Nabijonov_5355",
-      btn: "Subscribe",
-    },
-    {
-      id: 2,
-      img: UserImg,
-      name: "Nabijonov_00928",
-      userName: "Nabijonov_5355",
-      btn: "Subscribe",
-    },
-  ];
+
+  const {people} = useContext(UserContext)
   return (
     <div className="w-full">
       <div className="w-100 mx-auto my-10">
@@ -45,21 +32,6 @@ const People = () => {
             </button>
           </div>
         ))}
-        <div className="cursor-pointer flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors">
-          <img
-            src={UserImg || "/placeholder.svg"}
-            alt=""
-            className="w-12 h-12 rounded-full"
-          />
-          <div>
-          {/* <h1 className="text-xl">{user ? user.username : "user name"}</h1> */}
-            <h3 className="font-semibold">Nabijonov_00928</h3>
-            <p className="text-neutral-400 text-sm">Nabijonov_5355</p>
-          </div>
-          <button className="cursor-pointer ml-auto text-sm  bg-blue-600 py-2 px-4 rounded-sm hover:bg-blue-500">
-            Subscribe
-          </button>
-        </div>
       </div>
     </div>
   );
