@@ -121,8 +121,8 @@ const Profil = () => {
             </div>
             <div className="flex items-center gap-6">
               <h2 className="mt-3 text-[#a29965] cursor-pointer"> <span className="text-white font-bold">0</span>publications</h2>
-              <h2 onClick={handleFallowers} className="cursor-pointer mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
-              <h2 onClick={handleFallowwing} className="cursor-pointer mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
+              <h2 onClick={handleFallowers} className=" mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
+              <h2 onClick={handleFallowwing} className=" mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
             </div>
           </div>
         </div>
