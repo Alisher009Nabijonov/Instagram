@@ -100,8 +100,8 @@ const Profil = () => {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto py-8 px-6">
-
+      <div className="max-w-4xl mx-auto py-8 px-6"> 
+    
         <div className="flex items-center justify-between px-15 py-4 gap-5">
           <div>
             <img src={UserImg} alt="" className="w-30 rounded-full" />
