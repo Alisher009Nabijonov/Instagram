@@ -49,6 +49,7 @@ const Profil = () => {
   const [note, setNote] = useState("");
   const [savedNote, setSavedNote] = useState("");
   const [settings, setSettings] = useState(false);
+  const [fallowers, setFallowers] = useState(false)
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -76,11 +77,14 @@ const Profil = () => {
   };
 
   const handleFallowers = () => {
-
+    setSettings(false)
+    setFallowers(true)
+    onOpen(true)
   }
 
   const handleSettings = () => {
     setSettings(true)
+    setFallowers(false)
     onOpen(true)
   }
 
@@ -107,7 +111,7 @@ const Profil = () => {
             </div>
             <div className="flex items-center gap-6">
               <h2 className="cursor-pointer mt-3">0 publications</h2>
-              <h2 className="cursor-pointer mt-3"><span>{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
+              <h2 onClick={handleFallowers} className="cursor-pointer mt-3"><span>{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
               <h2 className="cursor-pointer mt-3"><span>{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
             </div>
           </div>
@@ -338,17 +342,25 @@ const Profil = () => {
           {(onClose) => (
             <div>
               <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
-                settings
+                {settings ? ("settings") : ("non")}
               </ModalHeader>
               <ModalBody>
-                <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
-                <div className="w-full h-0.5 bg-neutral-600"></div>
-                <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
+                {settings && (<div>
+                  <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
+                  <div className="w-full h-0.5 bg-neutral-600"></div>
+                  <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
+                </div>)}
+
+                {fallowers && (<div>
+                  fallowers
+                </div>)}
+
               </ModalBody>
             </div>
           )}
         </ModalContent>
       </Modal>
+
 
     </>
   );
