@@ -29,7 +29,7 @@ import { UserProvider } from "./userContext";
 // toast
 import { Toaster } from "react-hot-toast";
 import Direct from "./components/Direct";
-
+import User from "./components/User";
 function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -42,6 +42,7 @@ function App() {
           <Route path="/interesting" element={<Interesting />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/direct" element={<Direct />} />
+          <Route path="/user/:id" element={<User />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />

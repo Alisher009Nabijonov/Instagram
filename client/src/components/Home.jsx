@@ -10,7 +10,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { UserContext } from "../userContext";
 
 const Home = () => {
-    let user = useContext(UserContext);
+    let {user} = useContext(UserContext);
   
   const people = [
     {

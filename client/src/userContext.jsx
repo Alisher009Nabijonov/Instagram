@@ -20,6 +20,8 @@ const UserProvider = ({ children }) => {
         toast.error("user topilmadi");
       });
   }, []);
+
+  
   useEffect(() => {
     axios
       .get("/api/user/getAllUsers")
@@ -39,6 +41,6 @@ const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
-};  
+};
 
 export { UserContext, UserProvider };

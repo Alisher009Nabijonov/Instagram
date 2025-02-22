@@ -1,3 +1,4 @@
+
 import { useContext, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoIosSettings } from "react-icons/io";
@@ -5,216 +6,379 @@ import { MdOutlineGridOn } from "react-icons/md";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { RiShieldUserFill } from "react-icons/ri";
 import { MdOutlinePhotoCamera } from "react-icons/md";
+
 import { FaPhone } from "react-icons/fa";
+
+// swiper
 import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
 import "swiper/css";
-import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
+// heroui
 import {
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
+  ModalFooter,
+  Button,
   useDisclosure,
 } from "@heroui/react";
-import UserImg1 from "../assets/1.png";
+
+import UserImg from "../assets/user.jpg";
+
+// contex
 import { UserContext } from "../userContext";
+
+// react-router-dom
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import axios from "axios";
 
-const Profile = () => {
+const Profil = () => {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [selectedCategory, setSelectedCategory] = useState(1);
-  const [settings, setSettings] = useState(false);
-  const [followers, setFollowers] = useState(false);
-  const [following, setFollowing] = useState(false);
-
+  let {user} = useContext(UserContext);
   if (!user) {
     navigate("/login");
   }
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedCategory, setSelectedCategory] = useState(1);
+  const [note, setNote] = useState("");
+  const [savedNote, setSavedNote] = useState("");
+  const [settings, setSettings] = useState(false);
+  const [fallowers, setFallowers] = useState(false)
+  const [fallowing, setFallowing] = useState(false);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
+  const handleNoteChange = (e) => {
+    setNote(e.target.value);
+  };
+
+  const saveNote = () => {
+    setSavedNote(note);
+    setNote("");
+  };
+
+  // modal
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleFallowers = () => {
+    setSettings(false)
+    setFallowers(true)
+    setFallowing(false)
+    onOpen(true)
+  }
+
   const handleSettings = () => {
-    setSettings(true);
-    setFollowers(false);
-    setFollowing(false);
-    onOpen(true);
-  };
+    setSettings(true)
+    setFallowers(false)
+    setFallowing(false)
+    onOpen(true)
+  }
 
-  const handleFollowers = () => {
-    setSettings(false);
-    setFollowers(true);
-    setFollowing(false);
-    onOpen(true);
-  };
-
-  const handleFollowing = () => {
-    setSettings(false);
-    setFollowers(false);
-    setFollowing(true);
-    onOpen(true);
-  };
-
-  const handleLogout = () => {
-    axios.post("/api/auth/logout");
-    toast.success("Logged out successfully.");
-    navigate("/login");
-  };
+  const handleFallowwing = () => {
+    setSettings(false)
+    setFallowers(false)
+    setFallowing(true)
+    onOpen(true)
+  }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-6">
-      {/* Profile Header */}
-      <div className="flex items-center justify-between gap-6">
-        <img
-          src={UserImg1}
-          alt="Profile"
-          className="w-24 h-24 rounded-full border-2 border-neutral-700"
-        />
-        <div>
-          <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold text-white">
-              {user ? user.username : "User Name"}
-            </h1>
-            <button className="bg-blue-600 px-4 py-2 text-sm font-semibold rounded-md hover:bg-blue-700">
-              Edit Profile
-            </button>
-            <IoIosSettings
-              onClick={handleSettings}
-              className="h-6 w-6 text-white cursor-pointer hover:text-blue-500"
-            />
+    <>
+      <div className="max-w-4xl mx-auto py-8 px-6"> 
+    
+        <div className="flex items-center justify-between px-15 py-4 gap-5">
+          <div>
+            <img src={UserImg} alt="" className="w-30 rounded-full" />
           </div>
-          <div className="flex gap-6 mt-4">
-            <span className="text-white">
-              <strong>0</strong> Posts
-            </span>
-            <span
-              onClick={handleFollowers}
-              className="text-white cursor-pointer hover:underline"
-            >
-              <strong>0</strong> Followers
-            </span>
-            <span
-              onClick={handleFollowing}
-              className="text-white cursor-pointer hover:underline"
-            >
-              <strong>0</strong> Following
-            </span>
+          <div>
+            <div className="flex items-center gap-4">
+              <h1 className="text-xl">{user ? user.username : "user name"}</h1>
+              <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
+                Edit profil
+              </button>
+              <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
+                View archive
+              </button>
+              <Button onPress={handleSettings} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
+                <IoIosSettings className="h-6 w-6" />
+              </Button>
+            </div>
+            <div className="flex items-center gap-6">
+              <h2 className="mt-3 text-[#a29965] cursor-pointer"> <span className="text-white font-bold">0</span>publications</h2>
+              <h2 onClick={handleFallowers} className=" mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
+              <h2 onClick={handleFallowwing} className=" mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Categories */}
-      <div className="flex justify-center gap-12 border-b border-neutral-700 py-4 mt-8">
-        <h3
-          className={`cursor-pointer text-lg font-semibold ${
-            selectedCategory === 1
-              ? "text-blue-500 border-b-2 border-blue-500"
-              : "text-neutral-400"
-          }`}
-          onClick={() => handleCategoryClick(1)}
-        >
-          <MdOutlineGridOn className="inline mr-1" /> Posts
-        </h3>
-        <h3
-          className={`cursor-pointer text-lg font-semibold ${
-            selectedCategory === 2
-              ? "text-blue-500 border-b-2 border-blue-500"
-              : "text-neutral-400"
-          }`}
-          onClick={() => handleCategoryClick(2)}
-        >
-          <IoBookmarkSharp className="inline mr-1" /> Saved
-        </h3>
-        <h3
-          className={`cursor-pointer text-lg font-semibold ${
-            selectedCategory === 3
-              ? "text-blue-500 border-b-2 border-blue-500"
-              : "text-neutral-400"
-          }`}
-          onClick={() => handleCategoryClick(3)}
-        >
-          <RiShieldUserFill className="inline mr-1" /> Tagged
-        </h3>
-      </div>
 
-      {/* Content */}
-      <div className="mt-8">
-        {selectedCategory === 1 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Swiper
-              navigation={true}
-              modules={[Navigation]}
-              className="mySwiper"
+        <div className="">
+          <div
+            className="cursor-pointer w-20 h-20 rounded-full bg-neutral-800 flex items-center justify-center text-4xl mt-10"
+            onClick={openModal}
+          >
+            +
+          </div>
+          <h2 className="cursor-pointer ml-8 mt-2" onClick={openModal}>
+            Add
+          </h2>
+        </div>
+        {isModalOpen && (
+          <div
+            id="modal_oyna_form"
+            className="fixed inset-0 flex items-center justify-center bg-opacity-100  z-50"
+            onClick={closeModal}
+          >
+            <div
+              className="bg-neutral-700 p-6 rounded-lg shadow-lg max-w-md w-full relative"
+              onClick={(e) => e.stopPropagation()}
             >
-              <SwiperSlide>
-                <div className="flex flex-col items-center p-4 bg-neutral-800 rounded-lg">
-                  <MdOutlinePhotoCamera className="text-4xl text-neutral-500 mb-4" />
-                  <h2 className="text-lg font-semibold text-white mb-2">
-                    Share a Photo
-                  </h2>
-                  <p className="text-neutral-400 mb-4">
-                    Photos you share will appear on your profile.
-                  </p>
-                  <button className="bg-blue-500 px-6 py-2 rounded-md text-white hover:bg-blue-600">
-                    Share Now
-                  </button>
-                </div>
-              </SwiperSlide>
-            </Swiper>
+              <div className="flex items-center justify-center gap-10">
+                <h2 className="text-xl font-bold mb-4 text-center">
+                  Creating a current
+                </h2>
+                <button
+                  className=" text-white mb-4 rounded-md text-xl cursor-pointer"
+                  onClick={closeModal}
+                >
+                  X
+                </button>
+              </div>
+              <div className="w-full h-0.5 bg-neutral-800 mb-4"></div>
+              <form className="w-full">
+                <input
+                  type="text"
+                  placeholder="Title of the current"
+                  className="w-full bg-neutral-900 py-1 px-3 rounded-sm my-3"
+                />
+              </form>
+              <div className="w-full h-0.5 bg-neutral-800 mt-4"></div>
+              <div className="w-full">
+                <h1 className="text-blue-600 font-bold text-center mt-3 cursor-pointer">
+                  Next
+                </h1>
+              </div>
+            </div>
           </div>
         )}
+        <div className="w-full h-0.5 bg-neutral-800 mt-10"></div>
+        <div className="flex items-center justify-center gap-3">
+          <div className="flex justify-center gap-16">
+            <h3
+              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
+              onClick={() => handleCategoryClick(1)}
+            >
+              <MdOutlineGridOn className="h-3 w-3" />
+              Publications
+            </h3>
+            <h3
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 2
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
+              onClick={() => handleCategoryClick(2)}
+            >
+              <IoBookmarkSharp className="h-3 w-3" />
+              Saved
+            </h3>
+            <h3
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
+              onClick={() => handleCategoryClick(3)}
+            >
+              <RiShieldUserFill className="h-3 w-3" />
+              Marks
+            </h3>
+          </div>
+        </div>
+        {selectedCategory === 1 && (
+          <div>
+            <h1>First steps</h1>
+            <div className="flex w-full gap-2">
+              <div className="flex gap-2 w-100">
+                <Swiper
+                  navigation={true}
+                  modules={[Navigation]}
+                  className="mySwiper "
+                >
+                  <SwiperSlide>
+                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
+                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
+                        <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
+                      </p>
 
+                      <h2 className="text-lg font-semibold text-center mb-4">
+                        Share photo
+                      </h2>
+                      <p className="text-sm mb-2 text-zinc-400">
+                        Photos you share will appear on your profile
+                      </p>
+                      <button
+                        onPress={onOpen}
+                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                      >
+                        Share your first photo
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
+                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
+                        <FaPhone className="h-8 w-8 text-zinc-400" />
+                      </p>
+                      <h2 className="text-lg font-semibold text-center mb-4">
+                        Add phone number
+                      </h2>
+                      <p className="text-sm mb-2 text-zinc-400">
+                        Add your phone number so you can reset your password,
+                        find friends, and more.
+                      </p>
+                      <button
+                        onPress={onOpen}
+                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                      >
+                        Add phone number
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
+                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
+                        <CgProfile className="h-8 w-8 text-zinc-400" />
+                      </p>
+                      <h2 className="text-lg font-semibold text-center mb-4">
+                        Add a profile photo
+                      </h2>
+                      <p className="text-sm mb-2 text-zinc-400">
+                        Add a profile photo so your friends can recognize you.
+                      </p>
+                      <button
+                        onPress={onOpen}
+                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                      >
+                        Add profil photo
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                </Swiper>
+              </div>
+              <div className="flex gap-2"></div>
+            </div>
+          </div>
+        )}
         {selectedCategory === 2 && (
-          <div className="text-center">
-            <p className="text-neutral-400">You have no saved posts yet.</p>
+          <div className="flex flex-col items-center gap-8 py-12">
+            <div className="flex w-full justify-between px-4 text-sm">
+              <p className="text-zinc-400">
+                The list of saved items is visible only to you.
+              </p>
+              <p className="cursor-pointer text-blue-500 hover:text-blue-400">
+                + New selection
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-4 text-center">
+              <p className="rounded-full bg-zinc-800 p-4">
+                <IoBookmarkSharp className="h-12 w-12" />
+              </p>
+              <h1 className="text-2xl font-semibold">Save</h1>
+              <p className="max-w-md text-zinc-400">
+                Save photos and videos you want to watch again. No one will be
+                notified, and only you can see the saved items.
+              </p>
+            </div>
           </div>
         )}
-
         {selectedCategory === 3 && (
-          <div className="text-center">
-            <p className="text-neutral-400">
-              You have not been tagged in any posts.
+          <div className="flex flex-col items-center gap-4 py-12 text-center">
+            <p className="rounded-full bg-zinc-800 p-4">
+
+            <RiShieldUserFill className="h-12 w-12" />
+            </p>
+            <h1 className="text-2xl font-semibold">Photo with you</h1>
+            <p className="max-w-md text-zinc-400">
+              This shows people who have tagged you in their photos.
             </p>
           </div>
         )}
+
+      </div>
+      <div className="login_bottom_link_bottom">
+        <div className="link">
+          <a href="">Meta</a>
+          <a href="">Information</a>
+          <a href="">Blog</a>
+          <a href="">Vacancies</a>
+          <a href="">Help</a>
+          <a href="">API</a>
+          <a href="">Confidentiality</a>
+          <a href="">Terms and Conditions</a>
+          <a href="">Places</a>
+          <a href="">Instagram Lite</a>
+          <a href="">Threads</a>
+          <a href="">Uploading Contacts and Non-Users</a>
+          <a href="">Meta Verified</a>
+        </div>
+        <div className="year_versia">
+          <h3 className="year_versia_h3">© 2025 Instagram from Meta</h3>
+        </div>
       </div>
 
-      {/* Modal */}
       <Modal
+        className="bg-neutral-800 w-100 rounded-sm"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        className="bg-neutral-800 text-white rounded-md"
+        backdropClassName="bg-black/50"
       >
         <ModalContent>
-          <ModalHeader>
-            {settings && "Settings"}
-            {followers && "Followers"}
-            {following && "Following"}
-          </ModalHeader>
-          <ModalBody>
-            {settings && (
-              <div className="text-center">
-                <button
-                  onClick={handleLogout}
-                  className="text-red-500 hover:underline"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
-            {followers && <div>List of followers</div>}
-            {following && <div>List of following</div>}
-          </ModalBody>
+          {(onClose) => (
+            <div>
+              <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
+                {settings ? ("settings") : ("non")}
+              </ModalHeader>
+              <ModalBody>
+                {settings && (<div>
+                  <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
+                  <div className="w-full h-0.5 bg-neutral-600"></div>
+                  <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
+                </div>)}
+
+                {fallowers && (<div>
+                  fallowers
+                </div>)}
+
+                {fallowing && (<div>
+                  fallowing list
+                </div>)}
+
+              </ModalBody>
+            </div>
+          )}
         </ModalContent>
       </Modal>
-    </div>
+
+
+    </>
   );
 };
 
-export default Profile;
+export default Profil;
