@@ -26,8 +26,9 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
+import {Tooltip} from "@heroui/react";
 
-import UserImg from "../assets/user.jpg";
+import UserImg from "../assets/1.png";
 
 // contex
 import { UserContext } from "../userContext";
@@ -103,7 +104,7 @@ const Profil = () => {
     
         <div className="flex items-center justify-between px-15 py-4 gap-5">
           <div>
-            <img src={UserImg} alt="" className="w-30 rounded-full" />
+            <img src={UserImg} alt="" className="w-30 rounded-full cursor-pointer" />
           </div>
           <div>
             <div className="flex items-center gap-4">
@@ -114,9 +115,11 @@ const Profil = () => {
               <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
                 View archive
               </button>
-              <Button onPress={handleSettings} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
+              <Tooltip content="Settings">
+              <button onClick={handleSettings} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
                 <IoIosSettings className="h-6 w-6" />
-              </Button>
+              </button>
+              </Tooltip>
             </div>
             <div className="flex items-center gap-6">
               <h2 className="mt-3 text-[#a29965] cursor-pointer"> <span className="text-white font-bold">0</span>publications</h2>
@@ -215,14 +218,14 @@ const Profil = () => {
           <div>
             <h1>First steps</h1>
             <div className="flex w-full gap-2">
-              <div className="flex gap-2 w-100">
+              <div className="flex gap-2 w-100 mx-auto text-center">
                 <Swiper
                   navigation={true}
                   modules={[Navigation]}
                   className="mySwiper "
                 >
                   <SwiperSlide>
-                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
+                    <div className="border-1 border-neutral-700 py-3 px-5 w-75 ">
                       <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
                         <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
                       </p>
@@ -241,7 +244,7 @@ const Profil = () => {
                       </button>
                     </div>
                   </SwiperSlide>
-                  <SwiperSlide>
+                  {/* <SwiperSlide>
                     <div className="border-1 border-neutral-700 py-3 px-5 w-75">
                       <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
                         <FaPhone className="h-8 w-8 text-zinc-400" />
@@ -279,7 +282,7 @@ const Profil = () => {
                         Add profil photo
                       </button>
                     </div>
-                  </SwiperSlide>
+                  </SwiperSlide> */}
                 </Swiper>
               </div>
               <div className="flex gap-2"></div>
@@ -356,9 +359,9 @@ const Profil = () => {
                 {settings ? ("settings") : ("non")}
               </ModalHeader>
               <ModalBody>
-                {settings && (<div>
+                {settings && (<div >
                   <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
-                  <div className="w-full h-0.5 bg-neutral-600"></div>
+                  <div className="w-full h-0.5 my-4 bg-neutral-600"></div>
                   <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
                 </div>)}
 

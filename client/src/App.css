@@ -354,6 +354,9 @@ body {
   #max_width_tet_none span {
     display: none;
   }
+  #max_width_tet_none{
+    width: 80px;
+  }
   #responsive_icon_insta{
     display: flex;
   }

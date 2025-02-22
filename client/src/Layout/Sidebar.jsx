@@ -9,7 +9,12 @@ import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaInstagram } from "react-icons/fa6";
-import UserImg from "../assets/user.jpg";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../userContext";
+import toast from "react-hot-toast";
+import UserImg from "../assets/1.png";
 // heroui
 import {
   Modal,
@@ -56,36 +61,25 @@ const Sidebar = () => {
     }
   };
 
-  const people = [
-    {
-      id: 1,
-      img: UserImg,
-      name: "Nabijonov_00928",
-      userName: "Nabijonov_5355",
-      btn: "Subscribe",
-    },
-    {
-      id: 2,
-      img: UserImg,
-      name: "Nabijonov_00928",
-      userName: "Nabijonov_5355",
-      btn: "Subscribe",
-    },
-    {
-      id: 3,
-      img: UserImg,
-      name: "Bobur_009",
-      userName: "Bobur_009",
-      btn: "Subscribe",
-    },
-    {
-      id: 3,
-      img: UserImg,
-      name: "Muhammadali_007",
-      userName: "Muhammadali_007",
-      btn: "Subscribe",
-    },
-  ];
+  // user
+  const navigate = useNavigate();
+  let { user } = useContext(UserContext);
+  const { people } = useContext(UserContext);
+
+  const handleFallow = (item) => {
+    try {
+      const currentUserId = user._id;
+      axios.post(`/api/${item._id}/fallow`, { currentUserId });
+      toast.success("send fallow");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  const handleProfile = (item) => {
+    navigate(`/user/${item._id}`);
+    setBars("close");
+  };
+
   // search
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -97,7 +91,7 @@ const Sidebar = () => {
     <>
       <div
         id="max_width_tet_none"
-        className=" left-0 top-0 h-screen  bg-black text-white border-r border-neutral-800 px-3 py-8"
+        className=" left-0 top-0 h-screen w-55  bg-black text-white border-r border-neutral-800 px-3 py-8"
       >
         <NavLink to="/" className="flex items-center gap-2 px-4 mb-8">
           <FaInstagram id="responsive_icon_insta" className="w-7 h-7" />
@@ -124,7 +118,7 @@ const Sidebar = () => {
               className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
             >
               <CiSearch className="w-6 h-6" />
-              <span className="text-[15px]">Search </span>
+              <span className="text-[15px]">Search Query</span>
             </div>
 
             <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
@@ -204,9 +198,9 @@ const Sidebar = () => {
           </NavLink>
         </p>
         <p>
-          <Button onPress={onOpen}>
+          <button>
             <MdOutlineCreateNewFolder className="w-8 h-8" />
-          </Button>
+          </button>
         </p>
         <p>
           <NavLink>
@@ -309,13 +303,14 @@ const Sidebar = () => {
 
           {filteredPeople.map((item) => (
             <div
-              key={item.id}
-              className="flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors"
+              onClick={() => handleProfile(item)}
+              key={item._id}
+              className="flex items-center gap-4 p-3 cursor-pointer hover:bg-neutral-800 rounded-lg transition-colors"
             >
-              <img src={item.img} alt="" className="w-12 h-12 rounded-full" />
+              <img src={UserImg} alt="" className="w-12 h-12 rounded-full" />
               <div>
-                <h3 className="font-semibold">{item.name}</h3>
-                <p className="text-neutral-400 text-sm">{item.userName}</p>
+                <h3 className="font-semibold">{item.username}</h3>
+                <p className="text-neutral-400 text-sm">{item.name}</p>
               </div>
               <button className="ml-auto text-sm text-neutral-400 hover:text-white">
                 ×
