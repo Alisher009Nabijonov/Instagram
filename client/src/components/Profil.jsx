@@ -50,6 +50,7 @@ const Profil = () => {
   const [savedNote, setSavedNote] = useState("");
   const [settings, setSettings] = useState(false);
   const [fallowers, setFallowers] = useState(false)
+  const [fallowing, setFallowing] = useState(false);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -79,12 +80,21 @@ const Profil = () => {
   const handleFallowers = () => {
     setSettings(false)
     setFallowers(true)
+    setFallowing(false)
     onOpen(true)
   }
 
   const handleSettings = () => {
     setSettings(true)
     setFallowers(false)
+    setFallowing(false)
+    onOpen(true)
+  }
+
+  const handleFallowwing = () => {
+    setSettings(false)
+    setFallowers(false)
+    setFallowing(true)
     onOpen(true)
   }
 
@@ -110,9 +120,9 @@ const Profil = () => {
               </Button>
             </div>
             <div className="flex items-center gap-6">
-              <h2 className="cursor-pointer mt-3">0 publications</h2>
-              <h2 onClick={handleFallowers} className="cursor-pointer mt-3"><span>{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
-              <h2 className="cursor-pointer mt-3"><span>{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
+              <h2 className="mt-3 text-[#a29965] cursor-pointer"> <span className="text-white font-bold">0</span>publications</h2>
+              <h2 onClick={handleFallowers} className="cursor-pointer mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
+              <h2 onClick={handleFallowwing} className="cursor-pointer mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
             </div>
           </div>
         </div>
@@ -353,6 +363,10 @@ const Profil = () => {
 
                 {fallowers && (<div>
                   fallowers
+                </div>)}
+
+                {fallowing && (<div>
+                  fallowing list
                 </div>)}
 
               </ModalBody>
