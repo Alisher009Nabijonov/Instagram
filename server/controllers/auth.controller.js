@@ -100,7 +100,7 @@ const profile = async (req, res) => {
       if (err) return res.status(401).json({ err, message: "yaroqsiz token." });
 
       try {
-        const user = await User.findById(userData.id);
+        const user = await User.findById(userData.id).populate("fallowers").populate("fallowing")
         if (!user) return res.status(404).json({ message: "user topilmadi" });
 
         const { _id, name, username, email, fallowers, fallowing } = user;

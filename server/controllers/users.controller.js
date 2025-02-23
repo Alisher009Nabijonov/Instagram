@@ -2,7 +2,7 @@ const User = require("../models/user.model");
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate("fallowing").populate("fallowers");
     if (!users || users.length === 0)
       return res.status(404).json({ message: "users not found" });
 
@@ -17,7 +17,9 @@ const getAllUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id)
+      .populate("fallowing")
+      .populate("fallowers");
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
