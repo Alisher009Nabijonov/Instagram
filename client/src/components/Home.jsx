@@ -195,6 +195,7 @@ const Home = () => {
                 <img src={LogoImg} alt="" className="mx-auto my-2"/>
                 <div>
                   <h1 className="my-4">Email: {user.email}</h1>
+                  <h1>Profile: {user.createdAt}</h1>
                   <h1>Password: none</h1>
                   <button onClick={closeModal} className="px-6 mx-auto text-center rounded-sm flex mt-10 py-2 bg-blue-600 hover:bg-blue-700">Cancle</button>
                 </div>

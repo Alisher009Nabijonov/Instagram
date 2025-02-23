@@ -1,4 +1,3 @@
-
 import { useContext, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoIosSettings } from "react-icons/io";
@@ -49,7 +48,7 @@ const Profil = () => {
   const [note, setNote] = useState("");
   const [savedNote, setSavedNote] = useState("");
   const [settings, setSettings] = useState(false);
-  const [fallowers, setFallowers] = useState(false)
+  const [fallowers, setFallowers] = useState(false);
   const [fallowing, setFallowing] = useState(false);
 
   const handleCategoryClick = (category) => {
@@ -78,35 +77,36 @@ const Profil = () => {
   };
 
   const handleFallowers = () => {
-    setSettings(false)
-    setFallowers(true)
-    setFallowing(false)
-    onOpen(true)
-
-
-  }
+    setSettings(false);
+    setFallowers(true);
+    setFallowing(false);
+    onOpen(true);
+  };
 
   const handleSettings = () => {
-    setSettings(true)
-    setFallowers(false)
-    setFallowing(false)
-    onOpen(true)
-  }
+    setSettings(true);
+    setFallowers(false);
+    setFallowing(false);
+    onOpen(true);
+  };
 
   const handleFallowwing = () => {
-    setSettings(false)
-    setFallowers(false)
-    setFallowing(true)
-    onOpen(true)
-  }
+    setSettings(false);
+    setFallowers(false);
+    setFallowing(true);
+    onOpen(true);
+  };
 
   return (
     <>
       <div className="max-w-4xl mx-auto py-8 px-6">
-
         <div className="flex items-center justify-between px-15 py-4 gap-5">
           <div>
-            <img src={UserImg} alt="" className="w-30 rounded-full cursor-pointer" />
+            <img
+              src={UserImg}
+              alt=""
+              className="w-30 rounded-full cursor-pointer"
+            />
           </div>
           <div>
             <div className="flex items-center gap-4">
@@ -118,19 +118,40 @@ const Profil = () => {
                 View archive
               </button>
               <Tooltip content="Settings">
-                <button onClick={handleSettings} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
+                <button
+                  onClick={handleSettings}
+                  className=" px-1 py-2 text-sm rounded-sm cursor-pointer"
+                >
                   <IoIosSettings className="h-6 w-6" />
                 </button>
               </Tooltip>
             </div>
             <div className="flex items-center gap-6">
-              <h2 className="mt-3 text-[#a29965] cursor-pointer"> <span className="text-white font-bold">0</span>publications</h2>
-              <h2 onClick={handleFallowers} className=" mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowers.length) : (0)}</span> subscribers</h2>
-              <h2 onClick={handleFallowwing} className=" mt-3 text-[#a29965] cursor-pointer"><span className="text-white font-bold">{user ? (user.fallowing.length) : (0)}</span> subscriptions</h2>
+              <h2 className="mt-3 text-[#a29965] cursor-pointer">
+                {" "}
+                <span className="text-white font-bold">0</span>publications
+              </h2>
+              <h2
+                onClick={handleFallowers}
+                className=" mt-3 text-[#a29965] cursor-pointer"
+              >
+                <span className="text-white font-bold">
+                  {user ? user.fallowers.length : 0}
+                </span>{" "}
+                subscribers
+              </h2>
+              <h2
+                onClick={handleFallowwing}
+                className=" mt-3 text-[#a29965] cursor-pointer"
+              >
+                <span className="text-white font-bold">
+                  {user ? user.fallowing.length : 0}
+                </span>{" "}
+                subscriptions
+              </h2>
             </div>
           </div>
         </div>
-
 
         <div className="">
           <div
@@ -185,30 +206,33 @@ const Profil = () => {
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
+                selectedCategory === 1
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(1)}
             >
               <MdOutlineGridOn className="h-3 w-3" />
               Publications
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 2
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                selectedCategory === 2
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(2)}
             >
               <IoBookmarkSharp className="h-3 w-3" />
               Saved
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                selectedCategory === 3
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(3)}
             >
               <RiShieldUserFill className="h-3 w-3" />
@@ -316,7 +340,6 @@ const Profil = () => {
         {selectedCategory === 3 && (
           <div className="flex flex-col items-center gap-4 py-12 text-center">
             <p className="rounded-full bg-zinc-800 p-4">
-
               <RiShieldUserFill className="h-12 w-12" />
             </p>
             <h1 className="text-2xl font-semibold">Photo with you</h1>
@@ -325,7 +348,6 @@ const Profil = () => {
             </p>
           </div>
         )}
-
       </div>
       <div className="login_bottom_link_bottom">
         <div className="link">
@@ -358,34 +380,48 @@ const Profil = () => {
           {(onClose) => (
             <div>
               <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
-                {settings ? ("settings") : ("non")}
+                {settings ? "settings" : "non"}
               </ModalHeader>
               <ModalBody>
-                {settings && (<div >
-                  <h1 className="text-xl text-center my-1 cursor-pointer">Log out</h1>
-                  <div className="w-full h-0.5 my-4 bg-neutral-600"></div>
-                  <h1 onClick={onClose} className="text-xl text-center my-1 cursor-pointer">Cancel</h1>
-                </div>)}
+                {settings && (
+                  <div>
+                    <h1 className="text-xl text-center my-1 cursor-pointer">
+                      Log out
+                    </h1>
+                    <div className="w-full h-0.5 my-4 bg-neutral-600"></div>
+                    <h1
+                      onClick={onClose}
+                      className="text-xl text-center my-1 cursor-pointer"
+                    >
+                      Cancel
+                    </h1>
+                  </div>
+                )}
 
-                {fallowers && (<div>
-                  {user.fallowers.map((fallower) => {
-                    return <div key={fallower._id}> {fallower.username}</div>
-                  })}
-                </div>)}
+                {fallowers && (
+                  <div>
+                    {user.fallowers.map((fallower) => {
+                      return <div key={fallower._id}> {fallower.username}</div>;
+                    })}
+                  </div>
+                )}
 
-                {fallowing && (<div>
-                  {user.fallowing.map((fallowingUser) => {
-                    return <div key={fallowingUser._id}>{fallowingUser.username}</div>
-                  })}
-                </div>)}
-
+                {fallowing && (
+                  <div>
+                    {user.fallowing.map((fallowingUser) => {
+                      return (
+                        <div key={fallowingUser._id}>
+                          {fallowingUser.username}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </ModalBody>
             </div>
           )}
         </ModalContent>
       </Modal>
-
-
     </>
   );
 };
