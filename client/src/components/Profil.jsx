@@ -26,7 +26,7 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
-import {Tooltip} from "@heroui/react";
+import { Tooltip } from "@heroui/react";
 
 import UserImg from "../assets/1.png";
 
@@ -39,7 +39,7 @@ import toast from "react-hot-toast";
 
 const Profil = () => {
   const navigate = useNavigate();
-  let {user} = useContext(UserContext);
+  let { user } = useContext(UserContext);
   if (!user) {
     navigate("/login");
   }
@@ -82,6 +82,8 @@ const Profil = () => {
     setFallowers(true)
     setFallowing(false)
     onOpen(true)
+
+
   }
 
   const handleSettings = () => {
@@ -100,8 +102,8 @@ const Profil = () => {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto py-8 px-6"> 
-    
+      <div className="max-w-4xl mx-auto py-8 px-6">
+
         <div className="flex items-center justify-between px-15 py-4 gap-5">
           <div>
             <img src={UserImg} alt="" className="w-30 rounded-full cursor-pointer" />
@@ -116,9 +118,9 @@ const Profil = () => {
                 View archive
               </button>
               <Tooltip content="Settings">
-              <button onClick={handleSettings} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
-                <IoIosSettings className="h-6 w-6" />
-              </button>
+                <button onClick={handleSettings} className=" px-1 py-2 text-sm rounded-sm cursor-pointer">
+                  <IoIosSettings className="h-6 w-6" />
+                </button>
               </Tooltip>
             </div>
             <div className="flex items-center gap-6">
@@ -315,7 +317,7 @@ const Profil = () => {
           <div className="flex flex-col items-center gap-4 py-12 text-center">
             <p className="rounded-full bg-zinc-800 p-4">
 
-            <RiShieldUserFill className="h-12 w-12" />
+              <RiShieldUserFill className="h-12 w-12" />
             </p>
             <h1 className="text-2xl font-semibold">Photo with you</h1>
             <p className="max-w-md text-zinc-400">
@@ -366,11 +368,15 @@ const Profil = () => {
                 </div>)}
 
                 {fallowers && (<div>
-                  fallowers
+                  {user.fallowers.map((fallower) => {
+                    return <div key={fallower._id}> {fallower.username}</div>
+                  })}
                 </div>)}
 
                 {fallowing && (<div>
-                  fallowing list
+                  {user.fallowing.map((fallowingUser) => {
+                    return <div key={fallowingUser._id}>{fallowingUser.username}</div>
+                  })}
                 </div>)}
 
               </ModalBody>
