@@ -30,6 +30,7 @@ import { UserProvider } from "./userContext";
 import { Toaster } from "react-hot-toast";
 import Direct from "./components/Direct";
 import User from "./components/User";
+import Edit from "./components/Edit";
 function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -43,6 +44,7 @@ function App() {
           <Route path="/notification" element={<Notification />} />
           <Route path="/direct" element={<Direct />} />
           <Route path="/user/:id" element={<User />} />
+          <Route path="/edit" element={<Edit />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
