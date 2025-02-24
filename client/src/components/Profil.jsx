@@ -5,6 +5,7 @@ import { MdOutlineGridOn } from "react-icons/md";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { RiShieldUserFill } from "react-icons/ri";
 import { MdOutlinePhotoCamera } from "react-icons/md";
+import axios from "axios";
 
 import { FaPhone } from "react-icons/fa";
 
@@ -33,7 +34,7 @@ import UserImg from "../assets/1.png";
 import { UserContext } from "../userContext";
 
 // react-router-dom
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Await } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Profil = () => {
@@ -96,6 +97,18 @@ const Profil = () => {
     setFallowing(true);
     onOpen(true);
   };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/api/auth/logout");
+      alert("Logout successful");
+      navigate("/login");
+      window.location.reload()
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
+
 
   return (
     <>
@@ -384,7 +397,7 @@ const Profil = () => {
               <ModalBody>
                 {settings && (
                   <div>
-                    <h1 className="text-xl text-center my-1 cursor-pointer">
+                    <h1 onClick={handleLogout} className="text-xl text-center my-1 cursor-pointer">
                       Log out
                     </h1>
                     <div className="w-full h-0.5 my-4 bg-neutral-600"></div>
