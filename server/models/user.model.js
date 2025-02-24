@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   },
   username: {
     type: String,
-    required: [true, "username is required"],
+    required: [true, "Username is required"],
     unique: true,
     trim: true,
   },
@@ -24,18 +24,26 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minlength: [6, "Password must be at least 6 characters"],
   },
-  fallowers: [
+  followers: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
   ],
-  fallowing: [
+  following: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
   ],
+  bio: {
+    type: String,
+    maxlength: 150,
+  },
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
