@@ -62,7 +62,7 @@ const User = () => {
                 <div className="flex items-center gap-6">
                   <h1 className="text-xl">{userData.username}</h1>
                   <button
-                    onClick={() => handleFallow()}
+                    onClick={() => handleFallow(item)}
                     className="px-4 py-1 bg-blue-600 rounded-sm cursor-pointer hover:bg-blue-700"
                   >
                     Fallow
