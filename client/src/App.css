@@ -350,6 +350,39 @@ body {
   display: none;
 }
 
+
+
+#hover-box {
+  position: relative;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+#hover-text {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 999;
+  background-color: black;
+  width: 100%;
+  height: auto;
+  padding: 10px 10px;
+  box-shadow: 0px 0px 10px #fff;
+}
+
+#hover-box:hover #hover-text {
+  display: block;
+}
+
+
 @media (max-width: 1250px) {
   #max_width_tet_none span {
     display: none;

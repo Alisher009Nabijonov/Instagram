@@ -9,8 +9,22 @@ import { MdOutlineGridOn } from "react-icons/md";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { RiShieldUserFill } from "react-icons/ri";
 import { UserContext } from "../userContext";
+// heroui
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@heroui/react";
 
 const User = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [settings, setSettings] = useState(false);
+  const [fallowers, setFallowers] = useState(false);
+  const [fallowing, setFallowing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(1);
   const { id } = useParams();
   let { user } = useContext(UserContext);
@@ -44,94 +58,184 @@ const User = () => {
     fetchUser();
   }, [id]);
 
-  return (
-    <div>
-      {userData ? (
-        // <div>{userData.name}</div>
-        <>
-          <div className="max-w-4xl mx-auto py-8 px-6">
-            <div className="flex items-center justify-center gap-20 px-8">
-              <div className=" ">
-                <img
-                  src={UserImg2}
-                  alt=""
-                  className="w-35 rounded-full cursor-pointer"
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-6">
-                  <h1 className="text-xl">{userData.username}</h1>
-                  <button
-                    onClick={() => handleFallow(item)}
-                    className="px-4 py-1 bg-blue-600 rounded-sm cursor-pointer hover:bg-blue-700"
-                  >
-                    Fallow
-                  </button>
-                  <button className="text-2xl">
-                    <FiMoreHorizontal />
-                  </button>
-                </div>
-                <div className="flex items-center my-5 gap-5">
-                  <h1>0 publication</h1>
-                  <h1>0 subscribers</h1>
-                  <h1>0 subscriptions</h1>
-                </div>
-              </div>
-            </div>
-            <div className="w-full h-0.5 bg-neutral-800 mt-20"></div>
-            <div className="flex items-center justify-center gap-3">
-              <div className="flex justify-center gap-16">
-                <h3
-                  className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
-                    selectedCategory === 1
-                      ? "border-white"
-                      : "border-transparent text-zinc-500"
-                  }`}
-                  onClick={() => handleCategoryClick(1)}
-                >
-                  <MdOutlineGridOn className="h-3 w-3" />
-                  Publications
-                </h3>
-                <h3
-                  className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                    selectedCategory === 3
-                      ? "border-white"
-                      : "border-transparent text-zinc-500"
-                  }`}
-                  onClick={() => handleCategoryClick(3)}
-                >
-                  <RiShieldUserFill className="h-3 w-3" />
-                  Marks
-                </h3>
-              </div>
-            </div>
-            {selectedCategory === 1 && (
-              <div className=" flex flex-col items-center justify-center mx-auto py-12 px-5  ">
-                <p className="rounded-full w-20 h-20 flex items-center justify-center border-1 p-4 mx-auto mb-5">
-                  <MdOutlinePhotoCamera className="h-8 w-8 " />
-                </p>
+  const handleFallowers = () => {
+    setSettings(false);
+    setFallowers(true);
+    setFallowing(false);
+    onOpen(true);
+  };
+  const handleFallowwing = () => {
+    setSettings(false);
+    setFallowers(false);
+    setFallowing(true);
+    onOpen(true);
+  };
 
-                <h2 className="text-2xl  text-center mb-4 font-semibold">
-                  There are no publications yet
-                </h2>
+  return (
+    <>
+      {" "}
+      <div>
+        {userData ? (
+          // <div>{userData.name}</div>
+          <>
+            <div className="max-w-4xl mx-auto py-8 px-6">
+              <div className="flex items-center justify-center gap-20 px-8">
+                <div className=" ">
+                  <img
+                    src={UserImg2}
+                    alt=""
+                    className="w-35 rounded-full cursor-pointer"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-6">
+                    <h1 className="text-xl">{userData.username}</h1>
+                    <button
+                      onClick={() => handleFallow(item)}
+                      className="px-4 py-1 bg-blue-600 rounded-sm cursor-pointer hover:bg-blue-700"
+                    >
+                      Fallow
+                    </button>
+                    <button className="text-2xl">
+                      <FiMoreHorizontal />
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-6">
+                    <h2 className="mt-3 text-[#a29965] cursor-pointer">
+                      <span className="text-white font-bold">0</span>
+                      publications
+                    </h2>
+                    <h2
+                      onClick={handleFallowers}
+                      className=" mt-3 text-[#a29965] cursor-pointer"
+                    >
+                      <span className="text-white font-bold">
+                        {user ? user.followers.length : 0}
+                      </span>
+                      subscribers
+                    </h2>
+                    <h2
+                      onClick={handleFallowwing}
+                      className=" mt-3 text-[#a29965] cursor-pointer"
+                    >
+                      <span className="text-white font-bold">
+                        {user ? user.following.length : 0}
+                      </span>
+                      subscriptions
+                    </h2>
+                  </div>
+                </div>
               </div>
-            )}
-            {selectedCategory === 3 && (
-              <div className="flex flex-col items-center gap-4 py-12 text-center">
-                <p className="rounded-full border-1 p-4">
-                  <RiShieldUserFill className="h-12 w-12" />
-                </p>
-                <h1 className="text-2xl font-semibold">No photo</h1>
+              <div className="w-full h-0.5 bg-neutral-800 mt-20"></div>
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex justify-center gap-16">
+                  <h3
+                    className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
+                      selectedCategory === 1
+                        ? "border-white"
+                        : "border-transparent text-zinc-500"
+                    }`}
+                    onClick={() => handleCategoryClick(1)}
+                  >
+                    <MdOutlineGridOn className="h-3 w-3" />
+                    Publications
+                  </h3>
+                  <h3
+                    className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                      selectedCategory === 3
+                        ? "border-white"
+                        : "border-transparent text-zinc-500"
+                    }`}
+                    onClick={() => handleCategoryClick(3)}
+                  >
+                    <RiShieldUserFill className="h-3 w-3" />
+                    Marks
+                  </h3>
+                </div>
               </div>
-            )}
+              {selectedCategory === 1 && (
+                <div className=" flex flex-col items-center justify-center mx-auto py-12 px-5  ">
+                  <p className="rounded-full w-20 h-20 flex items-center justify-center border-1 p-4 mx-auto mb-5">
+                    <MdOutlinePhotoCamera className="h-8 w-8 " />
+                  </p>
+
+                  <h2 className="text-2xl  text-center mb-4 font-semibold">
+                    There are no publications yet
+                  </h2>
+                </div>
+              )}
+              {selectedCategory === 3 && (
+                <div className="flex flex-col items-center gap-4 py-12 text-center">
+                  <p className="rounded-full border-1 p-4">
+                    <RiShieldUserFill className="h-12 w-12" />
+                  </p>
+                  <h1 className="text-2xl font-semibold">No photo</h1>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="flex items-center justify-center my-80">
+            <Spinner color="Danger" label="Loading..." />
           </div>
-        </>
-      ) : (
-        <div className="flex items-center justify-center my-80">
-          <Spinner color="Danger" label="Loading..." />
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+      <Modal
+        className="bg-neutral-800 w-100 rounded-sm"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        backdropClassName="bg-black/50"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <div>
+              <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
+                {settings ? "settings" : "non"}
+              </ModalHeader>
+              <ModalBody>
+                {settings && (
+                  <div>
+                    <h1
+                      onClick={handleLogout}
+                      className="text-xl text-center my-1 cursor-pointer"
+                    >
+                      Log out
+                    </h1>
+                    <div className="w-full h-0.5 my-4 bg-neutral-600"></div>
+                    <h1
+                      onClick={onClose}
+                      className="text-xl text-center my-1 cursor-pointer"
+                    >
+                      Cancel
+                    </h1>
+                  </div>
+                )}
+
+                {fallowers && (
+                  <div>
+                    {user.followers.map((fallower) => {
+                      return <div key={fallower._id}> {fallower.username}</div>;
+                    })}
+                  </div>
+                )}
+
+                {fallowing && (
+                  <div>
+                    {user.following.map((fallowingUser) => {
+                      return (
+                        <div key={fallowingUser._id}>
+                          {fallowingUser.username}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </ModalBody>
+            </div>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 

@@ -91,7 +91,7 @@ const Sidebar = () => {
     <>
       <div
         id="max_width_tet_none"
-        className=" left-0 top-0 h-screen w-55  bg-black text-white border-r border-neutral-800 px-3 py-8"
+        className="sticky left-0 top-0 h-screen w-55  bg-black text-white border-r border-neutral-800 px-3 py-8"
       >
         <NavLink to="/" className="flex items-center gap-2 px-4 mb-8">
           <FaInstagram id="responsive_icon_insta" className="w-7 h-7" />
