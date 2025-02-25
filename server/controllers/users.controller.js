@@ -35,7 +35,7 @@ const getUser = async (req, res) => {
 
 const editUser = async (req, res) => {
   try {
-    const { userId, name, username, bio } = req.body;
+    const { userId, name, username, bio, gender } = req.body;
 
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: "user not found." });
@@ -43,6 +43,7 @@ const editUser = async (req, res) => {
     user.name = name;
     user.username = username;
     user.bio = bio;
+    user.gender = gender; 
 
     if (req.file) {
       user.avatar = `/uploads/${req.file.filename}`;
