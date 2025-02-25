@@ -151,7 +151,7 @@ const Profil = () => {
                 className=" mt-3 text-[#a29965] cursor-pointer"
               >
                 <span className="text-white font-bold">
-                  {user ? user.fallowers.length : 0}
+                  {user ? user.followers.length : 0}
                 </span>{" "}
                 subscribers
               </h2>
@@ -160,7 +160,7 @@ const Profil = () => {
                 className=" mt-3 text-[#a29965] cursor-pointer"
               >
                 <span className="text-white font-bold">
-                  {user ? user.fallowing.length : 0}
+                  {user ? user.following.length : 0}
                 </span>{" "}
                 subscriptions
               </h2>
@@ -412,7 +412,7 @@ const Profil = () => {
 
                 {fallowers && (
                   <div>
-                    {user.fallowers.map((fallower) => {
+                    {user.followers.map((fallower) => {
                       return <div key={fallower._id}> {fallower.username}</div>;
                     })}
                   </div>
@@ -420,7 +420,7 @@ const Profil = () => {
 
                 {fallowing && (
                   <div>
-                    {user.fallowing.map((fallowingUser) => {
+                    {user.following.map((fallowingUser) => {
                       return (
                         <div key={fallowingUser._id}>
                           {fallowingUser.username}

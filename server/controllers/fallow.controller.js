@@ -8,9 +8,9 @@ const fallowUser = async (req, res) => {
     if (!userToFallow || !currentUser)
       return res.status(404).json({ message: "user topilmadi." });
 
-    if (!userToFallow.fallowers.includes(currentUser._id)) {
-      userToFallow.fallowers.push(currentUser._id);
-      currentUser.fallowing.push(userToFallow._id);
+    if (!userToFallow.followers.includes(currentUser._id)) {
+      userToFallow.followers.push(currentUser._id);
+      currentUser.following.push(userToFallow._id);
 
       await userToFallow.save();
       await currentUser.save();
@@ -20,7 +20,7 @@ const fallowUser = async (req, res) => {
       return res.status(400).json({ message: "you already fallowed" });
     }
   } catch (error) {
-    res.status(500).json({ error, message: "error while fallowing." });
+    res.status(500).json({ error, message: "error while following." });
   }
 };
 
@@ -32,12 +32,12 @@ const unFallowUser = async (req, res) => {
     if (!currentUser || !userToUnfallow)
       return res.status(404).json({ message: "user not found while unfallow" });
 
-    if (userToUnfallow.fallowers.includes(userToUnfallow._id)) {
-      userToUnfallow.fallowers = userToUnfallow.fallowers.filter(
+    if (userToUnfallow.followers.includes(userToUnfallow._id)) {
+      userToUnfallow.followers = userToUnfallow.followers.filter(
         (id) => id.toString() !== currentUser._id.toString()
       );
 
-      currentUser.fallowing = currentUser.fallowing.filter(
+      currentUser.following = currentUser.following.filter(
         (id) => id.toString() !== userToUnfallow._id.toString()
       );
 
@@ -49,7 +49,7 @@ const unFallowUser = async (req, res) => {
       return res.status(400).json("you should fallow first.");
     }
   } catch (error) {
-    res.status(500).json({ error, message: "error while unfallowing" });
+    res.status(500).json({ error, message: "error while unfollowing" });
   }
 };
 

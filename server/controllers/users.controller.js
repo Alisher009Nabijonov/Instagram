@@ -18,8 +18,8 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
-      .populate("fallowing")
-      .populate("fallowers");
+      .populate("following")
+      .populate("followers");
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
