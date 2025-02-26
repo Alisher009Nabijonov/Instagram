@@ -123,6 +123,7 @@ const Profil = () => {
             />
           </div>
           <div>
+
             <div className="flex items-center gap-4">
               <h1 className="text-xl">{user ? user.username : "user name"}</h1>
               <Link to="/edit">
@@ -144,30 +145,34 @@ const Profil = () => {
                 </button>
               </Tooltip>
             </div>
+
             <div className="flex items-center gap-6">
-              <h2 className="mt-3 text-[#a29965] cursor-pointer flex items-center gap-1">
+              <h2 className="mt-3 text-[#afafaf] cursor-pointer flex items-center gap-2">
                 {" "}
                 <span className="text-white font-bold">0</span>Posts
               </h2>
               <h2
                 onClick={handleFallowers}
-                className=" mt-3 text-[#a29965] cursor-pointer"
+                className=" mt-3 text-[#afafaf] cursor-pointer flex gap-2"
               >
                 <span className="text-white font-bold">
                   {user ? user.followers.length : 0}
-                </span>{" "}
+                </span>
                 Followers
               </h2>
               <h2
                 onClick={handleFallowwing}
-                className=" mt-3 text-[#a29965] cursor-pointer"
+                className=" mt-3 text-[#afafaf] cursor-pointer flex gap-2"
               >
                 <span className="text-white font-bold">
                   {user ? user.following.length : 0}
-                </span>{" "}
+                </span>
                 Following
               </h2>
             </div>
+
+            <p className="pt-5 text-sm font-extrabold">{user ? (user.name) : ("Name")}</p>
+
           </div>
         </div>
 

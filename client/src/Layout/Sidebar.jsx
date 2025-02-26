@@ -15,6 +15,7 @@ import { useContext } from "react";
 import { UserContext } from "../userContext";
 import toast from "react-hot-toast";
 import UserImg from "../assets/1.png";
+
 // heroui
 import {
   Modal,
@@ -30,6 +31,7 @@ import { Badge, Avatar } from "@heroui/react";
 // assets
 import ModalImg from "../assets/creat_video.jpg";
 import LogoImg from "../assets/logo_img.jpg";
+
 const Sidebar = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [bars, setBars] = useState("close");
@@ -278,9 +280,8 @@ const Sidebar = () => {
 
       {/* Search Sidebar */}
       <div
-        className={`z-999 fixed top-0 left-0 h-screen w-[350px] bg-black text-white border-r border-neutral-800 transition-transform duration-300 ${
-          bars === "open" ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`z-999 fixed top-0 left-0 h-screen w-[350px] bg-black text-white border-r border-neutral-800 transition-transform duration-300 ${bars === "open" ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="p-5">
           <div className="flex items-center justify-between">
@@ -322,9 +323,8 @@ const Sidebar = () => {
 
       {/* Notifications Sidebar */}
       <div
-        className={`z-999 fixed top-0 left-0 h-screen w-[350px] bg-black text-white border-r border-neutral-800 transition-transform duration-300 ${
-          noti === "open" ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`z-999 fixed top-0 left-0 h-screen w-[350px] bg-black text-white border-r border-neutral-800 transition-transform duration-300 ${noti === "open" ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="p-5">
           <div className="flex items-center justify-between">
