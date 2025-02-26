@@ -18,6 +18,7 @@ import People from "./components/People";
 import Rels from "./components/Rels";
 import Interesting from "./components/Interesting";
 import Notification from "./components/Notification";
+import Archive from "./components/Archive"
 
 // axios defaults
 axios.defaults.baseURL = "http://localhost:5000";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/direct" element={<Direct />} />
           <Route path="/user/:id" element={<User />} />
           <Route path="/edit" element={<Edit />} />
+          <Route path="/archive" element={<Archive />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />

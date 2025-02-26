@@ -16,6 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
+
 // heroui
 import {
   Modal,
@@ -113,7 +114,7 @@ const Profil = () => {
   return (
     <>
       <div className="max-w-4xl mx-auto py-8 px-6">
-        <div className="flex items-center justify-between px-15 py-4 gap-5">
+        <div className="flex items-center py-4 gap-10">
           <div>
             <img
               src={UserImg}
@@ -129,9 +130,11 @@ const Profil = () => {
                   Edit profil
                 </button>
               </Link>
-              <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
-                View archive
-              </button>
+              <Link to="/archive">
+                <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
+                  View archive
+                </button>
+              </Link>
               <Tooltip content="Settings">
                 <button
                   onClick={handleSettings}
@@ -142,9 +145,9 @@ const Profil = () => {
               </Tooltip>
             </div>
             <div className="flex items-center gap-6">
-              <h2 className="mt-3 text-[#a29965] cursor-pointer">
+              <h2 className="mt-3 text-[#a29965] cursor-pointer flex items-center gap-1">
                 {" "}
-                <span className="text-white font-bold">0</span>publications
+                <span className="text-white font-bold">0</span>Posts
               </h2>
               <h2
                 onClick={handleFallowers}
@@ -153,7 +156,7 @@ const Profil = () => {
                 <span className="text-white font-bold">
                   {user ? user.followers.length : 0}
                 </span>{" "}
-                subscribers
+                Followers
               </h2>
               <h2
                 onClick={handleFallowwing}
@@ -162,7 +165,7 @@ const Profil = () => {
                 <span className="text-white font-bold">
                   {user ? user.following.length : 0}
                 </span>{" "}
-                subscriptions
+                Following
               </h2>
             </div>
           </div>
@@ -179,6 +182,7 @@ const Profil = () => {
             Add
           </h2>
         </div>
+
         {isModalOpen && (
           <div
             id="modal_oyna_form"
@@ -217,6 +221,7 @@ const Profil = () => {
             </div>
           </div>
         )}
+
         <div className="w-full h-0.5 bg-neutral-800 mt-10"></div>
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
@@ -252,6 +257,7 @@ const Profil = () => {
             </h3>
           </div>
         </div>
+
         {selectedCategory === 1 && (
           <div>
             <h1>First steps</h1>
@@ -282,45 +288,6 @@ const Profil = () => {
                       </button>
                     </div>
                   </SwiperSlide>
-                  {/* <SwiperSlide>
-                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
-                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
-                        <FaPhone className="h-8 w-8 text-zinc-400" />
-                      </p>
-                      <h2 className="text-lg font-semibold text-center mb-4">
-                        Add phone number
-                      </h2>
-                      <p className="text-sm mb-2 text-zinc-400">
-                        Add your phone number so you can reset your password,
-                        find friends, and more.
-                      </p>
-                      <button
-                        onPress={onOpen}
-                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
-                      >
-                        Add phone number
-                      </button>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
-                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
-                        <CgProfile className="h-8 w-8 text-zinc-400" />
-                      </p>
-                      <h2 className="text-lg font-semibold text-center mb-4">
-                        Add a profile photo
-                      </h2>
-                      <p className="text-sm mb-2 text-zinc-400">
-                        Add a profile photo so your friends can recognize you.
-                      </p>
-                      <button
-                        onPress={onOpen}
-                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
-                      >
-                        Add profil photo
-                      </button>
-                    </div>
-                  </SwiperSlide> */}
                 </Swiper>
               </div>
               <div className="flex gap-2"></div>
@@ -360,7 +327,9 @@ const Profil = () => {
             </p>
           </div>
         )}
+
       </div>
+
       <div className="login_bottom_link_bottom">
         <div className="link">
           <a href="">Meta</a>
@@ -388,12 +357,9 @@ const Profil = () => {
         onOpenChange={onOpenChange}
         backdropClassName="bg-black/50"
       >
-        <ModalContent>
+        <ModalContent className="py-5">
           {(onClose) => (
             <div>
-              <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
-                {settings ? "settings" : "non"}
-              </ModalHeader>
               <ModalBody>
                 {settings && (
                   <div>
@@ -411,29 +377,43 @@ const Profil = () => {
                 )}
 
                 {fallowers && (
-                  <div>
+                  <div className="flex gap-3 flex-col">
+                    <p className="font-bold text-2xl text-center">Fallowers</p>
+                    <input className="bg-[#474747] px-2 py-1 outline-none rounded" placeholder="Search" type="text" />
                     {user.followers.map((fallower) => {
-                      return <div key={fallower._id}> {fallower.username}</div>;
+                      return <div className="flex items-center justify-between" key={fallower._id}>
+                        <div className="flex gap-3">
+                          <img className="w-8 rounded-full" src={UserImg} alt="userimg" />
+                          {fallower.username}
+                        </div>
+                        <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">remove</button>
+                      </div>
                     })}
                   </div>
                 )}
 
                 {fallowing && (
-                  <div>
-                    {user.following.map((fallowingUser) => {
-                      return (
-                        <div key={fallowingUser._id}>
-                          {fallowingUser.username}
+                  <div className="flex gap-3 flex-col">
+                    <p className="font-bold text-2xl text-center">Fallowing</p>
+                    <input className="bg-[#474747] px-2 py-1 outline-none rounded" placeholder="Search" type="text" />
+                    {user.following.map((fallower) => {
+                      return <div className="flex items-center justify-between" key={fallower._id}>
+                        <div className="flex gap-3">
+                          <img className="w-8 rounded-full" src={UserImg} alt="userimg" />
+                          {fallower.username}
                         </div>
-                      );
+                        <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">remove</button>
+                      </div>
                     })}
                   </div>
                 )}
+
               </ModalBody>
             </div>
           )}
         </ModalContent>
       </Modal>
+
     </>
   );
 };
