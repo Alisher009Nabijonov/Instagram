@@ -108,6 +108,8 @@ const Home = () => {
     setIsModalOpen1(false);
   };
 
+  
+
   const handleFallowers = () => {
     setSettings(false);
     setFallowers(true);
@@ -232,12 +234,12 @@ const Home = () => {
             ))}
           </div>
           <div className="max-w-4xl mx-auto p-4">
-            <div className="relative">
+            <div className="">
               {video.map((item) => (
-                <div key={item.id} className="space-y-4 ">
+                <div key={item.id} className="space-y-4">
                   <video
                     controls
-                    className="w-full shadow-lg border-2 border-neutral-500 rounded-sm"
+                    className="w-full shadow-lg border-2 border-neutral-500 rounded-sm z-10 "
                     src={item.videomp}
                   ></video>
                   <div className="py-4 px-5">

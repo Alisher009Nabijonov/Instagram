@@ -1,41 +1,54 @@
-import React from "react";
+import React, {useState, useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import { NavLink, Outlet } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa6";
+import { UserContext } from "../userContext";
 
 import { FaAngleLeft } from "react-icons/fa6";
 // assets
-import UserImg from "../assets/user.jpg";
+import UserImg from "../assets/1.png";
 const Notification = () => {
-  const people = [
-    {
-      id: 1,
-      img: UserImg,
-      name: "Nabijonov_00928",
-      userName: "Nabijonov_5355",
-      btn: "Subscribe",
-    },
-    {
-      id: 2,
-      img: UserImg,
-      name: "Nabijonov_00928",
-      userName: "Nabijonov_5355",
-      btn: "Subscribe",
-    },
-    {
-      id: 3,
-      img: UserImg,
-      name: "Bobur_009",
-      userName: "Bobur_009",
-      btn: "Subscribe",
-    },
-    {
-      id: 3,
-      img: UserImg,
-      name: "Muhammadali_007",
-      userName: "Muhammadali_007",
-      btn: "Subscribe",
-    },
-  ];
+  const navigate = useNavigate();
+  let { user } = useContext(UserContext);
+  const { people } = useContext(UserContext);
+
+  const handleFallow = (item) => {
+    try {
+      const currentUserId = user._id;
+      axios.post(`/api/${item._id}/fallow`, { currentUserId });
+      toast.success("send fallow");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  const [fallowers, setFallowers] = useState(false);
+
+  const handleFallowers = () => {
+    setSettings(false);
+    setFallowers(true);
+    setFallowing(false);
+    onOpen(true);
+  };
+
+  const handleSettings = () => {
+    setSettings(true);
+    setFallowers(false);
+    setFallowing(false);
+    onOpen(true);
+  };
+
+  const handleFallowwing = () => {
+    setSettings(false);
+    setFallowers(false);
+    setFallowing(true);
+    onOpen(true);
+  };
+
+  const handleProfile = (item) => {
+    navigate(`/user/${item._id}`);
+  };
+
+
   return (
     <>
       <div>
@@ -48,29 +61,26 @@ const Notification = () => {
 
           <h1 className="text-center text-xl mx-auto">Notifications</h1>
         </div>
-        {people.map((person) => (
-          <div
-            key={person.id}
-            className="flex items-center justify-between gap-4 p-3 px-10 py-5 hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
-          >
-            <div className="flex items-center gap-3 ">
-              <img
-                src={person.img}
-                alt={person.name}
-                className="w-10 h-10 rounded-full"
-              />
-              <div>
-                <h3 className="font-semibold text-gray-200">{person.name}</h3>
-                <p className="text-sm text-gray-400">{person.userName}</p>
+        <div>
+          {user.followers.map((fallower) => {
+            return (
+              <div
+                key={fallower._id}
+                onClick={() => handleProfile(fallower)}
+                className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800"
+              >
+                <div>
+                  <img src={UserImg} alt="" className="w-17" />
+                </div>
+                <div>
+                  <h1>{fallower.username}</h1>
+                  <h1 className="text-neutral-400">{fallower.name}</h1>
+                </div>
               </div>
-            </div>
-            <div>
-              <p>
-                <FaAngleRight />
-              </p>
-            </div>
-          </div>
-        ))}
+            );
+          })}
+        </div>
+
         <hr />
       </div>
       <Outlet />

@@ -15,6 +15,12 @@ import { useContext } from "react";
 import { UserContext } from "../userContext";
 import toast from "react-hot-toast";
 import UserImg from "../assets/1.png";
+import { HiMiniBars3 } from "react-icons/hi2";
+import { IoMdSettings } from "react-icons/io";
+import { IoBookmarkSharp } from "react-icons/io5";
+import { GoReport } from "react-icons/go";
+import { HiX } from "react-icons/hi";
+
 // heroui
 import {
   Modal,
@@ -31,6 +37,27 @@ import { Badge, Avatar } from "@heroui/react";
 import ModalImg from "../assets/creat_video.jpg";
 import LogoImg from "../assets/logo_img.jpg";
 const Sidebar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
+
+  const openModal1 = () => {
+    setIsModalOpen1(true);
+    setIsModalOpen(false);
+  };
+
+  const closeModal1 = () => {
+    setIsModalOpen1(false);
+  };
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [bars, setBars] = useState("close");
   const toggleBars = () => {
@@ -78,6 +105,7 @@ const Sidebar = () => {
   const handleProfile = (item) => {
     navigate(`/user/${item._id}`);
     setBars("close");
+    setNoti("close");
   };
 
   // search
@@ -86,95 +114,256 @@ const Sidebar = () => {
   const filteredPeople = people.filter((person) =>
     person.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  const handleLogout = async () => {
+    try {
+      await axios.post("/api/auth/logout");
+      alert("Logout successful");
+      navigate("/login");
+      window.location.reload();
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
 
+  const [message, setMessage] = useState("");
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    const telegramBotToken = "7686093249:AAHrIA99271I4_uFTUk-yuehmREMjWcUqsQ";
+    const chatId = "5900769240";
+
+    if (!message.trim()) {
+      toast.error("Iltimos, xabarni kiriting.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.telegram.org/bot${telegramBotToken}/sendMessage`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        toast.success("Xabar yuborildi!");
+        setMessage("");
+      } else {
+        toast.error("Xabarni yuborishda xatolik yuz berdi.");
+      }
+    } catch (error) {
+      alert("Xato yuz berdi: " + error.message);
+    }
+  };
+
+  const [fallowers, setFallowers] = useState(false);
+
+  const handleFallowers = () => {
+    setSettings(false);
+    setFallowers(true);
+    setFallowing(false);
+    onOpen(true);
+  };
+
+  const handleSettings = () => {
+    setSettings(true);
+    setFallowers(false);
+    setFallowing(false);
+    onOpen(true);
+  };
+
+  const handleFallowwing = () => {
+    setSettings(false);
+    setFallowers(false);
+    setFallowing(true);
+    onOpen(true);
+  };
+
+
+  
   return (
     <>
       <div
         id="max_width_tet_none"
-        className="sticky left-0 top-0 h-screen w-55  bg-black text-white border-r border-neutral-800 px-3 py-8"
+        className="sticky left-0 top-0 h-screen w-55  bg-black text-white border-r border-neutral-800 px-3 py-8 flex flex-col justify-between"
       >
-        <NavLink to="/" className="flex items-center gap-2 px-4 mb-8">
-          <FaInstagram id="responsive_icon_insta" className="w-7 h-7" />
-          <span className="text-xl font-semibold">
-            <img src={LogoImg} alt="" />
-          </span>
-        </NavLink>
+        <div>
+          <NavLink to="/" className="flex items-center gap-2 px-4 mb-8">
+            <FaInstagram id="responsive_icon_insta" className="w-7 h-7" />
+            <span className="text-xl font-semibold">
+              <img src={LogoImg} alt="" />
+            </span>
+          </NavLink>
 
-        <nav
-          id="nav_responsive"
-          className="space-y-1 flex flex-col justify-between "
-        >
-          <div>
-            <NavLink
-              to="/"
-              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
-            >
-              <GoHome className="w-6 h-6" />
-              <span className="text-[15px]">Home</span>
-            </NavLink>
-
-            <div
-              onClick={toggleBars}
-              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
-            >
-              <CiSearch className="w-6 h-6" />
-              <span className="text-[15px]">Search Query</span>
-            </div>
-
-            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-              <NavLink to="/interesting" className="flex items-center gap-4">
-                <TbBrandSafari className="w-6 h-6" />
-                <span className="text-[15px]">Interesting</span>
-              </NavLink>
-            </div>
-
-            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-              <NavLink to="/reels" className="flex items-center gap-4">
-                <BiMoviePlay className="w-6 h-6" />
-                <span className="text-[15px]">Reels</span>
-              </NavLink>
-            </div>
-
-            <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+          <nav
+            id="nav_responsive"
+            className="space-y-1 flex flex-col justify-between "
+          >
+            <div>
               <NavLink
-                to="/direct"
-                className="flex items-center gap-4 rounded-lg hover:bg-neutral-800 transition-colors"
+                to="/"
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
               >
-                {/* <Badge color="danger" content="0"> */}
-                <FaFacebookMessenger className="w-6 h-6" />
-                {/* </Badge>  */}
-                <span className="text-[15px]">Messages</span>
+                <GoHome className="w-6 h-6" />
+                <span className="text-[15px]">Home</span>
+              </NavLink>
+
+              <div
+                onClick={toggleBars}
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+              >
+                <CiSearch className="w-6 h-6" />
+                <span className="text-[15px]">Search Query</span>
+              </div>
+
+              <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+                <NavLink to="/interesting" className="flex items-center gap-4">
+                  <TbBrandSafari className="w-6 h-6" />
+                  <span className="text-[15px]">Interesting</span>
+                </NavLink>
+              </div>
+
+              <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+                <NavLink to="/reels" className="flex items-center gap-4">
+                  <BiMoviePlay className="w-6 h-6" />
+                  <span className="text-[15px]">Reels</span>
+                </NavLink>
+              </div>
+
+              <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+                <NavLink
+                  to="/direct"
+                  className="flex items-center gap-4 rounded-lg hover:bg-neutral-800 transition-colors"
+                >
+                  {/* <Badge color="danger" content="0"> */}
+                  <FaFacebookMessenger className="w-6 h-6" />
+                  {/* </Badge>  */}
+                  <span className="text-[15px]">Messages</span>
+                </NavLink>
+              </div>
+
+              <div
+                onClick={toggleNoti}
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+              >
+                <FaRegHeart className="w-6 h-6" />
+                <span className="text-[15px]">Notifications</span>
+              </div>
+
+              <div className="flex items-center gap-4 px-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
+                <button
+                  onPress={onOpen}
+                  className="py-2  m-0 flex items-center gap-4"
+                >
+                  <MdOutlineCreateNewFolder className="w-6 h-6 " />
+                  <span className="text-[15px]">Create</span>
+                </button>
+              </div>
+
+              <NavLink
+                to="/profil"
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
+              >
+                <CgProfile className="w-6 h-6" />
+                <span className="text-[15px]">Profile</span>
               </NavLink>
             </div>
-
+          </nav>
+        </div>
+        <div
+          onClick={openModal}
+          className="flex items-end  gap-4 p-3 rounded-lg cursor-pointer hover:bg-neutral-800 transition-colors"
+        >
+          <h1 className="flex items-center gap-4 text-[18px]">
+            <HiMiniBars3 />
+            More
+          </h1>
+        </div>
+        {isModalOpen && (
+          <div
+            // id="modal_oyna_form"
+            className="fixed inset-0 flex items-end justify-start bg-opacity-100 px-5 pb-20 z-50"
+            onClick={closeModal}
+          >
             <div
-              onClick={toggleNoti}
-              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
+              className="bg-neutral-800 p-2 rounded-lg shadow-lg max-w-md w-60 relative"
+              onClick={(e) => e.stopPropagation()}
             >
-              <FaRegHeart className="w-6 h-6" />
-              <span className="text-[15px]">Notifications</span>
-            </div>
-
-            <div className="flex items-center gap-4 px-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-              <button
-                onPress={onOpen}
-                className="py-2  m-0 flex items-center gap-4"
+              <NavLink to="/edit">
+                <h1 className="flex items-center gap-2 text-xl p-3 rounded-lg hover:bg-neutral-700 transition-colors">
+                  <IoMdSettings />
+                  Settings
+                </h1>
+              </NavLink>
+              <NavLink to="/profil">
+                <h1 className="flex items-center gap-2 text-xl p-3 rounded-lg hover:bg-neutral-700 transition-colors">
+                  <IoBookmarkSharp />
+                  Saved
+                </h1>
+              </NavLink>
+              <h1
+                onClick={openModal1}
+                className="flex items-center gap-2 text-xl p-3 rounded-lg cursor-pointer hover:bg-neutral-700 transition-colors"
               >
-                <MdOutlineCreateNewFolder className="w-6 h-6 " />
-                <span className="text-[15px]">Create</span>
-              </button>
+                <GoReport />
+                Report a problem
+              </h1>
+              <h1
+                onClick={handleLogout}
+                className="flex items-center gap-2 text-xl p-3 rounded-lg cursor-pointer hover:bg-neutral-700 transition-colors"
+              >
+                Log out
+              </h1>
             </div>
-
-            <NavLink
-              to="/profil"
-              className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
-            >
-              <CgProfile className="w-6 h-6" />
-              <span className="text-[15px]">Profile</span>
-            </NavLink>
           </div>
-          <div>{/* <h1>ddfghj</h1> */}</div>
-        </nav>
+        )}
+
+        {isModalOpen1 && (
+          <div
+            id="modal_oyna_form"
+            className="fixed inset-0 flex items-center justify-center bg-opacity-100  z-50 "
+            onClick={closeModal1}
+          >
+            <div
+              className="bg-neutral-800 p-6 rounded-lg shadow-lg max-w-md w-full relative z-99"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-center gap-10">
+                <h2 className="text-xl font-bold mb-4 text-center">
+                  Creating a current
+                </h2>
+                <button
+                  className=" text-white mb-4 rounded-md text-xl cursor-pointer"
+                  onClick={closeModal1}
+                >
+                  <HiX />
+                </button>
+              </div>
+              <div className="w-full h-0.5 bg-neutral-900 mb-4"></div>
+              <form className="relative">
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full border-2 rounded-sm px-2 py-2 h-30"
+                  placeholder="Please describe the problem in as mush detail as possible..."
+                ></textarea>
+                <button
+                  onClick={sendMessage}
+                  className="px-4 py-1 bg-blue-600 rounded-sm w-full mt-3 hover:bg-blue-700 cursor-pointer"
+                >
+                  Submit report
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* responsive bar */}
@@ -337,6 +526,21 @@ const Sidebar = () => {
             </h2>
           </div>
           <hr className="border-neutral-800" />
+          <div>
+            {user.followers.map((fallower) => {
+              return (
+                <div key={fallower._id} onClick={() => handleProfile(fallower)} className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800">
+                  <div>
+                    <img src={UserImg} alt="" className="w-17" />
+                  </div>
+                  <div>
+                    <h1>{fallower.username}</h1>
+                    <h1 className="text-neutral-400">{fallower.name}</h1>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </>

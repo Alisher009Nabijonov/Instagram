@@ -103,12 +103,11 @@ const Profil = () => {
       await axios.post("/api/auth/logout");
       alert("Logout successful");
       navigate("/login");
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       alert("Error: " + error.message);
     }
   };
-
 
   return (
     <>
@@ -129,9 +128,11 @@ const Profil = () => {
                   Edit profil
                 </button>
               </Link>
-              <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
-                View archive
-              </button>
+              <Link to="/archive">
+                <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
+                  View archive
+                </button>
+              </Link>
               <Tooltip content="Settings">
                 <button
                   onClick={handleSettings}
@@ -221,30 +222,33 @@ const Profil = () => {
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
+                selectedCategory === 1
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(1)}
             >
               <MdOutlineGridOn className="h-3 w-3" />
               Publications
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 2
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                selectedCategory === 2
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(2)}
             >
               <IoBookmarkSharp className="h-3 w-3" />
               Saved
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                selectedCategory === 3
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(3)}
             >
               <RiShieldUserFill className="h-3 w-3" />
@@ -257,12 +261,7 @@ const Profil = () => {
             <h1>First steps</h1>
             <div className="flex w-full gap-2">
               <div className="flex gap-2 w-100 mx-auto text-center">
-                <Swiper
-                  navigation={true}
-                  modules={[Navigation]}
-                  className="mySwiper "
-                >
-                  <SwiperSlide>
+             
                     <div className="border-1 border-neutral-700 py-3 px-5 w-75 ">
                       <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
                         <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
@@ -281,47 +280,6 @@ const Profil = () => {
                         Share your first photo
                       </button>
                     </div>
-                  </SwiperSlide>
-                  {/* <SwiperSlide>
-                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
-                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
-                        <FaPhone className="h-8 w-8 text-zinc-400" />
-                      </p>
-                      <h2 className="text-lg font-semibold text-center mb-4">
-                        Add phone number
-                      </h2>
-                      <p className="text-sm mb-2 text-zinc-400">
-                        Add your phone number so you can reset your password,
-                        find friends, and more.
-                      </p>
-                      <button
-                        onPress={onOpen}
-                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
-                      >
-                        Add phone number
-                      </button>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="border-1 border-neutral-700 py-3 px-5 w-75">
-                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
-                        <CgProfile className="h-8 w-8 text-zinc-400" />
-                      </p>
-                      <h2 className="text-lg font-semibold text-center mb-4">
-                        Add a profile photo
-                      </h2>
-                      <p className="text-sm mb-2 text-zinc-400">
-                        Add a profile photo so your friends can recognize you.
-                      </p>
-                      <button
-                        onPress={onOpen}
-                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
-                      >
-                        Add profil photo
-                      </button>
-                    </div>
-                  </SwiperSlide> */}
-                </Swiper>
               </div>
               <div className="flex gap-2"></div>
             </div>
@@ -397,7 +355,10 @@ const Profil = () => {
               <ModalBody>
                 {settings && (
                   <div>
-                    <h1 onClick={handleLogout} className="text-xl text-center my-1 cursor-pointer">
+                    <h1
+                      onClick={handleLogout}
+                      className="text-xl text-center my-1 cursor-pointer"
+                    >
                       Log out
                     </h1>
                     <div className="w-full h-0.5 my-4 bg-neutral-600"></div>
@@ -413,7 +374,7 @@ const Profil = () => {
                 {fallowers && (
                   <div>
                     {user.followers.map((fallower) => {
-                      return <div key={fallower._id}> {fallower.username}</div>;
+                      return <div key={fallower._id}> {fallower.username}dfs</div>;
                     })}
                   </div>
                 )}

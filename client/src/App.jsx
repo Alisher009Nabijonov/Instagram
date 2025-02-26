@@ -31,6 +31,7 @@ import { Toaster } from "react-hot-toast";
 import Direct from "./components/Direct";
 import User from "./components/User";
 import Edit from "./components/Edit";
+import Archive from "./components/Archive";
 function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -45,6 +46,7 @@ function App() {
           <Route path="/direct" element={<Direct />} />
           <Route path="/user/:id" element={<User />} />
           <Route path="/edit" element={<Edit />} />
+          <Route path="/archive" element={<Archive />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
