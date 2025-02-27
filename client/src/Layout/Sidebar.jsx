@@ -527,7 +527,7 @@ const Sidebar = () => {
           </div>
           <hr className="border-neutral-800" />
           <div>
-            {user.followers.map((fallower) => {
+            {/* {user.followers.map((fallower) => {
               return (
                 <div key={fallower._id} onClick={() => handleProfile(fallower)} className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800">
                   <div>
@@ -539,7 +539,7 @@ const Sidebar = () => {
                   </div>
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>
