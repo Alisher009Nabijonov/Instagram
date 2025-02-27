@@ -32,7 +32,7 @@ import { Toaster } from "react-hot-toast";
 import Direct from "./components/Direct";
 import User from "./components/User";
 import Edit from "./components/Edit";
-import Archive from "./components/Archive";
+// import Archive from "./components/Archive";
 function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
