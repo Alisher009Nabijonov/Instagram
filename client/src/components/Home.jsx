@@ -239,10 +239,10 @@ const Home = () => {
                 <div key={item.id} className="space-y-4">
                   <video
                     controls
-                    className="w-full shadow-lg border-2 border-neutral-500 rounded-sm z-10 "
+                    className="w-80 mt-2 mx-auto shadow-lg border-2 border-neutral-500 rounded-sm z-10 "
                     src={item.videomp}
                   ></video>
-                  <div className="py-4 px-5">
+                  <div className="w-80 mx-auto py-4 px-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 text-2xl">
                         <p
@@ -420,7 +420,7 @@ const Home = () => {
                   className="flex items-center gap-3 px-4"
                 >
                   <div>
-                    <img src={UserImg1} alt="" className="w-18" />
+                    <img src={UserImg1} alt="" className="w-18 rounded-full" />
                   </div>
                   <div>
                     <h1>{item.username}</h1>

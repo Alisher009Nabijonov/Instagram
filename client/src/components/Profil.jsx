@@ -110,6 +110,9 @@ const Profil = () => {
     }
   };
 
+  const [searchFollowers, setSearchFollowers] = useState("");
+  const [searchFollowing, setSearchFollowing] = useState("");
+
   return (
     <>
       <div className="max-w-4xl mx-auto py-8 px-6">
@@ -122,7 +125,6 @@ const Profil = () => {
             />
           </div>
           <div>
-
             <div className="flex items-center gap-4">
               <h1 className="text-xl">{user ? user.username : "user name"}</h1>
               <Link to="/edit">
@@ -170,8 +172,9 @@ const Profil = () => {
               </h2>
             </div>
 
-            <p className="pt-5 text-sm font-extrabold">{user ? (user.name) : ("Name")}</p>
-
+            <p className="pt-5 text-sm font-extrabold">
+              {user ? user.name : "Name"}
+            </p>
           </div>
         </div>
 
@@ -270,25 +273,24 @@ const Profil = () => {
             <h1>First steps</h1>
             <div className="flex w-full gap-2">
               <div className="flex gap-2 w-100 mx-auto text-center">
-             
-                    <div className="border-1 border-neutral-700 py-3 px-5 w-75 ">
-                      <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
-                        <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
-                      </p>
+                <div className="border-1 border-neutral-700 py-3 px-5 w-75 ">
+                  <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
+                    <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
+                  </p>
 
-                      <h2 className="text-lg font-semibold text-center mb-4">
-                        Share photo
-                      </h2>
-                      <p className="text-sm mb-2 text-zinc-400">
-                        Photos you share will appear on your profile
-                      </p>
-                      <button
-                        onPress={onOpen}
-                        className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
-                      >
-                        Share your first photo
-                      </button>
-                    </div>
+                  <h2 className="text-lg font-semibold text-center mb-4">
+                    Share photo
+                  </h2>
+                  <p className="text-sm mb-2 text-zinc-400">
+                    Photos you share will appear on your profile
+                  </p>
+                  <button
+                    onPress={onOpen}
+                    className="cursor-pointer mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                  >
+                    Share your first photo
+                  </button>
+                </div>
               </div>
               <div className="flex gap-2"></div>
             </div>
@@ -327,7 +329,6 @@ const Profil = () => {
             </p>
           </div>
         )}
-
       </div>
 
       <div className="login_bottom_link_bottom">
@@ -381,42 +382,86 @@ const Profil = () => {
 
                 {fallowers && (
                   <div className="flex gap-3 flex-col">
-                    <p className="font-bold text-2xl text-center">Fallowers</p>
-                    <input className="bg-[#474747] px-2 py-1 outline-none rounded" placeholder="Search" type="text" />
-                    {user.followers.map((fallower) => {
-                      return <div className="flex items-center justify-between" key={fallower._id}>
-                        <div className="flex gap-3">
-                          <img className="w-8 rounded-full" src={UserImg} alt="userimg" />
-                          {fallower.username}
-                        </div>
-                        <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">remove</button>
-                      </div>
-                    })}
+                    <p className="font-bold text-2xl text-center">Followers</p>
+                    <input
+                      className="bg-[#474747] px-2 py-1 outline-none rounded"
+                      placeholder="Search"
+                      type="text"
+                      value={searchFollowers}
+                      onChange={(e) => setSearchFollowers(e.target.value)}
+                    />
+                    {user.followers
+                      .filter((fallower) =>
+                        fallower.username
+                          .toLowerCase()
+                          .includes(searchFollowers.toLowerCase())
+                      )
+                      .map((fallower) => {
+                        return (
+                          <div
+                            className="flex items-center justify-between"
+                            key={fallower._id}
+                          >
+                            <div className="flex gap-3">
+                              <img
+                                className="w-8 rounded-full"
+                                src={UserImg}
+                                alt="userimg"
+                              />
+                              {fallower.username}
+                            </div>
+                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                              remove
+                            </button>
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
 
                 {fallowing && (
                   <div className="flex gap-3 flex-col">
-                    <p className="font-bold text-2xl text-center">Fallowing</p>
-                    <input className="bg-[#474747] px-2 py-1 outline-none rounded" placeholder="Search" type="text" />
-                    {user.following.map((fallower) => {
-                      return <div className="flex items-center justify-between" key={fallower._id}>
-                        <div className="flex gap-3">
-                          <img className="w-8 rounded-full" src={UserImg} alt="userimg" />
-                          {fallower.username}
-                        </div>
-                        <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">remove</button>
-                      </div>
-                    })}
+                    <p className="font-bold text-2xl text-center">Following</p>
+                    <input
+                      className="bg-[#474747] px-2 py-1 outline-none rounded"
+                      placeholder="Search"
+                      type="text"
+                      value={searchFollowing}
+                      onChange={(e) => setSearchFollowing(e.target.value)}
+                    />
+                    {user.following
+                      .filter((fallower) =>
+                        fallower.username
+                          .toLowerCase()
+                          .includes(searchFollowing.toLowerCase())
+                      )
+                      .map((fallower) => {
+                        return (
+                          <div
+                            className="flex items-center justify-between"
+                            key={fallower._id}
+                          >
+                            <div className="flex gap-3">
+                              <img
+                                className="w-8 rounded-full"
+                                src={UserImg}
+                                alt="userimg"
+                              />
+                              {fallower.username}
+                            </div>
+                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                              remove
+                            </button>
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
-
               </ModalBody>
             </div>
           )}
         </ModalContent>
       </Modal>
-
     </>
   );
 };
