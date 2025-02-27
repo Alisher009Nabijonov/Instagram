@@ -44,20 +44,20 @@ const Direct = () => {
             key={item._id}
             className="cursor-pointer flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors"
           >
-              <div
-                // onClick={() => handleProfile(item)}
-                className="flex items-center gap-4"
-              >
-                <img
-                  src={UserImg1 || "/placeholder.svg"}
-                  alt=""
-                  className="w-12 h-12 rounded-full"
-                />
-                <div>
-                  <h3 className="font-semibold">{item.username}</h3>
-                  <p className="text-neutral-400 text-sm">{item.name}</p>
-                </div>
+            <div
+              // onClick={() => handleProfile(item)}
+              className="flex items-center gap-4"
+            >
+              <img
+                src={UserImg1 || "/placeholder.svg"}
+                alt=""
+                className="w-12 h-12 rounded-full"
+              />
+              <div>
+                <h3 className="font-semibold">{item.username}</h3>
+                <p className="text-neutral-400 text-sm">{item.name}</p>
               </div>
+            </div>
           </div>
         ))}
       </div>
@@ -121,7 +121,7 @@ const Direct = () => {
                         onClick={() => setSelectedPerson(person)}
                       >
                         <img
-                          src={UserImg1} 
+                          src={UserImg1}
                           alt={person.name}
                           className="w-10 h-10 rounded-full"
                         />
@@ -146,11 +146,10 @@ const Direct = () => {
             <div className="w-full mt-4">
               <button
                 disabled={!selectedPerson}
-                className={`w-full py-2 rounded-md ${
-                  selectedPerson
-                    ? "bg-blue-500 hover:bg-blue-600"
-                    : "bg-blue-500 opacity-50 cursor-not-allowed"
-                }`}
+                className={`w-full py-2 rounded-md ${selectedPerson
+                  ? "bg-blue-500 hover:bg-blue-600"
+                  : "bg-blue-500 opacity-50 cursor-not-allowed"
+                  }`}
               >
                 Chat
               </button>

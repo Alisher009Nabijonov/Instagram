@@ -12,7 +12,7 @@ const UserProvider = ({ children }) => {
       .get("/api/auth/profile")
       .then(({ data }) => {
         setUser(data);
-        toast.success("user topildi");
+        toast.success(`Signed as ${user.username}`);
       })
       .catch((error) => {
         console.log("error while get profile", error);
