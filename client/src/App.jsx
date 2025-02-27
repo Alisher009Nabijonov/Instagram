@@ -18,6 +18,7 @@ import People from "./components/People";
 import Rels from "./components/Rels";
 import Interesting from "./components/Interesting";
 import Notification from "./components/Notification";
+import Archive from "./components/Archive"
 
 // axios defaults
 axios.defaults.baseURL = "http://localhost:5000";

@@ -16,6 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
+
 // heroui
 import {
   Modal,
@@ -112,7 +113,7 @@ const Profil = () => {
   return (
     <>
       <div className="max-w-4xl mx-auto py-8 px-6">
-        <div className="flex items-center justify-between px-15 py-4 gap-5">
+        <div className="flex items-center py-4 gap-10">
           <div>
             <img
               src={UserImg}
@@ -121,6 +122,7 @@ const Profil = () => {
             />
           </div>
           <div>
+
             <div className="flex items-center gap-4">
               <h1 className="text-xl">{user ? user.username : "user name"}</h1>
               <Link to="/edit">
@@ -142,30 +144,34 @@ const Profil = () => {
                 </button>
               </Tooltip>
             </div>
+
             <div className="flex items-center gap-6">
-              <h2 className="mt-3 text-[#a29965] cursor-pointer">
+              <h2 className="mt-3 text-[#afafaf] cursor-pointer flex items-center gap-2">
                 {" "}
-                <span className="text-white font-bold">0</span>publications
+                <span className="text-white font-bold">0</span>Posts
               </h2>
               <h2
                 onClick={handleFallowers}
-                className=" mt-3 text-[#a29965] cursor-pointer"
+                className=" mt-3 text-[#afafaf] cursor-pointer flex gap-2"
               >
                 <span className="text-white font-bold">
                   {user ? user.followers.length : 0}
-                </span>{" "}
-                subscribers
+                </span>
+                Followers
               </h2>
               <h2
                 onClick={handleFallowwing}
-                className=" mt-3 text-[#a29965] cursor-pointer"
+                className=" mt-3 text-[#afafaf] cursor-pointer flex gap-2"
               >
                 <span className="text-white font-bold">
                   {user ? user.following.length : 0}
-                </span>{" "}
-                subscriptions
+                </span>
+                Following
               </h2>
             </div>
+
+            <p className="pt-5 text-sm font-extrabold">{user ? (user.name) : ("Name")}</p>
+
           </div>
         </div>
 
@@ -180,6 +186,7 @@ const Profil = () => {
             Add
           </h2>
         </div>
+
         {isModalOpen && (
           <div
             id="modal_oyna_form"
@@ -218,6 +225,7 @@ const Profil = () => {
             </div>
           </div>
         )}
+
         <div className="w-full h-0.5 bg-neutral-800 mt-10"></div>
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
@@ -256,6 +264,7 @@ const Profil = () => {
             </h3>
           </div>
         </div>
+
         {selectedCategory === 1 && (
           <div>
             <h1>First steps</h1>
@@ -318,7 +327,9 @@ const Profil = () => {
             </p>
           </div>
         )}
+
       </div>
+
       <div className="login_bottom_link_bottom">
         <div className="link">
           <a href="">Meta</a>
@@ -346,12 +357,9 @@ const Profil = () => {
         onOpenChange={onOpenChange}
         backdropClassName="bg-black/50"
       >
-        <ModalContent>
+        <ModalContent className="py-5">
           {(onClose) => (
             <div>
-              <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
-                {settings ? "settings" : "non"}
-              </ModalHeader>
               <ModalBody>
                 {settings && (
                   <div>
@@ -372,29 +380,43 @@ const Profil = () => {
                 )}
 
                 {fallowers && (
-                  <div>
+                  <div className="flex gap-3 flex-col">
+                    <p className="font-bold text-2xl text-center">Fallowers</p>
+                    <input className="bg-[#474747] px-2 py-1 outline-none rounded" placeholder="Search" type="text" />
                     {user.followers.map((fallower) => {
-                      return <div key={fallower._id}> {fallower.username}dfs</div>;
+                      return <div className="flex items-center justify-between" key={fallower._id}>
+                        <div className="flex gap-3">
+                          <img className="w-8 rounded-full" src={UserImg} alt="userimg" />
+                          {fallower.username}
+                        </div>
+                        <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">remove</button>
+                      </div>
                     })}
                   </div>
                 )}
 
                 {fallowing && (
-                  <div>
-                    {user.following.map((fallowingUser) => {
-                      return (
-                        <div key={fallowingUser._id}>
-                          {fallowingUser.username}
+                  <div className="flex gap-3 flex-col">
+                    <p className="font-bold text-2xl text-center">Fallowing</p>
+                    <input className="bg-[#474747] px-2 py-1 outline-none rounded" placeholder="Search" type="text" />
+                    {user.following.map((fallower) => {
+                      return <div className="flex items-center justify-between" key={fallower._id}>
+                        <div className="flex gap-3">
+                          <img className="w-8 rounded-full" src={UserImg} alt="userimg" />
+                          {fallower.username}
                         </div>
-                      );
+                        <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">remove</button>
+                      </div>
                     })}
                   </div>
                 )}
+
               </ModalBody>
             </div>
           )}
         </ModalContent>
       </Modal>
+
     </>
   );
 };
