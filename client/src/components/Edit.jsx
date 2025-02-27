@@ -16,7 +16,7 @@ export default function Edit() {
   const [loading, setLoading] = useState(false);
 
   const isFormChanged =
-   bio || gender !== "prefer-not" || name || username || avatar;
+    bio || gender !== "prefer-not" || name || username || avatar;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +31,8 @@ export default function Edit() {
         name,
         username,
       });
-      alert(response.data.message);     } catch (error) {
+      alert(response.data.message);
+    } catch (error) {
       setError(error.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
@@ -171,9 +172,8 @@ export default function Edit() {
         {error && <p className="text-red-500">{error}</p>}
 
         <button
-          className={`w-full px-4 py-2 rounded-lg ${
-            isFormChanged ? "bg-blue-500 hover:bg-blue-600" : "bg-zinc-700"
-          }`}
+          className={`w-full px-4 py-2 rounded-lg ${isFormChanged ? "bg-blue-500 hover:bg-blue-600" : "bg-zinc-700"
+            }`}
           onClick={handleSubmit}
           disabled={!isFormChanged || loading}
         >
