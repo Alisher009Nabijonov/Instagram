@@ -74,7 +74,7 @@ const Sidebar = () => {
   const toggleNotiClose = () => {
     setNoti("close");
   };
-
+  
   // uploding file
   const [uploadedImage, setUploadedImage] = useState(null);
   const handleFileUpload = (event) => {
@@ -529,7 +529,7 @@ const Sidebar = () => {
           <hr className="border-neutral-800" />
           <div>
             <div>
-              {user.following.map((fallowingUser) => {
+              {/* {user.following.map((fallowingUser) => {
                 return (
                   <div
                     onClick={() => handleProfile(fallowingUser)}
@@ -549,7 +549,7 @@ const Sidebar = () => {
                     </div>
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </div>
         </div>

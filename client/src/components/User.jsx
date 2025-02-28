@@ -20,6 +20,7 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
+import toast from "react-hot-toast";
 
 const User = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -36,11 +37,21 @@ const User = () => {
     setSelectedCategory(category);
   };
 
+  const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
+  const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
+
+  const handleSecondButtonClick = () => {
+    setIsSecondButtonVisible(false);
+    setIsFirstButtonVisible(true);
+  };
+
   const handleFallow = (item) => {
     try {
       const currentUserId = user._id;
       axios.post(`/api/${item._id}/fallow`, { currentUserId });
       toast.success("send fallow");
+      setIsSecondButtonVisible(true);
+      setIsFirstButtonVisible(false);
     } catch (error) {
       alert(error.message);
     }
@@ -72,7 +83,6 @@ const User = () => {
     onOpen(true);
   };
 
-
   const [searchFollowers, setSearchFollowers] = useState("");
   const [searchFollowing, setSearchFollowing] = useState("");
   return (
@@ -94,12 +104,22 @@ const User = () => {
                 <div>
                   <div className="flex items-center gap-6">
                     <h1 className="text-xl">{userData.username}</h1>
-                    <button
-                      onClick={() => handleFallow(item)}
-                      className="px-4 py-1 bg-blue-600 rounded-sm cursor-pointer hover:bg-blue-700"
-                    >
-                      Fallow
-                    </button>
+                    {isFirstButtonVisible && (
+                      <button
+                        onClick={() => handleFallow(userData)}
+                        className="cursor-pointer px-8 py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+                      >
+                        Follow
+                      </button>
+                    )}
+                    {isSecondButtonVisible && (
+                      <button
+                        onClick={handleSecondButtonClick}
+                        className="px-8 cursor-pointer py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+                      >
+                        Un Follow
+                      </button>
+                    )}
                     <button className="text-2xl">
                       <FiMoreHorizontal />
                     </button>
