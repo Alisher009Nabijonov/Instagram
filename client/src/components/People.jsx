@@ -39,7 +39,7 @@ const People = () => {
               className="flex items-center gap-4"
             >
               <img
-                src={UserImg1 || "/placeholder.svg"}
+                src={user ? `http://localhost:5000${item.avatar}` : UserImg1}
                 alt=""
                 className="w-12 h-12 rounded-full"
               />

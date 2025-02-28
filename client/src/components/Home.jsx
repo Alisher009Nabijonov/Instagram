@@ -108,7 +108,7 @@ const Home = () => {
     setIsModalOpen1(false);
   };
 
-  
+
 
   const handleFallowers = () => {
     setSettings(false);
@@ -224,7 +224,7 @@ const Home = () => {
               >
                 <div className="w-20">
                   <img
-                    src={UserImg1}
+                    src={`http://localhost:5000${item.avatar}`}
                     alt="User"
                     className="w-20 h-20 rounded-full"
                   />

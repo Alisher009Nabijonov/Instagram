@@ -82,7 +82,7 @@ const User = () => {
               <div className="flex items-center justify-center gap-20 px-8">
                 <div className=" ">
                   <img
-                    src={UserImg2}
+                    src={user ? `http://localhost:5000${user.avatar}` : UserImg2}
                     alt=""
                     className="w-35 rounded-full cursor-pointer"
                   />
@@ -130,22 +130,20 @@ const User = () => {
               <div className="flex items-center justify-center gap-3">
                 <div className="flex justify-center gap-16">
                   <h3
-                    className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
-                      selectedCategory === 1
-                        ? "border-white"
-                        : "border-transparent text-zinc-500"
-                    }`}
+                    className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
+                      ? "border-white"
+                      : "border-transparent text-zinc-500"
+                      }`}
                     onClick={() => handleCategoryClick(1)}
                   >
                     <MdOutlineGridOn className="h-3 w-3" />
                     Publications
                   </h3>
                   <h3
-                    className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                      selectedCategory === 3
-                        ? "border-white"
-                        : "border-transparent text-zinc-500"
-                    }`}
+                    className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
+                      ? "border-white"
+                      : "border-transparent text-zinc-500"
+                      }`}
                     onClick={() => handleCategoryClick(3)}
                   >
                     <RiShieldUserFill className="h-3 w-3" />
