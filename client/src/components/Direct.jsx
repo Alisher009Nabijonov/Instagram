@@ -27,12 +27,12 @@ const Direct = () => {
       <div className="w-80 px-2 py-4 border-r-2 h-screen">
         <div className="flex items-center justify-between px-4 py-2">
           <h1 className="text-xl">{user ? user.username : "user name"}</h1>
-          <p className="text-xl">
+          <p className="text-xl cursor-pointer" onClick={openModal}>
             <FaEdit />
           </p>
         </div>
         <div className="px-1 py-3">
-          <img src={UserImg1} alt="" className="w-25 mx-2 mt-4" />
+          <img src={UserImg1} alt="" className="w-25 mx-2 mt-4 rounded-full" />
           <p className="ml-4">Your nate</p>
         </div>
         <div className="flex items-center justify-between px-4 py-2">

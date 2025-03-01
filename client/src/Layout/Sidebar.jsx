@@ -74,7 +74,7 @@ const Sidebar = () => {
   const toggleNotiClose = () => {
     setNoti("close");
   };
-
+  
   // uploding file
   const [uploadedImage, setUploadedImage] = useState(null);
   const handleFileUpload = (event) => {
@@ -163,8 +163,9 @@ const Sidebar = () => {
     }
   };
 
+  const [settings, setSettings] = useState(false);
   const [fallowers, setFallowers] = useState(false);
-
+  const [fallowing, setFallowing] = useState(false);
   const handleFallowers = () => {
     setSettings(false);
     setFallowers(true);
@@ -186,8 +187,6 @@ const Sidebar = () => {
     onOpen(true);
   };
 
-
-  
   return (
     <>
       <div
@@ -212,7 +211,7 @@ const Sidebar = () => {
                 className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
               >
                 <GoHome className="w-6 h-6" />
-                <span className="text-[15px]">Home</span>
+                <span className="text-[17px]">Home</span>
               </NavLink>
 
               <div
@@ -220,20 +219,20 @@ const Sidebar = () => {
                 className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
               >
                 <CiSearch className="w-6 h-6" />
-                <span className="text-[15px]">Search Query</span>
+                <span className="text-[17px]">Search Query</span>
               </div>
 
               <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
                 <NavLink to="/interesting" className="flex items-center gap-4">
                   <TbBrandSafari className="w-6 h-6" />
-                  <span className="text-[15px]">Interesting</span>
+                  <span className="text-[17px]">Interesting</span>
                 </NavLink>
               </div>
 
               <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
                 <NavLink to="/reels" className="flex items-center gap-4">
                   <BiMoviePlay className="w-6 h-6" />
-                  <span className="text-[15px]">Reels</span>
+                  <span className="text-[17px]">Reels</span>
                 </NavLink>
               </div>
 
@@ -245,7 +244,7 @@ const Sidebar = () => {
                   {/* <Badge color="danger" content="0"> */}
                   <FaFacebookMessenger className="w-6 h-6" />
                   {/* </Badge>  */}
-                  <span className="text-[15px]">Messages</span>
+                  <span className="text-[17px]">Messages</span>
                 </NavLink>
               </div>
 
@@ -254,7 +253,7 @@ const Sidebar = () => {
                 className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer"
               >
                 <FaRegHeart className="w-6 h-6" />
-                <span className="text-[15px]">Notifications</span>
+                <span className="text-[17px]">Notifications</span>
               </div>
 
               <div className="flex items-center gap-4 px-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
@@ -263,7 +262,7 @@ const Sidebar = () => {
                   className="py-2  m-0 flex items-center gap-4"
                 >
                   <MdOutlineCreateNewFolder className="w-6 h-6 " />
-                  <span className="text-[15px]">Create</span>
+                  <span className="text-[17px]">Create</span>
                 </button>
               </div>
 
@@ -271,8 +270,9 @@ const Sidebar = () => {
                 to="/profil"
                 className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
               >
-                <CgProfile className="w-6 h-6" />
-                <span className="text-[15px]">Profile</span>
+                {/* <CgProfile className="w-6 h-6" /> */}
+                <img src={UserImg} alt="Profile" className="w-6 rounded-full"/>
+                <span className="text-[17px]">Profile</span>
               </NavLink>
             </div>
           </nav>
@@ -281,7 +281,7 @@ const Sidebar = () => {
           onClick={openModal}
           className="flex items-end  gap-4 p-3 rounded-lg cursor-pointer hover:bg-neutral-800 transition-colors"
         >
-          <h1 className="flex items-center gap-4 text-[18px]">
+          <h1 className="flex items-center gap-4 text-[19px]">
             <HiMiniBars3 />
             More
           </h1>
@@ -398,7 +398,8 @@ const Sidebar = () => {
         </p>
         <p>
           <NavLink to="/profil">
-            <CgProfile className="w-8 h-8" />
+            {/* <CgProfile className="w-8 h-8" /> */}
+            <img src={UserImg} alt="Profile" className="w-8 rounded-full"/>
           </NavLink>
         </p>
       </div>
@@ -527,19 +528,29 @@ const Sidebar = () => {
           </div>
           <hr className="border-neutral-800" />
           <div>
-            {/* {user.followers.map((fallower) => {
-              return (
-                <div key={fallower._id} onClick={() => handleProfile(fallower)} className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800">
-                  <div>
-                    <img src={UserImg} alt="" className="w-17" />
+            <div>
+              {/* {user.following.map((fallowingUser) => {
+                return (
+                  <div
+                    onClick={() => handleProfile(fallowingUser)}
+                    key={fallowingUser._id}
+                    className="flex items-center gap-4 px-2 py-2 my-2 cursor-pointer rounded-sm hover:bg-neutral-700"
+                  >
+                    <div>
+                      <img
+                        src={UserImg}
+                        alt="User none"
+                        className="w-18 rounded-full"
+                      />
+                    </div>
+                    <div>
+                      <h1>{fallowingUser.username}</h1>
+                      <h1>{fallowingUser.name}</h1>
+                    </div>
                   </div>
-                  <div>
-                    <h1>{fallower.username}</h1>
-                    <h1 className="text-neutral-400">{fallower.name}</h1>
-                  </div>
-                </div>
-              );
-            })} */}
+                );
+              })} */}
+            </div>
           </div>
         </div>
       </div>

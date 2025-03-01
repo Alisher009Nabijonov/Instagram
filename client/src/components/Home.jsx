@@ -73,12 +73,27 @@ const Home = () => {
     person.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const [visibleButtons, setVisibleButtons] = useState(
+    people.reduce((acc, item) => ({ ...acc, [item._id]: true }), {})
+  );
+
+    const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
+    const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
+  
+    const handleSecondButtonClick = () => {
+      setIsSecondButtonVisible(false);
+      setIsFirstButtonVisible(true);
+    };
+  
   // follow
   const handleFallow = (item) => {
     try {
       const currentUserId = user._id;
       axios.post(`/api/${item._id}/fallow`, { currentUserId });
       toast.success("send fallow");
+      setVisibleButtons((prev) => ({ ...prev, [item._id]: false })); // setIsFirstButtonVisible(false);
+      setIsSecondButtonVisible(true);
+      setIsFirstButtonVisible(false);
     } catch (error) {
       alert(error.message);
     }
@@ -239,10 +254,10 @@ const Home = () => {
                 <div key={item.id} className="space-y-4">
                   <video
                     controls
-                    className="w-full shadow-lg border-2 border-neutral-500 rounded-sm z-10 "
+                    className="w-80 mt-2 mx-auto shadow-lg border-2 border-neutral-500 rounded-sm z-10 "
                     src={item.videomp}
                   ></video>
-                  <div className="py-4 px-5">
+                  <div className="w-80 mx-auto py-4 px-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 text-2xl">
                         <p
@@ -392,27 +407,32 @@ const Home = () => {
           </div>
           {people.map((item) => (
             <div id="hover-box" key={item._id}>
-              <div className="cursor-pointer flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors">
+              <div className="cursor-pointer flex items-center justify-between gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors">
                 <div
                   onClick={() => handleProfile(item)}
                   className="flex items-center gap-4"
                 >
                   <img
-                    src={UserImg1 || "/placeholder.svg"}
-                    alt=""
-                    className="w-12 h-12 rounded-full"
+                    src={`http://localhost:5000${item.avatar}`}
+                    alt="User"
+                    className="w-17 h-17 rounded-full"
                   />
                   <div>
                     <h3 className="font-semibold">{item.username}</h3>
                     <p className="text-neutral-400 text-sm">{item.name}</p>
                   </div>
                 </div>
-                <button
-                  onClick={() => handleFallow(item)}
-                  className="cursor-pointer ml-auto text-sm text-blue-600 hover:text-white"
-                >
-                  follow
-                </button>
+                <div>
+                  {visibleButtons[item._id] && (
+                    <button
+                      key={item._id}
+                      onClick={() => handleFallow(item)}
+                      className="cursor-pointer p-4 text-blue-500 rounded-lg hover:text-white"
+                    >
+                      Follow
+                    </button>
+                  )}
+                </div>
               </div>
               <div id="hover-text">
                 <div
@@ -420,7 +440,7 @@ const Home = () => {
                   className="flex items-center gap-3 px-4"
                 >
                   <div>
-                    <img src={UserImg1} alt="" className="w-18" />
+                    <img src={UserImg1} alt="" className="w-18 rounded-full" />
                   </div>
                   <div>
                     <h1>{item.username}</h1>
@@ -451,12 +471,22 @@ const Home = () => {
                   </h2>
                 </div>
                 <div>
-                  <button
-                    onClick={() => handleFallow(item)}
-                    className="w-full py-2 my-4 cursor-pointer px-2 bg-blue-600 rounded-sm hover:bg-blue-700"
-                  >
-                    Follow
-                  </button>
+                  {isFirstButtonVisible && (
+                    <button
+                      onClick={() => handleFallow(item)}
+                      className="w-full my-2 mt-4 cursor-pointer px-8 py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+                    >
+                      Follow
+                    </button>
+                  )}
+                  {isSecondButtonVisible && (
+                    <button
+                      onClick={handleSecondButtonClick}
+                      className="w-full my-2 mt-4 px-8 cursor-pointer py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+                    >
+                      Un Follow
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

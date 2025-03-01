@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Spinner } from "@heroui/react";
 import UserImg2 from "../assets/1.png";
+import UserImg from "../assets/1.png";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { MdOutlinePhotoCamera } from "react-icons/md";
 import { MdOutlineGridOn } from "react-icons/md";
@@ -19,6 +20,7 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
+import toast from "react-hot-toast";
 
 const User = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -35,11 +37,21 @@ const User = () => {
     setSelectedCategory(category);
   };
 
+  const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
+  const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
+
+  const handleSecondButtonClick = () => {
+    setIsSecondButtonVisible(false);
+    setIsFirstButtonVisible(true);
+  };
+
   const handleFallow = (item) => {
     try {
       const currentUserId = user._id;
       axios.post(`/api/${item._id}/fallow`, { currentUserId });
       toast.success("send fallow");
+      setIsSecondButtonVisible(true);
+      setIsFirstButtonVisible(false);
     } catch (error) {
       alert(error.message);
     }
@@ -71,6 +83,8 @@ const User = () => {
     onOpen(true);
   };
 
+  const [searchFollowers, setSearchFollowers] = useState("");
+  const [searchFollowing, setSearchFollowing] = useState("");
   return (
     <>
       {" "}
@@ -90,12 +104,22 @@ const User = () => {
                 <div>
                   <div className="flex items-center gap-6">
                     <h1 className="text-xl">{userData.username}</h1>
-                    <button
-                      onClick={() => handleFallow(item)}
-                      className="px-4 py-1 bg-blue-600 rounded-sm cursor-pointer hover:bg-blue-700"
-                    >
-                      Fallow
-                    </button>
+                    {isFirstButtonVisible && (
+                      <button
+                        onClick={() => handleFallow(userData)}
+                        className="cursor-pointer px-8 py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+                      >
+                        Follow
+                      </button>
+                    )}
+                    {isSecondButtonVisible && (
+                      <button
+                        onClick={handleSecondButtonClick}
+                        className="px-8 cursor-pointer py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+                      >
+                        Un Follow
+                      </button>
+                    )}
                     <button className="text-2xl">
                       <FiMoreHorizontal />
                     </button>
@@ -210,22 +234,80 @@ const User = () => {
                 )}
 
                 {fallowers && (
-                  <div>
-                    {user.followers.map((fallower) => {
-                      return <div key={fallower._id}> {fallower.username}</div>;
-                    })}
+                  <div className="flex gap-3 flex-col">
+                    <p className="font-bold text-2xl text-center">Followers</p>
+                    <input
+                      className="bg-[#474747] px-2 py-1 outline-none rounded"
+                      placeholder="Search"
+                      type="text"
+                      value={searchFollowers}
+                      onChange={(e) => setSearchFollowers(e.target.value)}
+                    />
+                    {user.followers
+                      .filter((fallower) =>
+                        fallower.username
+                          .toLowerCase()
+                          .includes(searchFollowers.toLowerCase())
+                      )
+                      .map((fallower) => {
+                        return (
+                          <div
+                            className="flex items-center justify-between"
+                            key={fallower._id}
+                          >
+                            <div className="flex gap-3">
+                              <img
+                                className="w-8 rounded-full"
+                                src={UserImg}
+                                alt="userimg"
+                              />
+                              {fallower.username}
+                            </div>
+                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                              remove
+                            </button>
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
 
                 {fallowing && (
-                  <div>
-                    {user.following.map((fallowingUser) => {
-                      return (
-                        <div key={fallowingUser._id}>
-                          {fallowingUser.username}
-                        </div>
-                      );
-                    })}
+                  <div className="flex gap-3 flex-col">
+                    <p className="font-bold text-2xl text-center">Following</p>
+                    <input
+                      className="bg-[#474747] px-2 py-1 outline-none rounded"
+                      placeholder="Search"
+                      type="text"
+                      value={searchFollowing}
+                      onChange={(e) => setSearchFollowing(e.target.value)}
+                    />
+                    {user.following
+                      .filter((fallower) =>
+                        fallower.username
+                          .toLowerCase()
+                          .includes(searchFollowing.toLowerCase())
+                      )
+                      .map((fallower) => {
+                        return (
+                          <div
+                            className="flex items-center justify-between"
+                            key={fallower._id}
+                          >
+                            <div className="flex gap-3">
+                              <img
+                                className="w-8 rounded-full"
+                                src={UserImg}
+                                alt="userimg"
+                              />
+                              {fallower.username}
+                            </div>
+                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                              remove
+                            </button>
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
               </ModalBody>

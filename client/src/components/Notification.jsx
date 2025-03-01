@@ -70,7 +70,7 @@ const Notification = () => {
                 className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800"
               >
                 <div>
-                  <img src={UserImg} alt="" className="w-17" />
+                  <img src={UserImg} alt="" className="w-17 rounded-full" />
                 </div>
                 <div>
                   <h1>{fallower.username}</h1>
