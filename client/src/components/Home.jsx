@@ -160,6 +160,13 @@ const Home = () => {
     setLikeCount(newLikeCount);
   };
 
+
+  // if (!user) {
+  //   navigate("/login");
+  // }else{
+  //   navigate("/profil")
+  // }
+
   return (
     <>
       <div

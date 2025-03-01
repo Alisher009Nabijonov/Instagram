@@ -96,9 +96,9 @@ const User = () => {
               <div className="flex items-center justify-center gap-20 px-8">
                 <div className=" ">
                   <img
-                    src={user ? `http://localhost:5000${user.avatar}` : UserImg2}
+                    src={user ? `http://localhost:5000${userData.avatar}` : UserImg2}
                     alt=""
-                    className="w-35 rounded-full cursor-pointer"
+                    className="w-30 h-30 rounded-full cursor-pointer"
                   />
                 </div>
                 <div>
@@ -117,7 +117,7 @@ const User = () => {
                         onClick={handleSecondButtonClick}
                         className="px-8 cursor-pointer py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
                       >
-                        Un Follow
+                        Un follow
                       </button>
                     )}
                     <button className="text-2xl">

@@ -43,6 +43,8 @@ const Profil = () => {
   let { user } = useContext(UserContext);
   if (!user) {
     navigate("/login");
+  }else{
+    navigate("/profil")
   }
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

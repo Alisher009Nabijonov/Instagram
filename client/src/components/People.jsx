@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 // assets
 import UserImg1 from "../assets/1.png";
 import axios from "axios";
@@ -13,11 +13,21 @@ const People = () => {
   let { user } = useContext(UserContext);
   const { people } = useContext(UserContext);
 
+    const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
+    const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
+  
+    const handleSecondButtonClick = () => {
+      setIsSecondButtonVisible(false);
+      setIsFirstButtonVisible(true);
+    };
+
   const handleFallow = (item) => {
     try {
       const currentUserId = user._id;
       axios.post(`/api/${item._id}/fallow`, { currentUserId });
-      toast.success("sdkjdsf");
+      toast.success("send follow");
+      setIsSecondButtonVisible(true);
+      setIsFirstButtonVisible(false);
     } catch (error) {
       alert(error.message);
     }
