@@ -52,6 +52,8 @@ const Profil = () => {
   const [fallowers, setFallowers] = useState(false);
   const [fallowing, setFallowing] = useState(false);
   const [add, setAdd] = useState(false);
+  const [searchFollowers, setSearchFollowers] = useState("");
+  const [searchFollowing, setSearchFollowing] = useState("");
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -112,8 +114,17 @@ const Profil = () => {
     }
   };
 
-  const [searchFollowers, setSearchFollowers] = useState("");
-  const [searchFollowing, setSearchFollowing] = useState("");
+
+  const handleRemove = async (fallower) => {
+    const currentUser = user._id;
+    try {
+      await axios.post(`/api/${fallower._id}/unFallow`, { currentUser });
+      alert("unfallowed")
+    } catch (error) {
+      alert("errorrrrrrr")
+    }
+  }
+
 
   return (
     <>
@@ -328,7 +339,7 @@ const Profil = () => {
         className="bg-neutral-800 w-100 rounded-sm z-20"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        backdropClassName="hidden" // Tailwind overlay ishlaydi, shuning uchun backdrop ni yashiramiz
+        backdropClassName="hidden" 
       >
         <ModalContent className="py-5">
           {(onClose) => (
@@ -367,17 +378,22 @@ const Profil = () => {
                             className="flex items-center justify-between"
                             key={fallower._id}
                           >
-                            <div className="flex gap-3">
-                              <img
-                                className="w-8 rounded-full"
-                                src={UserImg}
-                                alt="userimg"
-                              />
-                              {fallower.username}
-                            </div>
-                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
-                              remove
-                            </button>
+                            <Link to={`/user/${fallower._id}`}>
+                              <div className="flex gap-3">
+                                <img
+                                  className="w-8 h-8 object-cover rounded-full"
+                                  src={`http://localhost:5000${fallower.avatar}`}
+                                  alt="userimg"
+                                />
+                                {fallower.username}
+                              </div>
+                            </Link>
+                            <Link to={`/user/${fallower._id}`}>
+                              <button
+                                className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                                view
+                              </button>
+                            </Link>
                           </div>
                         );
                       })}
@@ -406,15 +422,20 @@ const Profil = () => {
                             className="flex items-center justify-between"
                             key={fallower._id}
                           >
-                            <div className="flex gap-3">
-                              <img
-                                className="w-8 rounded-full"
-                                src={UserImg}
-                                alt="userimg"
-                              />
-                              {fallower.username}
-                            </div>
-                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                            <Link to={`/user/${fallower._id}`}>
+                              <div className="flex gap-3">
+                                <img
+                                  className="w-8 h-8 object-cover rounded-full"
+                                  src={`http://localhost:5000${fallower.avatar}`}
+                                  alt="fallower img"
+                                />
+                                {fallower.username}
+                              </div>
+
+                            </Link>
+                            <button
+                              onClick={() => handleRemove(fallower)}
+                              className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
                               remove
                             </button>
                           </div>
@@ -441,8 +462,8 @@ const Profil = () => {
               </ModalBody>
             </div>
           )}
-        </ModalContent>
-      </Modal>
+        </ModalContent >
+      </Modal >
 
     </>
   );

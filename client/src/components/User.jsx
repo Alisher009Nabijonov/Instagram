@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Spinner } from "@heroui/react";
 import UserImg2 from "../assets/1.png";
@@ -85,12 +85,12 @@ const User = () => {
 
   const [searchFollowers, setSearchFollowers] = useState("");
   const [searchFollowing, setSearchFollowing] = useState("");
+
   return (
     <>
       {" "}
       <div>
         {userData ? (
-          // <div>{userData.name}</div>
           <>
             <div className="max-w-4xl mx-auto py-8 px-6">
               <div className="flex items-center justify-center gap-20 px-8">
@@ -136,7 +136,7 @@ const User = () => {
                       <span className="text-white font-bold mr-1">
                         {user ? userData.followers.length : 0}
                       </span>
-                      subscribers
+                      followers
                     </h2>
                     <h2
                       onClick={handleFallowwing}
@@ -211,9 +211,6 @@ const User = () => {
         <ModalContent>
           {(onClose) => (
             <div>
-              <ModalHeader className="flex flex-col text-center gap-1 text-2xl">
-                {settings ? "settings" : "non"}
-              </ModalHeader>
               <ModalBody>
                 {settings && (
                   <div>
@@ -235,7 +232,7 @@ const User = () => {
 
                 {fallowers && (
                   <div className="flex gap-3 flex-col">
-                    <p className="font-bold text-2xl text-center">Followers</p>
+                    <p className="font-bold text-xl text-center">Followers</p>
                     <input
                       className="bg-[#474747] px-2 py-1 outline-none rounded"
                       placeholder="Search"
@@ -243,7 +240,7 @@ const User = () => {
                       value={searchFollowers}
                       onChange={(e) => setSearchFollowers(e.target.value)}
                     />
-                    {user.followers
+                    {userData.followers
                       .filter((fallower) =>
                         fallower.username
                           .toLowerCase()
@@ -255,17 +252,25 @@ const User = () => {
                             className="flex items-center justify-between"
                             key={fallower._id}
                           >
-                            <div className="flex gap-3">
-                              <img
-                                className="w-8 rounded-full"
-                                src={UserImg}
-                                alt="userimg"
-                              />
-                              {fallower.username}
-                            </div>
-                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
-                              remove
-                            </button>
+                            <Link to={`/user/${fallower._id}`}>
+
+                              <div className="flex gap-3">
+                                <img
+                                  className="w-8 h-8 object-cover rounded-full"
+                                  src={`http://localhost:5000${fallower.avatar}`}
+                                  alt="userimg"
+                                />
+                                {fallower.username}
+                              </div>
+                            </Link>
+
+                            <Link to={`/user/${fallower._id}`}>
+
+                              <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                                view
+                              </button>
+                            </Link>
+
                           </div>
                         );
                       })}
@@ -274,7 +279,7 @@ const User = () => {
 
                 {fallowing && (
                   <div className="flex gap-3 flex-col">
-                    <p className="font-bold text-2xl text-center">Following</p>
+                    <p className="font-bold text-xl text-center">Following</p>
                     <input
                       className="bg-[#474747] px-2 py-1 outline-none rounded"
                       placeholder="Search"
@@ -282,7 +287,7 @@ const User = () => {
                       value={searchFollowing}
                       onChange={(e) => setSearchFollowing(e.target.value)}
                     />
-                    {user.following
+                    {userData.following
                       .filter((fallower) =>
                         fallower.username
                           .toLowerCase()
@@ -294,17 +299,22 @@ const User = () => {
                             className="flex items-center justify-between"
                             key={fallower._id}
                           >
-                            <div className="flex gap-3">
-                              <img
-                                className="w-8 rounded-full"
-                                src={UserImg}
-                                alt="userimg"
-                              />
-                              {fallower.username}
-                            </div>
-                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
-                              remove
-                            </button>
+                            <Link to={`/user/${fallower._id}`}>
+
+                              <div className="flex gap-3">
+                                <img
+                                  className="w-8 h-8 object-cover rounded-full"
+                                  src={`http://localhost:5000${fallower.avatar}`}
+                                  alt="userimg"
+                                />
+                                {fallower.username}
+                              </div>
+                            </Link>
+                            <Link to={`/user/${fallower._id}`}>
+                              <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                                view
+                              </button>
+                            </Link>
                           </div>
                         );
                       })}

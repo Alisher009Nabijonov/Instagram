@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const mongoose = require("mongoose")
 
 const fallowUser = async (req, res) => {
   try {
@@ -26,13 +27,27 @@ const fallowUser = async (req, res) => {
 
 const unFallowUser = async (req, res) => {
   try {
+    // ID larni oldin tekshiramiz
+    if (!mongoose.Types.ObjectId.isValid(req.body.currentUser)) {
+      return res.status(400).json({ message: "Invalid currentUser ID" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ message: "Invalid userToUnfallow ID" });
+    }
+
     const currentUser = await User.findById(req.body.currentUser);
     const userToUnfallow = await User.findById(req.params.id);
 
-    if (!currentUser || !userToUnfallow)
-      return res.status(404).json({ message: "user not found while unfallow" });
+    if (!userToUnfallow) {
+      return res.status(404).json({ message: "User to unfollow not found" });
+    }
 
-    if (userToUnfallow.followers.includes(userToUnfallow._id)) {
+    if (!currentUser) {
+      return res.status(404).json({ message: "Current user not found" });
+    }
+
+    if (userToUnfallow.followers.includes(currentUser._id.toString())) {
       userToUnfallow.followers = userToUnfallow.followers.filter(
         (id) => id.toString() !== currentUser._id.toString()
       );
@@ -44,12 +59,13 @@ const unFallowUser = async (req, res) => {
       await currentUser.save();
       await userToUnfallow.save();
 
-      return res.status(200).json({ message: "unfallowed successfully." });
+      return res.status(200).json({ message: "Unfollowed successfully." });
     } else {
-      return res.status(400).json("you should fallow first.");
+      return res.status(400).json({ message: "You should follow first." });
     }
   } catch (error) {
-    res.status(500).json({ error, message: "error while unfollowing" });
+    console.error("Error while unfollowing:", error); // Xatoni konsolda chiqarish
+    return res.status(500).json({ error: error.message, message: "Error while unfollowing" });
   }
 };
 
