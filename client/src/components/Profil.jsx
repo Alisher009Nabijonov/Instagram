@@ -122,8 +122,8 @@ const Profil = () => {
           <div>
             <img
               src={user ? `http://localhost:5000${user.avatar}` : UserImg}
-              alt=""
-              className="w-30 h-30 rounded-full cursor-pointer"
+              alt="User img"
+              className="w-30 h-30 rounded-full cursor-pointer object-cover"
             />
           </div>
           <div>
@@ -176,6 +176,9 @@ const Profil = () => {
 
             <p className="pt-5 text-sm font-extrabold">
               {user ? user.name : "Name"}
+            </p>
+            <p className=" pt-5 text-sm text-gray-300">
+              {user ? (user.bio) : ("You bio will be showed here.")}
             </p>
           </div>
         </div>
