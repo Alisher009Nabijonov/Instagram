@@ -121,7 +121,7 @@ const Profil = () => {
             <img
               src={user ? `http://localhost:5000${user.avatar}` : UserImg}
               alt=""
-              className="w-30 rounded-full cursor-pointer"
+              className="w-30 h-30 rounded-full cursor-pointer"
             />
           </div>
           <div>
