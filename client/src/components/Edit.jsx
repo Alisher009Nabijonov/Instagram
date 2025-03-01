@@ -1,39 +1,62 @@
-// "use client"
 import { useContext, useState } from "react";
 import { UserContext } from "../userContext";
 import axios from "axios";
+
+// img
+import userImg from "../assets/user.jpg"
 
 export default function Edit() {
   const { user } = useContext(UserContext);
 
   const [bio, setBio] = useState(user?.bio || "");
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [avatar, setAvatar] = useState("");
-  const [gender, setGender] = useState(user?.gender || "prefer-not");
+  const [avatar, setAvatar] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || "");
+  const [gender, setGender] = useState(user?.gender || "other");
   const [name, setName] = useState(user?.name || "");
   const [username, setUsername] = useState(user?.username || "");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setAvatar(file);
+    setAvatarPreview(URL.createObjectURL(file));
+  };
 
   const isFormChanged =
-    bio || gender !== "prefer-not" || name || username || avatar;
+    bio !== user?.bio ||
+    gender !== user?.gender ||
+    name !== user?.name ||
+    username !== user?.username ||
+    avatar !== null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
+    const formData = new FormData();
+    formData.append("userId", user._id);
+    formData.append("bio", bio);
+    formData.append("gender", gender);
+    formData.append("name", name);
+    formData.append("username", username);
+    if (avatar) {
+      formData.append("avatar", avatar);
+    }
+
     try {
-      const response = await axios.post("/api/user/editUser", {
-        avatar,
-        bio,
-        gender,
-        name,
-        username,
+      await axios.put("/api/user/editUser", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-      alert(response.data.message);
+
+      alert("Uraaa!");
     } catch (error) {
-      setError(error.response?.data?.message || "An error occurred");
+      setError(error.response?.data?.message || "error");
+      alert("uramass")
     } finally {
       setLoading(false);
     }
@@ -44,12 +67,13 @@ export default function Edit() {
       <h1 className="text-2xl font-bold mb-6">Edit Profile</h1>
 
       <div className="space-y-6">
-        {/* Profile Photo Section */}
         <div className="bg-zinc-900 rounded-lg p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 bg-gray-700 rounded-full flex items-center justify-center">
-              <span className="text-gray-400">👤</span>
-            </div>
+            <img
+              src={avatarPreview || userImg}
+              alt="Profile"
+              className="h-14 w-14 rounded-full object-cover"
+            />
             <div>
               <div className="font-medium">{user?.username || "Username"}</div>
               <div className="text-sm text-zinc-400">{user?.name || "Full name"}</div>
@@ -64,17 +88,14 @@ export default function Edit() {
           <input
             id="avatarInput"
             type="file"
+            className="hidden"
             accept="image/*"
-            style={{ display: "none" }}
-            onChange={(e) => setAvatar(e.target.files[0])}
+            onChange={handleFileChange}
           />
         </div>
 
-        {/* Username Input */}
         <div className="space-y-2">
-          <label htmlFor="username" className="block">
-            Username
-          </label>
+          <label htmlFor="username" className="block">Username</label>
           <input
             id="username"
             type="text"
@@ -85,11 +106,8 @@ export default function Edit() {
           />
         </div>
 
-        {/* Name Input */}
         <div className="space-y-2">
-          <label htmlFor="name" className="block">
-            Full Name
-          </label>
+          <label htmlFor="name" className="block">Full Name</label>
           <input
             id="name"
             type="text"
@@ -100,21 +118,6 @@ export default function Edit() {
           />
         </div>
 
-        {/* Website Section */}
-        <div className="space-y-2">
-          <label htmlFor="website" className="block">Website</label>
-          <input
-            disabled
-            id="website"
-            placeholder="Website"
-            className="bg-zinc-900 border-none p-2 w-full rounded-lg"
-          />
-          <p className="text-xs text-zinc-400">
-            Editing your links is only available on mobile. Visit the Instagram app and edit your profile to change the websites in your bio.
-          </p>
-        </div>
-
-        {/* Bio Section */}
         <div className="space-y-2">
           <label htmlFor="bio" className="block">Bio</label>
           <textarea
@@ -128,7 +131,6 @@ export default function Edit() {
           <div className="text-xs text-zinc-400 text-right">{bio.length} / 150</div>
         </div>
 
-        {/* Gender Section */}
         <div className="space-y-2">
           <label>Gender</label>
           <select
@@ -141,12 +143,8 @@ export default function Edit() {
             <option value="prefer-not">Prefer not to say</option>
             <option value="custom">Custom</option>
           </select>
-          <p className="text-xs text-zinc-400">
-            This won&apos;t be part of your public profile.
-          </p>
         </div>
 
-        {/* Account Suggestions Section */}
         <div className="bg-zinc-900 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
@@ -163,13 +161,6 @@ export default function Edit() {
             />
           </div>
         </div>
-
-        <p className="text-sm text-zinc-400">
-          Certain profile info, like your name, bio and links, is visible to everyone.{" "}
-          <a href="#" className="text-blue-500">See what profile info is visible</a>
-        </p>
-
-        {error && <p className="text-red-500">{error}</p>}
 
         <button
           className={`w-full px-4 py-2 rounded-lg ${isFormChanged ? "bg-blue-500 hover:bg-blue-600" : "bg-zinc-700"

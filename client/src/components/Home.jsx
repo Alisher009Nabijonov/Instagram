@@ -123,6 +123,8 @@ const Home = () => {
     setIsModalOpen1(false);
   };
 
+
+
   const handleFallowers = () => {
     setSettings(false);
     setFallowers(true);
@@ -237,7 +239,7 @@ const Home = () => {
               >
                 <div className="w-20">
                   <img
-                    src={UserImg1}
+                    src={`http://localhost:5000${item.avatar}`}
                     alt="User"
                     className="w-20 h-20 rounded-full"
                   />
@@ -411,9 +413,9 @@ const Home = () => {
                   className="flex items-center gap-4"
                 >
                   <img
-                    src={UserImg1 || "/placeholder.svg"}
-                    alt=""
-                    className="w-12 h-12 rounded-full"
+                    src={`http://localhost:5000${item.avatar}`}
+                    alt="User"
+                    className="w-17 h-17 rounded-full"
                   />
                   <div>
                     <h3 className="font-semibold">{item.username}</h3>

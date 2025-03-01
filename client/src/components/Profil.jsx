@@ -119,7 +119,7 @@ const Profil = () => {
         <div className="flex items-center py-4 gap-10">
           <div>
             <img
-              src={UserImg}
+              src={user ? `http://localhost:5000${user.avatar}` : UserImg}
               alt=""
               className="w-30 rounded-full cursor-pointer"
             />
@@ -233,33 +233,30 @@ const Profil = () => {
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
-                selectedCategory === 1
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(1)}
             >
               <MdOutlineGridOn className="h-3 w-3" />
               Publications
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                selectedCategory === 2
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 2
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(2)}
             >
               <IoBookmarkSharp className="h-3 w-3" />
               Saved
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
-                selectedCategory === 3
-                  ? "border-white"
-                  : "border-transparent text-zinc-500"
-              }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
+                ? "border-white"
+                : "border-transparent text-zinc-500"
+                }`}
               onClick={() => handleCategoryClick(3)}
             >
               <RiShieldUserFill className="h-3 w-3" />
@@ -273,6 +270,7 @@ const Profil = () => {
             <h1>First steps</h1>
             <div className="flex w-full gap-2">
               <div className="flex gap-2 w-100 mx-auto text-center">
+
                 <div className="border-1 border-neutral-700 py-3 px-5 w-75 ">
                   <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
                     <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
