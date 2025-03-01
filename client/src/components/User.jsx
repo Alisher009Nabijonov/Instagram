@@ -134,7 +134,7 @@ const User = () => {
                       className=" mt-3 text-[#a29965] cursor-pointer"
                     >
                       <span className="text-white font-bold">
-                        {user ? user.followers.length : 0}
+                        {user ? userData.followers.length : 0}
                       </span>
                       subscribers
                     </h2>
@@ -143,7 +143,7 @@ const User = () => {
                       className=" mt-3 text-[#a29965] cursor-pointer"
                     >
                       <span className="text-white font-bold">
-                        {user ? user.following.length : 0}
+                        {user ? userData.following.length : 0}
                       </span>
                       subscriptions
                     </h2>
