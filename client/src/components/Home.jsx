@@ -77,14 +77,14 @@ const Home = () => {
     people.reduce((acc, item) => ({ ...acc, [item._id]: true }), {})
   );
 
-    const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
-    const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
-  
-    const handleSecondButtonClick = () => {
-      setIsSecondButtonVisible(false);
-      setIsFirstButtonVisible(true);
-    };
-  
+  const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
+  const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
+
+  const handleSecondButtonClick = () => {
+    setIsSecondButtonVisible(false);
+    setIsFirstButtonVisible(true);
+  };
+
   // follow
   const handleFallow = (item) => {
     try {
@@ -248,7 +248,7 @@ const Home = () => {
                   <img
                     src={`http://localhost:5000${item.avatar}`}
                     alt="User"
-                    className="w-20 h-20 rounded-full"
+                    className="w-20 h-20 rounded-full object-cover object-center"
                   />
                   <h2 className="truncate mt-2">{item.username}</h2>
                 </div>
@@ -357,8 +357,8 @@ const Home = () => {
         <div id="home_left_people" className="ml-10">
           <div className="cursor-pointer flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors">
             <img
-              src={UserImg1 || "/placeholder.svg"}
-              alt=""
+              src={user ? `http://localhost:5000${user.avatar}` : UserImg1}
+              alt="userImg"
               className="w-12 h-12 rounded-full"
             />
             <div>
@@ -447,7 +447,7 @@ const Home = () => {
                   className="flex items-center gap-3 px-4"
                 >
                   <div>
-                    <img src={UserImg1} alt="" className="w-18 rounded-full" />
+                    <img src={`http://localhost:5000${item.avatar}`} alt="user img" className="w-18 h-18 rounded-full "  />
                   </div>
                   <div>
                     <h1>{item.username}</h1>
@@ -456,25 +456,25 @@ const Home = () => {
                 </div>
                 <div className="flex items-center gap-6">
                   <h2 className="mt-3 text-[#a29965] cursor-pointer">
-                    <span className="text-white font-bold">0</span>publications
+                    <span className="text-white font-bold mr-1">0</span>publications
                   </h2>
                   <h2
                     onClick={handleFallowers}
                     className=" mt-3 text-[#a29965] cursor-pointer"
                   >
-                    <span className="text-white font-bold">
+                    <span className="text-white font-bold mr-1">
                       {user ? item.followers.length : 0}
                     </span>
-                    subscribers
+                    fallower
                   </h2>
                   <h2
                     onClick={handleFallowwing}
                     className=" mt-3 text-[#a29965] cursor-pointer"
                   >
-                    <span className="text-white font-bold">
+                    <span className="text-white font-bold mr-1">
                       {user ? item.following.length : 0}
                     </span>
-                    subscriptions
+                    fallowing
                   </h2>
                 </div>
                 <div>

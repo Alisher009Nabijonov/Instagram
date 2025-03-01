@@ -97,8 +97,8 @@ const User = () => {
                 <div className=" ">
                   <img
                     src={user ? `http://localhost:5000${userData.avatar}` : UserImg2}
-                    alt=""
-                    className="w-30 h-30 rounded-full cursor-pointer"
+                    alt={userData.name}
+                    className="w-30 h-30 rounded-full cursor-pointer object-cover"
                   />
                 </div>
                 <div>
@@ -115,9 +115,9 @@ const User = () => {
                     {isSecondButtonVisible && (
                       <button
                         onClick={handleSecondButtonClick}
-                        className="px-8 cursor-pointer py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+                        className="px-5 cursor-pointer py-2  rounded-lg border border-white hover:bg-white/10"
                       >
-                        Un follow
+                        Unfollow
                       </button>
                     )}
                     <button className="text-2xl">
@@ -126,14 +126,14 @@ const User = () => {
                   </div>
                   <div className="flex items-center gap-6">
                     <h2 className="mt-3 text-[#a29965] cursor-pointer">
-                      <span className="text-white font-bold">0</span>
+                      <span className="text-white font-bold mr-1">0</span>
                       publications
                     </h2>
                     <h2
                       onClick={handleFallowers}
                       className=" mt-3 text-[#a29965] cursor-pointer"
                     >
-                      <span className="text-white font-bold">
+                      <span className="text-white font-bold mr-1">
                         {user ? userData.followers.length : 0}
                       </span>
                       subscribers
@@ -142,7 +142,7 @@ const User = () => {
                       onClick={handleFallowwing}
                       className=" mt-3 text-[#a29965] cursor-pointer"
                     >
-                      <span className="text-white font-bold">
+                      <span className="text-white font-bold mr-1" >
                         {user ? userData.following.length : 0}
                       </span>
                       subscriptions
