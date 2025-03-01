@@ -40,12 +40,9 @@ import toast from "react-hot-toast";
 
 const Profil = () => {
   const navigate = useNavigate();
-  let { user } = useContext(UserContext);
-  if (!user) {
-    navigate("/login");
-  }else{
-    navigate("/profil")
-  }
+  let { user, redirect } = useContext(UserContext);
+
+  if (redirect) navigate("/login")
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedCategory, setSelectedCategory] = useState(1);

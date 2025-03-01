@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 import axios from "axios";
 
 // img
-import userImg from "../assets/user.jpg"
+import userImg from "../assets/1.png"
 
 export default function Edit() {
   const { user } = useContext(UserContext);
@@ -70,7 +70,7 @@ export default function Edit() {
         <div className="bg-zinc-900 rounded-lg p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img
-              src={avatarPreview || userImg}
+              src={avatarPreview || userImg }
               alt="Profile"
               className="h-14 w-14 rounded-full object-cover"
             />
