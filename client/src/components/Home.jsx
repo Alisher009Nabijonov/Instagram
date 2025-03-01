@@ -463,7 +463,7 @@ const Home = () => {
                     className=" mt-3 text-[#a29965] cursor-pointer"
                   >
                     <span className="text-white font-bold">
-                      {user ? user.followers.length : 0}
+                      {user ? item.followers.length : 0}
                     </span>
                     subscribers
                   </h2>
@@ -472,7 +472,7 @@ const Home = () => {
                     className=" mt-3 text-[#a29965] cursor-pointer"
                   >
                     <span className="text-white font-bold">
-                      {user ? user.following.length : 0}
+                      {user ? item.following.length : 0}
                     </span>
                     subscriptions
                   </h2>
