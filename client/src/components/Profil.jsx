@@ -40,12 +40,9 @@ import toast from "react-hot-toast";
 
 const Profil = () => {
   const navigate = useNavigate();
-  let { user } = useContext(UserContext);
-  if (!user) {
-    navigate("/login");
-  }else{
-    navigate("/profil")
-  }
+  let { user, redirect } = useContext(UserContext);
+
+  if (redirect) navigate("/login")
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedCategory, setSelectedCategory] = useState(1);
@@ -54,6 +51,9 @@ const Profil = () => {
   const [settings, setSettings] = useState(false);
   const [fallowers, setFallowers] = useState(false);
   const [fallowing, setFallowing] = useState(false);
+  const [add, setAdd] = useState(false);
+  const [searchFollowers, setSearchFollowers] = useState("");
+  const [searchFollowing, setSearchFollowing] = useState("");
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -70,14 +70,13 @@ const Profil = () => {
 
   // modal
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+    setAdd(true)
+    setSettings(false);
+    setFallowers(false);
+    setFallowing(false);
+    onOpen(true);
   };
 
   const handleFallowers = () => {
@@ -85,6 +84,7 @@ const Profil = () => {
     setFallowers(true);
     setFallowing(false);
     onOpen(true);
+    setAdd(false);
   };
 
   const handleSettings = () => {
@@ -92,6 +92,7 @@ const Profil = () => {
     setFallowers(false);
     setFallowing(false);
     onOpen(true);
+    setAdd(false);
   };
 
   const handleFallowwing = () => {
@@ -99,6 +100,7 @@ const Profil = () => {
     setFallowers(false);
     setFallowing(true);
     onOpen(true);
+    setAdd(false);
   };
 
   const handleLogout = async () => {
@@ -112,8 +114,17 @@ const Profil = () => {
     }
   };
 
-  const [searchFollowers, setSearchFollowers] = useState("");
-  const [searchFollowing, setSearchFollowing] = useState("");
+
+  const handleRemove = async (fallower) => {
+    const currentUser = user._id;
+    try {
+      await axios.post(`/api/${fallower._id}/unFallow`, { currentUser });
+      alert("unfallowed")
+    } catch (error) {
+      alert("errorrrrrrr")
+    }
+  }
+
 
   return (
     <>
@@ -178,7 +189,7 @@ const Profil = () => {
               {user ? user.name : "Name"}
             </p>
             <p className=" pt-5 text-sm text-gray-300">
-              {user ? (user.bio) : ("You bio will be showed here.")}
+              {user ? (user.bio) : ("Your bio will be showed here.")}
             </p>
           </div>
         </div>
@@ -195,44 +206,7 @@ const Profil = () => {
           </h2>
         </div>
 
-        {isModalOpen && (
-          <div
-            id="modal_oyna_form"
-            className="fixed inset-0 flex items-center justify-center bg-opacity-100  z-50"
-            onClick={closeModal}
-          >
-            <div
-              className="bg-neutral-700 p-6 rounded-lg shadow-lg max-w-md w-full relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-center gap-10">
-                <h2 className="text-xl font-bold mb-4 text-center">
-                  Creating a current
-                </h2>
-                <button
-                  className=" text-white mb-4 rounded-md text-xl cursor-pointer"
-                  onClick={closeModal}
-                >
-                  X
-                </button>
-              </div>
-              <div className="w-full h-0.5 bg-neutral-800 mb-4"></div>
-              <form className="w-full">
-                <input
-                  type="text"
-                  placeholder="Title of the current"
-                  className="w-full bg-neutral-900 py-1 px-3 rounded-sm my-3"
-                />
-              </form>
-              <div className="w-full h-0.5 bg-neutral-800 mt-4"></div>
-              <div className="w-full">
-                <h1 className="text-blue-600 font-bold text-center mt-3 cursor-pointer">
-                  Next
-                </h1>
-              </div>
-            </div>
-          </div>
-        )}
+
 
         <div className="w-full h-0.5 bg-neutral-800 mt-10"></div>
         <div className="flex items-center justify-center gap-3">
@@ -355,11 +329,17 @@ const Profil = () => {
         </div>
       </div>
 
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-10"
+          onClick={onOpenChange}
+        ></div>
+      )}
       <Modal
-        className="bg-neutral-800 w-100 rounded-sm"
+        className="bg-neutral-800 w-100 rounded-sm z-20"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        backdropClassName="bg-black/50"
+        backdropClassName="hidden" 
       >
         <ModalContent className="py-5">
           {(onClose) => (
@@ -369,16 +349,9 @@ const Profil = () => {
                   <div>
                     <h1
                       onClick={handleLogout}
-                      className="text-xl text-center my-1 cursor-pointer"
+                      className="border border-white rounded hover:bg-black/30 p-2 text-center my-1 cursor-pointer"
                     >
                       Log out
-                    </h1>
-                    <div className="w-full h-0.5 my-4 bg-neutral-600"></div>
-                    <h1
-                      onClick={onClose}
-                      className="text-xl text-center my-1 cursor-pointer"
-                    >
-                      Cancel
                     </h1>
                   </div>
                 )}
@@ -405,17 +378,22 @@ const Profil = () => {
                             className="flex items-center justify-between"
                             key={fallower._id}
                           >
-                            <div className="flex gap-3">
-                              <img
-                                className="w-8 rounded-full"
-                                src={UserImg}
-                                alt="userimg"
-                              />
-                              {fallower.username}
-                            </div>
-                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
-                              remove
-                            </button>
+                            <Link to={`/user/${fallower._id}`}>
+                              <div className="flex gap-3">
+                                <img
+                                  className="w-8 h-8 object-cover rounded-full"
+                                  src={`http://localhost:5000${fallower.avatar}`}
+                                  alt="userimg"
+                                />
+                                {fallower.username}
+                              </div>
+                            </Link>
+                            <Link to={`/user/${fallower._id}`}>
+                              <button
+                                className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                                view
+                              </button>
+                            </Link>
                           </div>
                         );
                       })}
@@ -444,15 +422,20 @@ const Profil = () => {
                             className="flex items-center justify-between"
                             key={fallower._id}
                           >
-                            <div className="flex gap-3">
-                              <img
-                                className="w-8 rounded-full"
-                                src={UserImg}
-                                alt="userimg"
-                              />
-                              {fallower.username}
-                            </div>
-                            <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                            <Link to={`/user/${fallower._id}`}>
+                              <div className="flex gap-3">
+                                <img
+                                  className="w-8 h-8 object-cover rounded-full"
+                                  src={`http://localhost:5000${fallower.avatar}`}
+                                  alt="fallower img"
+                                />
+                                {fallower.username}
+                              </div>
+
+                            </Link>
+                            <button
+                              onClick={() => handleRemove(fallower)}
+                              className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
                               remove
                             </button>
                           </div>
@@ -460,11 +443,28 @@ const Profil = () => {
                       })}
                   </div>
                 )}
+
+                {add && (
+                  <div>
+                    <h2 className=" font-bold text-white text-center">Creating a current</h2>
+                    <form className="w-full">
+                      <input
+                        type="text"
+                        placeholder="Title of the current"
+                        className="w-full bg-neutral-700 py-2 px-4 rounded-md my-5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <button className="w-full text-sm cursor-pointer text-blue-700">
+                        Next
+                      </button>
+                    </form>
+                  </div>
+                )}
               </ModalBody>
             </div>
           )}
-        </ModalContent>
-      </Modal>
+        </ModalContent >
+      </Modal >
+
     </>
   );
 };
