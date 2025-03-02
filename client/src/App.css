@@ -389,6 +389,20 @@ body {
 }
 
 
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #000; 
+  background: #fff; /* Add a background */
+  border-radius: 50%; /* Make them circular */
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: #000; /* Change background on hover */
+  color: black; /* Change icon color on hover */
+}
+
+
 @media (max-width: 1250px) {
   #max_width_tet_none span {
     display: none;

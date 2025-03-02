@@ -28,9 +28,19 @@ import { FaHeart } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
 import { LuSend } from "react-icons/lu";
 import { BsFillSave2Fill } from "react-icons/bs";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+// import required modules
+import { Pagination, Navigation } from "swiper/modules";
 
 // contex
 import { UserContext } from "../userContext";
+import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleRight } from "react-icons/fa";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -77,14 +87,14 @@ const Home = () => {
     people.reduce((acc, item) => ({ ...acc, [item._id]: true }), {})
   );
 
-    const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
-    const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
-  
-    const handleSecondButtonClick = () => {
-      setIsSecondButtonVisible(false);
-      setIsFirstButtonVisible(true);
-    };
-  
+  const [isFirstButtonVisible, setIsFirstButtonVisible] = useState(true);
+  const [isSecondButtonVisible, setIsSecondButtonVisible] = useState(false);
+
+  const handleSecondButtonClick = () => {
+    setIsSecondButtonVisible(false);
+    setIsFirstButtonVisible(true);
+  };
+
   // follow
   const handleFallow = (item) => {
     try {
@@ -123,8 +133,6 @@ const Home = () => {
     setIsModalOpen1(false);
   };
 
-
-
   const handleFallowers = () => {
     setSettings(false);
     setFallowers(true);
@@ -159,7 +167,6 @@ const Home = () => {
     setIsLiked(newLikeState);
     setLikeCount(newLikeCount);
   };
-
 
   // if (!user) {
   //   navigate("/login");
@@ -237,23 +244,54 @@ const Home = () => {
       </div>
 
       <div className="max-w-5xl mx-auto py-12 mt-5 px-6 flex justify-between gap-10">
-        <div id="home_right_user" className="px-10 w-200">
-          <div className="flex items-center gap-4">
-            {people.map((item) => (
-              <div
-                onClick={() => handleProfile(item)}
-                className="flex gap-4 cursor-pointer"
-              >
-                <div className="w-20">
-                  <img
-                    src={`http://localhost:5000${item.avatar}`}
-                    alt="User"
-                    className="w-20 h-20 rounded-full"
-                  />
-                  <h2 className="truncate mt-2">{item.username}</h2>
-                </div>
-              </div>
-            ))}
+        <div id="home_right_user" className="px-10 w-150">
+          <div className="relative flex items-center justify-between">
+            <button
+              className="absolute top-6 left-4 z-10 bg-white p-1  rounded-full shadow-lg text-black hover:cursor-pointer"
+              id="swiper-prev"
+            >
+              <FaAngleLeft className="w-5 h-5" />
+            </button>
+            <button
+              className="absolute top-6 right-4 z-10 bg-white p-1 rounded-full shadow-lg text-black hover:cursor-pointer"
+              id="swiper-next"
+            >
+              <FaAngleRight className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="flex items-center gap-4 px-10">
+            {/* Swiper Component */}
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={5}
+              navigation={{
+                prevEl: "#swiper-prev", // Link custom prev button
+                nextEl: "#swiper-next", // Link custom next button
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Navigation]} // Include Navigation and Pagination
+              className="mySwiper"
+            >
+              {people.map((item) => (
+                <SwiperSlide>
+                  <div
+                    onClick={() => handleProfile(item)}
+                    className="flex gap-4 cursor-pointer"
+                  >
+                    <div className="w-20">
+                      <img
+                        src={`http://localhost:5000${item.avatar}`}
+                        alt="User"
+                        className="w-20 h-20 rounded-full"
+                      />
+                      <h2 className="truncate mt-2">{item.username}</h2>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
           <div className="max-w-4xl mx-auto p-4">
             <div className="">
@@ -447,7 +485,13 @@ const Home = () => {
                   className="flex items-center gap-3 px-4"
                 >
                   <div>
-                    <img src={UserImg1} alt="" className="w-18 rounded-full" />
+                    <img
+                      src={
+                        user ? `http://localhost:5000${item.avatar}` : UserImg
+                      }
+                      alt=""
+                      className="w-19 h-19 rounded-full cursor-pointer"
+                    />{" "}
                   </div>
                   <div>
                     <h1>{item.username}</h1>

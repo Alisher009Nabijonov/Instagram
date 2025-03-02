@@ -97,7 +97,7 @@ const User = () => {
                 <div className=" ">
                   <img
                     src={user ? `http://localhost:5000${userData.avatar}` : UserImg2}
-                    alt=""
+                    alt="user"
                     className="w-30 h-30 rounded-full cursor-pointer"
                   />
                 </div>

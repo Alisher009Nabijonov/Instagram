@@ -74,7 +74,7 @@ const Sidebar = () => {
   const toggleNotiClose = () => {
     setNoti("close");
   };
-  
+
   // uploding file
   const [uploadedImage, setUploadedImage] = useState(null);
   const handleFileUpload = (event) => {
@@ -271,7 +271,7 @@ const Sidebar = () => {
                 className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
               >
                 {/* <CgProfile className="w-6 h-6" /> */}
-                <img src={UserImg} alt="Profile" className="w-6 rounded-full"/>
+                <img src={UserImg} alt="Profile" className="w-6 rounded-full" />
                 <span className="text-[17px]">Profile</span>
               </NavLink>
             </div>
@@ -399,7 +399,7 @@ const Sidebar = () => {
         <p>
           <NavLink to="/profil">
             {/* <CgProfile className="w-8 h-8" /> */}
-            <img src={UserImg} alt="Profile" className="w-8 rounded-full"/>
+            <img src={UserImg} alt="Profile" className="w-8 rounded-full" />
           </NavLink>
         </p>
       </div>
@@ -497,7 +497,11 @@ const Sidebar = () => {
               key={item._id}
               className="flex items-center gap-4 p-3 cursor-pointer hover:bg-neutral-800 rounded-lg transition-colors"
             >
-              <img src={UserImg} alt="" className="w-12 h-12 rounded-full" />
+              <img
+                src={user ? `http://localhost:5000${item.avatar}` : UserImg}
+                alt="user"
+                className="w-17 h-17 rounded-full cursor-pointer"
+              />
               <div>
                 <h3 className="font-semibold">{item.username}</h3>
                 <p className="text-neutral-400 text-sm">{item.name}</p>

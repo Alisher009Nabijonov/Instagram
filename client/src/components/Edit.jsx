@@ -4,6 +4,7 @@ import axios from "axios";
 
 // img
 import userImg from "../assets/user.jpg"
+import toast from "react-hot-toast";
 
 export default function Edit() {
   const { user } = useContext(UserContext);
@@ -53,10 +54,10 @@ export default function Edit() {
         },
       });
 
-      alert("Uraaa!");
+      toast.success("edit successfliy");
     } catch (error) {
       setError(error.response?.data?.message || "error");
-      alert("uramass")
+      toast.error("edit error")
     } finally {
       setLoading(false);
     }
