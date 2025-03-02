@@ -189,7 +189,7 @@ const Profil = () => {
               {user ? user.name : "Name"}
             </p>
             <p className=" pt-5 text-sm text-gray-300">
-              {user ? (user.bio) : ("You bio will be showed here.")}
+              {user ? (user.bio) : ("Your bio will be showed here.")}
             </p>
           </div>
         </div>

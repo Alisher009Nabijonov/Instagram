@@ -67,7 +67,7 @@ const Home = () => {
   let { user } = useContext(UserContext);
   const { people } = useContext(UserContext);
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); 
 
   const filteredPeople = people.filter((person) =>
     person.name.toLowerCase().includes(searchQuery.toLowerCase())
