@@ -38,6 +38,7 @@ import "swiper/css/pagination";
 import { Pagination, Navigation } from "swiper/modules";
 
 // contex
+import { ScrollShadow } from "@heroui/react";
 import { UserContext } from "../userContext";
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
@@ -49,7 +50,6 @@ const Home = () => {
   const [settings, setSettings] = useState(false);
   const [fallowers, setFallowers] = useState(false);
   const [fallowing, setFallowing] = useState(false);
-
   useEffect(() => {
     const savedComment = localStorage.getItem("comment");
     if (savedComment) {
@@ -245,7 +245,7 @@ const Home = () => {
 
       <div className="max-w-5xl mx-auto py-12 mt-5 px-6 flex justify-between gap-10">
         <div id="home_right_user" className="px-10 w-150">
-          <div className="relative flex items-center justify-between">
+          {/* <div className="relative flex items-center justify-between">
             <button
               className="absolute top-6 left-4 z-10 bg-white p-1  rounded-full shadow-lg text-black hover:cursor-pointer"
               id="swiper-prev"
@@ -258,41 +258,31 @@ const Home = () => {
             >
               <FaAngleRight className="w-5 h-5" />
             </button>
-          </div>
-          <div className="flex items-center gap-4 px-10">
-            {/* Swiper Component */}
-            <Swiper
-              slidesPerView={3}
-              spaceBetween={5}
-              navigation={{
-                prevEl: "#swiper-prev", // Link custom prev button
-                nextEl: "#swiper-next", // Link custom next button
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Navigation]} // Include Navigation and Pagination
-              className="mySwiper"
-            >
+          </div> */}
+          <ScrollShadow
+            hideScrollBar
+            className="max-w-[450px] max-h-[300px] overflow-x-auto relative custom-scroll"
+            offset={100}
+            orientation="horizontal"
+          >
+            <div className="flex items-center gap-4 px-10">
               {people.map((item) => (
-                <SwiperSlide>
-                  <div
-                    onClick={() => handleProfile(item)}
-                    className="flex gap-4 cursor-pointer"
-                  >
-                    <div className="w-20">
-                      <img
-                        src={`http://localhost:5000${item.avatar}`}
-                        alt="User"
-                        className="w-20 h-20 rounded-full"
-                      />
-                      <h2 className="truncate mt-2">{item.username}</h2>
-                    </div>
+                <div
+                  onClick={() => handleProfile(item)}
+                  className="flex gap-4 cursor-pointer"
+                >
+                  <div className="w-20">
+                    <img
+                      src={`http://localhost:5000${item.avatar}`}
+                      alt="User"
+                      className="w-20 h-20 rounded-full"
+                    />
+                    <h2 className="truncate mt-2">{item.username}</h2>
                   </div>
-                </SwiperSlide>
+                </div>
               ))}
-            </Swiper>
-          </div>
+            </div>
+          </ScrollShadow>
           <div className="max-w-4xl mx-auto p-4">
             <div className="">
               {video.map((item) => (

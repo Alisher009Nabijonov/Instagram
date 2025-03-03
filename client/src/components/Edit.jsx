@@ -5,7 +5,7 @@ import axios from "axios";
 // img
 import userImg from "../assets/user.jpg"
 import toast from "react-hot-toast";
-import userImg from "../assets/1.png"
+// import userImg from "../assets/1.png"
 
 export default function Edit() {
   const { user } = useContext(UserContext);

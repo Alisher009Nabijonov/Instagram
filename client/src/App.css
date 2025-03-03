@@ -387,6 +387,10 @@ body {
 #hover-box:hover #hover-text {
   display: block;
 }
+/* Scroll barni yashirish */
+::-webkit-scrollbar {
+  display: none;
+}
 
 
 

@@ -532,29 +532,25 @@ const Sidebar = () => {
           </div>
           <hr className="border-neutral-800" />
           <div>
-            <div>
-              {/* {user.following.map((fallowingUser) => {
+            {/* <div>
+              {user.followers.map((fallower) => {
                 return (
                   <div
-                    onClick={() => handleProfile(fallowingUser)}
-                    key={fallowingUser._id}
-                    className="flex items-center gap-4 px-2 py-2 my-2 cursor-pointer rounded-sm hover:bg-neutral-700"
+                    key={fallower._id}
+                    onClick={() => handleProfile(fallower)}
+                    className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800"
                   >
                     <div>
-                      <img
-                        src={UserImg}
-                        alt="User none"
-                        className="w-18 rounded-full"
-                      />
+                      <img src={UserImg} alt="" className="w-17 rounded-full" />
                     </div>
                     <div>
-                      <h1>{fallowingUser.username}</h1>
-                      <h1>{fallowingUser.name}</h1>
+                      <h1>{fallower.username}</h1>
+                      <h1 className="text-neutral-400">{fallower.name}</h1>
                     </div>
                   </div>
                 );
-              })} */}
-            </div>
+              })}
+            </div> */}
           </div>
         </div>
       </div>
