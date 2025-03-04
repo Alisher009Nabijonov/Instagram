@@ -29,7 +29,7 @@ const UserProvider = ({ children }) => {
       .get("/api/user/getAllUsers")
       .then(({ data }) => {
         setPeople(data.users);
-        toast.success(data.message);
+        console.log(data.message);
       })
       .catch((error) => {
         console.log("error while get profile", error);

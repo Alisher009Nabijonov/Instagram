@@ -125,13 +125,13 @@ const User = () => {
                     </button>
                   </div>
                   <div className="flex items-center gap-6">
-                    <h2 className="mt-3 text-[#a29965] cursor-pointer">
+                    <h2 className="mt-3 text-[#a8a58b] cursor-pointer">
                       <span className="text-white font-bold mr-1">0</span>
-                      publications
+                      posts
                     </h2>
                     <h2
                       onClick={handleFallowers}
-                      className=" mt-3 text-[#a29965] cursor-pointer"
+                      className=" mt-3 text-[#a8a58b] cursor-pointer"
                     >
                       <span className="text-white font-bold mr-1">
                         {user ? userData.followers.length : 0}
@@ -140,12 +140,12 @@ const User = () => {
                     </h2>
                     <h2
                       onClick={handleFallowwing}
-                      className=" mt-3 text-[#a29965] cursor-pointer"
+                      className=" mt-3 text-[#a8a58b] cursor-pointer"
                     >
                       <span className="text-white font-bold mr-1" >
                         {user ? userData.following.length : 0}
                       </span>
-                      subscriptions
+                      fallowing
                     </h2>
                   </div>
                 </div>
