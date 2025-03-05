@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, use } from "react";
 // assets
 import UserImg from "../assets/user.jpg";
 import UserImg1 from "../assets/1.png";
@@ -50,6 +50,15 @@ const Home = () => {
   const [settings, setSettings] = useState(false);
   const [fallowers, setFallowers] = useState(false);
   const [fallowing, setFallowing] = useState(false);
+  const [isFollowing, setIsFallowing] = useState(false);
+
+  const handleIsFallow = () => {
+    user.following._id((userId) => {
+      console.log(userId);
+
+    })
+  }
+
   useEffect(() => {
     const savedComment = localStorage.getItem("comment");
     if (savedComment) {
@@ -245,20 +254,7 @@ const Home = () => {
 
       <div className="max-w-5xl mx-auto py-12 mt-5 px-6 flex justify-between gap-10">
         <div id="home_right_user" className="px-10 w-150">
-          {/* <div className="relative flex items-center justify-between">
-            <button
-              className="absolute top-6 left-4 z-10 bg-white p-1  rounded-full shadow-lg text-black hover:cursor-pointer"
-              id="swiper-prev"
-            >
-              <FaAngleLeft className="w-5 h-5" />
-            </button>
-            <button
-              className="absolute top-6 right-4 z-10 bg-white p-1 rounded-full shadow-lg text-black hover:cursor-pointer"
-              id="swiper-next"
-            >
-              <FaAngleRight className="w-5 h-5" />
-            </button>
-          </div> */}
+
           <ScrollShadow
             hideScrollBar
             className="max-w-[450px] max-h-[300px] overflow-x-auto relative custom-scroll"
@@ -283,6 +279,7 @@ const Home = () => {
               ))}
             </div>
           </ScrollShadow>
+
           <div className="max-w-4xl mx-auto p-4">
             <div className="">
               {video.map((item) => (
@@ -379,6 +376,8 @@ const Home = () => {
               </div>
             )}
           </div>
+
+
           <div className="my-10">
             <div className="text-center flex flex-col items-center justify-center">
               <img
@@ -395,6 +394,7 @@ const Home = () => {
             <h1 className="text-xl">Recommended publications</h1>
           </div>
         </div>
+
         <div id="home_left_people" className="ml-10">
           <div className="cursor-pointer flex items-center gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors">
             <img
@@ -419,6 +419,7 @@ const Home = () => {
               switch
             </button>
           </div>
+
           {isModalOpen && (
             <div
               id="modal_oyna_form"
@@ -451,12 +452,14 @@ const Home = () => {
               </div>
             </div>
           )}
+
           <div className="flex items-center justify-between">
             <h1 className="text-neutral-400">Recommendations for you</h1>
             <NavLink to="/people">
               <h1 className="cursor-pointer hover:text-neutral-400 ">All</h1>
             </NavLink>
           </div>
+
           {people.map((item) => (
             <div id="hover-box" key={item._id}>
               <div className="cursor-pointer flex items-center justify-between gap-4 p-3 hover:bg-neutral-800 rounded-lg transition-colors">
@@ -474,7 +477,7 @@ const Home = () => {
                     <p className="text-neutral-400 text-sm">{item.name}</p>
                   </div>
                 </div>
-                <div>
+                <div onClick={handleIsFallow} className="bg-white/50">
                   {visibleButtons[item._id] && (
                     <button
                       key={item._id}
@@ -486,6 +489,7 @@ const Home = () => {
                   )}
                 </div>
               </div>
+
               <div id="hover-text">
                 <div
                   onClick={() => handleProfile(item)}
@@ -547,6 +551,7 @@ const Home = () => {
                   )}
                 </div>
               </div>
+
             </div>
           ))}
           <div>
@@ -557,7 +562,9 @@ const Home = () => {
             <p className="mt-5 text-neutral-400">© 2025 Instagram from Meta</p>
           </div>
         </div>
+
       </div>
+
       <div className="login_bottom_link_bottom">
         <div className="link">
           <a href="">Meta</a>
@@ -578,6 +585,7 @@ const Home = () => {
           <h3 className="year_versia_h3">© 2025 Instagram from Meta</h3>
         </div>
       </div>
+
       <Modal
         className="bg-neutral-800 w-100 rounded-sm"
         isOpen={isOpen}
@@ -633,6 +641,7 @@ const Home = () => {
           )}
         </ModalContent>
       </Modal>
+
     </>
   );
 };
