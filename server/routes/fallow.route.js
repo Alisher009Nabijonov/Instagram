@@ -7,6 +7,6 @@ const {
 } = require("../controllers/fallow.controller");
 
 router.post("/:id/fallow", fallowUser);
-router.post("/:id/unFallow", unFallowUser);
+router.post("/:id/unFollow", unFallowUser);
 
 module.exports = router;
