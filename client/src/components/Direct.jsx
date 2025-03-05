@@ -53,6 +53,7 @@ const Direct = () => {
               // onClick={() => handleProfile(item)}
               className="flex items-center gap-4"
             >
+              
               <img
               src={`http://localhost:5000${item.avatar}`}
               alt="User"
