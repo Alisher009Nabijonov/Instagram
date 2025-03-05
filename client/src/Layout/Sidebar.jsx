@@ -271,7 +271,11 @@ const Sidebar = () => {
                 className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
               >
                 {/* <CgProfile className="w-6 h-6" /> */}
-                <img src={UserImg} alt="Profile" className="w-6 rounded-full" />
+                <img
+                  src={user ? `http://localhost:5000${user.avatar}` : UserImg}
+                  alt="User img"
+                  className="w-6 rounded-full cursor-pointer object-cover"
+                />{" "}
                 <span className="text-[17px]">Profile</span>
               </NavLink>
             </div>
@@ -283,7 +287,7 @@ const Sidebar = () => {
         >
           <h1 className="flex items-center gap-4 text-[19px]">
             <HiMiniBars3 />
-            More
+            <span>More</span>
           </h1>
         </div>
         {isModalOpen && (
@@ -399,7 +403,11 @@ const Sidebar = () => {
         <p>
           <NavLink to="/profil">
             {/* <CgProfile className="w-8 h-8" /> */}
-            <img src={UserImg} alt="Profile" className="w-8 rounded-full" />
+            <img
+              src={user ? `http://localhost:5000${user.avatar}` : UserImg}
+              alt="User img"
+              className="w-8 rounded-full cursor-pointer object-cover"
+            />{" "}
           </NavLink>
         </p>
       </div>
@@ -479,7 +487,7 @@ const Sidebar = () => {
               className="cursor-pointer text-2xl mb-2"
               onClick={toggleBarsClose}
             >
-              X
+              <i class="fa-solid fa-xmark"></i>
             </h2>
           </div>
           <input
@@ -527,30 +535,34 @@ const Sidebar = () => {
               className="cursor-pointer text-2xl mb-3   "
               onClick={toggleNotiClose}
             >
-              X
+              <i class="fa-solid fa-xmark"></i>
             </h2>
           </div>
           <hr className="border-neutral-800" />
           <div>
-            {/* <div>
-              {user.followers.map((fallower) => {
-                return (
-                  <div
-                    key={fallower._id}
-                    onClick={() => handleProfile(fallower)}
-                    className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800"
-                  >
-                    <div>
-                      <img src={UserImg} alt="" className="w-17 rounded-full" />
-                    </div>
-                    <div>
-                      <h1>{fallower.username}</h1>
-                      <h1 className="text-neutral-400">{fallower.name}</h1>
-                    </div>
+            {/* {user.followers.map((fallower) => {
+              return (
+                <div
+                  key={fallower._id}
+                  onClick={() => handleProfile(fallower)}
+                  className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800"
+                >
+                  <div>
+                    <img
+                      src={
+                        user ? `http://localhost:5000${fallower.avatar}` : UserImg
+                      }
+                      alt="user"
+                      className="w-17 h-17 rounded-full cursor-pointer"
+                    />{" "}
                   </div>
-                );
-              })}
-            </div> */}
+                  <div>
+                    <h1>{fallower.username}</h1>
+                    <h1 className="text-neutral-400">{fallower.name}</h1>
+                  </div>
+                </div>
+              );
+            })} */}
           </div>
         </div>
       </div>

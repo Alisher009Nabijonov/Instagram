@@ -42,7 +42,7 @@ const Profil = () => {
   const navigate = useNavigate();
   let { user, redirect } = useContext(UserContext);
 
-  if (redirect) navigate("/login")
+  if (redirect) navigate("/login");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedCategory, setSelectedCategory] = useState(1);
@@ -70,9 +70,8 @@ const Profil = () => {
 
   // modal
 
-
   const openModal = () => {
-    setAdd(true)
+    setAdd(true);
     setSettings(false);
     setFallowers(false);
     setFallowing(false);
@@ -114,44 +113,69 @@ const Profil = () => {
     }
   };
 
-
   const handleRemove = async (fallower) => {
     const currentUser = user._id;
     try {
       await axios.post(`/api/${fallower._id}/unFallow`, { currentUser });
-      alert("unfallowed")
+      alert("unfallowed");
     } catch (error) {
-      alert("errorrrrrrr")
+      alert("errorrrrrrr");
     }
-  }
-
+  };
 
   return (
     <>
-      <div className="max-w-4xl mx-auto py-8 px-6">
-        <div className="flex items-center py-4 gap-10">
+      <div id="profile_bar_responsive">
+        <div className="flex items-center justify-between px-10 py-2 w-full">
+          <div>
+            <Tooltip content="Settings">
+              <button
+                id="profile_settings1"
+                onClick={handleSettings}
+                className=" px-1 py-2 text-sm rounded-sm cursor-pointer"
+              >
+                <IoIosSettings className="h-6 w-6" />
+              </button>
+            </Tooltip>
+          </div>
+          <div>
+            <h1>{user.username}</h1>
+          </div>
+          <div>
+            <h1>@</h1>
+          </div>
+        </div>
+        {/* <div className="w-full bg-red-700"></div> */}
+        <hr />
+      </div>
+      <div className="max-w-4xl mx-auto py-8 px-6 mt-5">
+        <div id="ssssssss" className="flex items-center py-4 gap-10">
           <div>
             <img
+              id="user_img_profile"
               src={user ? `http://localhost:5000${user.avatar}` : UserImg}
               alt="User img"
               className="w-30 h-30 rounded-full cursor-pointer object-cover"
             />
           </div>
           <div>
-            <div className="flex items-center gap-4">
+            <div id="profile_name_edit_btn" className="flex items-center gap-4">
               <h1 className="text-xl">{user ? user.username : "user name"}</h1>
-              <Link to="/edit">
-                <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
-                  Edit profil
-                </button>
-              </Link>
-              <Link to="/archive">
-                <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
-                  View archive
-                </button>
-              </Link>
+              <div className="flex gap-3">
+                <Link to="/edit">
+                  <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
+                    Edit profil
+                  </button>
+                </Link>
+                <Link to="/archive">
+                  <button className="bg-neutral-700 px-6 py-2 text-sm rounded-sm cursor-pointer hover:bg-neutral-800">
+                    View archive
+                  </button>
+                </Link>
+              </div>
               <Tooltip content="Settings">
                 <button
+                  id="profile_settings"
                   onClick={handleSettings}
                   className=" px-1 py-2 text-sm rounded-sm cursor-pointer"
                 >
@@ -189,7 +213,7 @@ const Profil = () => {
               {user ? user.name : "Name"}
             </p>
             <p className=" pt-5 text-sm text-gray-300">
-              {user ? (user.bio) : ("Your bio will be showed here.")}
+              {user ? user.bio : "Your bio will be showed here."}
             </p>
           </div>
         </div>
@@ -206,40 +230,41 @@ const Profil = () => {
           </h2>
         </div>
 
-
-
         <div className="w-full h-0.5 bg-neutral-800 mt-10"></div>
         <div className="flex items-center justify-center gap-3">
           <div className="flex justify-center gap-16">
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
+                selectedCategory === 1
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(1)}
             >
               <MdOutlineGridOn className="h-3 w-3" />
-              Publications
+             <h1 id="profile_h1_"> Publications</h1>
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 2
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                selectedCategory === 2
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(2)}
             >
               <IoBookmarkSharp className="h-3 w-3" />
-              Saved
+            <h1 id="profile_h1_">  Saved</h1>
             </h3>
             <h3
-              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
-                ? "border-white"
-                : "border-transparent text-zinc-500"
-                }`}
+              className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                selectedCategory === 3
+                  ? "border-white"
+                  : "border-transparent text-zinc-500"
+              }`}
               onClick={() => handleCategoryClick(3)}
             >
               <RiShieldUserFill className="h-3 w-3" />
-              Marks
+              <h1 id="profile_h1_">Marks</h1>
             </h3>
           </div>
         </div>
@@ -249,7 +274,6 @@ const Profil = () => {
             <h1>First steps</h1>
             <div className="flex w-full gap-2">
               <div className="flex gap-2 w-100 mx-auto text-center">
-
                 <div className="border-1 border-neutral-700 py-3 px-5 w-75 ">
                   <p className="rounded-full w-20 h-20 flex items-center justify-center bg-zinc-900 p-4 mx-auto mb-5">
                     <MdOutlinePhotoCamera className="h-8 w-8 text-zinc-400" />
@@ -336,10 +360,10 @@ const Profil = () => {
         ></div>
       )}
       <Modal
-        className="bg-neutral-800 w-100 rounded-sm z-20"
+        className="bg-neutral-800 w-100 rounded-sm z-20 mb-40"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        backdropClassName="hidden" 
+        backdropClassName="hidden"
       >
         <ModalContent className="py-5">
           {(onClose) => (
@@ -389,8 +413,7 @@ const Profil = () => {
                               </div>
                             </Link>
                             <Link to={`/user/${fallower._id}`}>
-                              <button
-                                className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                              <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
                                 view
                               </button>
                             </Link>
@@ -431,11 +454,11 @@ const Profil = () => {
                                 />
                                 {fallower.username}
                               </div>
-
                             </Link>
                             <button
                               onClick={() => handleRemove(fallower)}
-                              className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                              className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md"
+                            >
                               remove
                             </button>
                           </div>
@@ -446,7 +469,9 @@ const Profil = () => {
 
                 {add && (
                   <div>
-                    <h2 className=" font-bold text-white text-center">Creating a current</h2>
+                    <h2 className=" font-bold text-white text-center">
+                      Creating a current
+                    </h2>
                     <form className="w-full">
                       <input
                         type="text"
@@ -462,9 +487,8 @@ const Profil = () => {
               </ModalBody>
             </div>
           )}
-        </ModalContent >
-      </Modal >
-
+        </ModalContent>
+      </Modal>
     </>
   );
 };

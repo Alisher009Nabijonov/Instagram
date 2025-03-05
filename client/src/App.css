@@ -352,11 +352,9 @@ body {
 .custum-file-upload input {
   display: none;
 }
-#responsive_icon_insta{
+#responsive_icon_insta {
   display: none;
 }
-
-
 
 #hover-box {
   position: relative;
@@ -392,11 +390,9 @@ body {
   display: none;
 }
 
-
-
 .swiper-button-prev,
 .swiper-button-next {
-  color: #000; 
+  color: #000;
   background: #fff; /* Add a background */
   border-radius: 50%; /* Make them circular */
 }
@@ -405,19 +401,20 @@ body {
   background: #000; /* Change background on hover */
   color: black; /* Change icon color on hover */
 }
-
+#profile_bar_responsive {
+  display: none;
+}
 
 @media (max-width: 1250px) {
   #max_width_tet_none span {
     display: none;
   }
-  #max_width_tet_none{
+  #max_width_tet_none {
     width: 80px;
   }
-  #responsive_icon_insta{
+  #responsive_icon_insta {
     display: flex;
   }
-  
 }
 @media (max-width: 1150px) {
   #home_left_people {
@@ -449,6 +446,44 @@ body {
     display: flex;
   }
   .login_bottom_link_bottom {
+    display: none;
+  }
+  #profile_settings {
+    display: none;
+  }
+  #profile_bar_responsive {
+    display: block;
+    position: fixed;
+    background-color: black;
+    width: 100%;
+  }
+}
+
+@media (max-width: 470px) {
+  #video_pas {
+    width: 100%;
+  }
+  #home_right_user {
+    width: 100%;
+    padding: 0;
+  }
+  #user_img_profile {
+    width: 80px;
+    height: 80px;
+  }
+}
+@media (max-width: 625px) {
+  #profile_name_edit_btn {
+    flex-direction: column;
+    text-align: start;
+    display: flex;
+    align-items: start;
+  }
+  #ssssssss {
+    display: flex;
+    justify-content: space-between;
+  }
+  #profile_h1_bottom{
     display: none;
   }
 }

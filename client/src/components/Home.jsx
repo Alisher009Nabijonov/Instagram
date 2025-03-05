@@ -74,9 +74,9 @@ const Home = () => {
   const video3 = [];
 
   const navigate = useNavigate();
-  let { user } = useContext(UserContext);
+  let { user, redirect } = useContext(UserContext);
   const { people } = useContext(UserContext);
-
+  if (redirect) navigate("/login");
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredPeople = people.filter((person) =>
@@ -101,7 +101,7 @@ const Home = () => {
       const currentUserId = user._id;
       axios.post(`/api/${item._id}/fallow`, { currentUserId });
       toast.success("send fallow");
-      setVisibleButtons((prev) => ({ ...prev, [item._id]: false })); // setIsFirstButtonVisible(false);
+      setVisibleButtons((prev) => ({ ...prev, [item._id]: false }));
       setIsSecondButtonVisible(true);
       setIsFirstButtonVisible(false);
     } catch (error) {
@@ -292,7 +292,7 @@ const Home = () => {
                     className="w-80 mt-2 mx-auto shadow-lg border-2 border-neutral-500 rounded-sm z-10 "
                     src={item.videomp}
                   ></video>
-                  <div className="w-80 mx-auto py-4 px-5">
+                  <div id="video_pas" className="w-80 mx-auto py-4 px-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 text-2xl">
                         <p
@@ -342,12 +342,25 @@ const Home = () => {
                       className="text-white text-end mb-4 rounded-md text-xl cursor-pointer"
                       onClick={closeModal1}
                     >
-                      X
+                      <i class="fa-solid fa-xmark"></i>
                     </button>
                   </div>
 
                   <div className="mb-4">
-                    <p className="text-white text-lg mb-2">{comment}</p>
+                    <div className="flex items-center gap-4">
+                      <img
+                        id="user_img_profile"
+                        src={
+                          user ? `http://localhost:5000${user.avatar}` : UserImg
+                        }
+                        alt="User img"
+                        className="w-14 rounded-full cursor-pointer object-cover"
+                      />
+                      <div>
+                        <h1>{user.username}</h1>
+                        <p className="text-neutral-300 text-lg mb-2">{comment}</p>
+                      </div>
+                    </div>
                     <input
                       type="text"
                       className="w-full p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -389,6 +402,11 @@ const Home = () => {
               alt=""
               className="w-12 h-12 rounded-full"
             />
+            {/* <img
+              src={`http://localhost:5000${user.avatar}`}
+              alt="User"
+              className="w-17 h-17 rounded-full"
+            /> */}
             <div>
               <h3 className="font-semibold">
                 {user ? user.username : "user name"}
@@ -416,14 +434,13 @@ const Home = () => {
                     className=" text-white text-end mb-4 rounded-md text-xl cursor-pointer"
                     onClick={closeModal}
                   >
-                    X
+                    <i class="fa-solid fa-xmark"></i>
                   </button>
                 </div>
                 <img src={LogoImg} alt="" className="mx-auto my-2" />
                 <div>
                   <h1 className="my-4">Email: {user.email}</h1>
                   <h1>Profile: {user.createdAt}</h1>
-                  <h1>Password: none</h1>
                   <button
                     onClick={closeModal}
                     className="px-6 mx-auto text-center rounded-sm flex mt-10 py-2 bg-blue-600 hover:bg-blue-700"

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink, Outlet } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa6";
@@ -48,7 +48,6 @@ const Notification = () => {
     navigate(`/user/${item._id}`);
   };
 
-
   return (
     <>
       <div>
@@ -70,7 +69,11 @@ const Notification = () => {
                 className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800"
               >
                 <div>
-                  <img src={UserImg} alt="" className="w-17 rounded-full" />
+                  <img
+                    src={user ? `http://localhost:5000${fallower.avatar}` : UserImg}
+                    alt="user"
+                    className="w-17 h-17 rounded-full cursor-pointer"
+                  />{" "}
                 </div>
                 <div>
                   <h1>{fallower.username}</h1>

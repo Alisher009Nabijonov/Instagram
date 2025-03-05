@@ -10,6 +10,8 @@ import { MdOutlineGridOn } from "react-icons/md";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { RiShieldUserFill } from "react-icons/ri";
 import { UserContext } from "../userContext";
+import { FaChevronLeft } from "react-icons/fa";
+
 // heroui
 import {
   Modal,
@@ -88,15 +90,36 @@ const User = () => {
 
   return (
     <>
-      {" "}
+      {userData ? (
+        <div id="profile_bar_responsive">
+          <div className="flex items-center px-10 py-2 w-full">
+            <div className="text-center">
+              <h1 className="text-center mx-auto">
+                <FaChevronLeft className="text-center mx-auto"/>
+              </h1>
+            </div>
+            <div className="text-center mx-auto">
+              <h1>{userData.username}</h1>
+            </div>
+          </div>
+          <hr />
+        </div>
+      ) : (
+        <div></div>
+      )}
       <div>
         {userData ? (
           <>
-            <div className="max-w-4xl mx-auto py-8 px-6">
+            <div className="max-w-4xl mx-auto py-8 px-6 mt-5">
               <div className="flex items-center justify-center gap-20 px-8">
                 <div className=" ">
                   <img
-                    src={user ? `http://localhost:5000${userData.avatar}` : UserImg2}
+                  id="user_img_profile"
+                    src={
+                      user
+                        ? `http://localhost:5000${userData.avatar}`
+                        : UserImg2
+                    }
                     alt={userData.name}
                     className="w-30 h-30 rounded-full cursor-pointer object-cover"
                   />
@@ -142,7 +165,7 @@ const User = () => {
                       onClick={handleFallowwing}
                       className=" mt-3 text-[#a8a58b] cursor-pointer"
                     >
-                      <span className="text-white font-bold mr-1" >
+                      <span className="text-white font-bold mr-1">
                         {user ? userData.following.length : 0}
                       </span>
                       fallowing
@@ -154,20 +177,22 @@ const User = () => {
               <div className="flex items-center justify-center gap-3">
                 <div className="flex justify-center gap-16">
                   <h3
-                    className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${selectedCategory === 1
-                      ? "border-white"
-                      : "border-transparent text-zinc-500"
-                      }`}
+                    className={`flex cursor-pointer items-center gap-2 border-t py-4 text-[12px] font-semibold uppercase tracking-wider ${
+                      selectedCategory === 1
+                        ? "border-white"
+                        : "border-transparent text-zinc-500"
+                    }`}
                     onClick={() => handleCategoryClick(1)}
                   >
                     <MdOutlineGridOn className="h-3 w-3" />
                     Publications
                   </h3>
                   <h3
-                    className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${selectedCategory === 3
-                      ? "border-white"
-                      : "border-transparent text-zinc-500"
-                      }`}
+                    className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
+                      selectedCategory === 3
+                        ? "border-white"
+                        : "border-transparent text-zinc-500"
+                    }`}
                     onClick={() => handleCategoryClick(3)}
                   >
                     <RiShieldUserFill className="h-3 w-3" />
@@ -253,7 +278,6 @@ const User = () => {
                             key={fallower._id}
                           >
                             <Link to={`/user/${fallower._id}`}>
-
                               <div className="flex gap-3">
                                 <img
                                   className="w-8 h-8 object-cover rounded-full"
@@ -265,12 +289,10 @@ const User = () => {
                             </Link>
 
                             <Link to={`/user/${fallower._id}`}>
-
                               <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
                                 view
                               </button>
                             </Link>
-
                           </div>
                         );
                       })}
@@ -300,7 +322,6 @@ const User = () => {
                             key={fallower._id}
                           >
                             <Link to={`/user/${fallower._id}`}>
-
                               <div className="flex gap-3">
                                 <img
                                   className="w-8 h-8 object-cover rounded-full"

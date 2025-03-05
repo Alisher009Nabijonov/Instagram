@@ -32,7 +32,12 @@ const Direct = () => {
           </p>
         </div>
         <div className="px-1 py-3">
-          <img src={UserImg1} alt="" className="w-25 mx-2 mt-4 rounded-full" />
+          <img
+            id="user_img_profile"
+            src={user ? `http://localhost:5000${user.avatar}` : UserImg}
+            alt="User img"
+            className="w-23 rounded-full cursor-pointer object-cover"
+          />{" "}
           <p className="ml-4">Your nate</p>
         </div>
         <div className="flex items-center justify-between px-4 py-2">
@@ -49,10 +54,10 @@ const Direct = () => {
               className="flex items-center gap-4"
             >
               <img
-                src={UserImg1 || "/placeholder.svg"}
-                alt=""
-                className="w-12 h-12 rounded-full"
-              />
+              src={`http://localhost:5000${item.avatar}`}
+              alt="User"
+              className="w-17 h-17 rounded-full"
+            />
               <div>
                 <h3 className="font-semibold">{item.username}</h3>
                 <p className="text-neutral-400 text-sm">{item.name}</p>
@@ -146,10 +151,11 @@ const Direct = () => {
             <div className="w-full mt-4">
               <button
                 disabled={!selectedPerson}
-                className={`w-full py-2 rounded-md ${selectedPerson
-                  ? "bg-blue-500 hover:bg-blue-600"
-                  : "bg-blue-500 opacity-50 cursor-not-allowed"
-                  }`}
+                className={`w-full py-2 rounded-md ${
+                  selectedPerson
+                    ? "bg-blue-500 hover:bg-blue-600"
+                    : "bg-blue-500 opacity-50 cursor-not-allowed"
+                }`}
               >
                 Chat
               </button>
