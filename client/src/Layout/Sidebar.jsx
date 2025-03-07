@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { TbBrandSafari } from "react-icons/tb";
@@ -222,31 +222,34 @@ const Sidebar = () => {
                 <span className="text-[17px]">Search Query</span>
               </div>
 
-              <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-                <NavLink to="/interesting" className="flex items-center gap-4">
+              <NavLink
+                to="/interesting"
+                className="flex items-center gap-4 rounded-lg hover:bg-neutral-800 transition-colors"
+              >
+                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
                   <TbBrandSafari className="w-6 h-6" />
                   <span className="text-[17px]">Interesting</span>
-                </NavLink>
-              </div>
+                </div>
+              </NavLink>
 
-              <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-                <NavLink to="/reels" className="flex items-center gap-4">
+              <NavLink
+                to="/reels"
+                className="w-full flex items-center gap-4 rounded-lg hover:bg-neutral-800 transition-colors"
+              >
+                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
                   <BiMoviePlay className="w-6 h-6" />
                   <span className="text-[17px]">Reels</span>
-                </NavLink>
-              </div>
-
-              <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
-                <NavLink
-                  to="/direct"
-                  className="flex items-center gap-4 rounded-lg hover:bg-neutral-800 transition-colors"
-                >
-                  {/* <Badge color="danger" content="0"> */}
+                </div>
+              </NavLink>                                    
+              <NavLink
+                to="/direct"
+                className="flex items-center gap-4 rounded-lg hover:bg-neutral-800 transition-colors"
+              >
+                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-neutral-800 transition-colors cursor-pointer">
                   <FaFacebookMessenger className="w-6 h-6" />
-                  {/* </Badge>  */}
                   <span className="text-[17px]">Messages</span>
-                </NavLink>
-              </div>
+                </div>
+              </NavLink>
 
               <div
                 onClick={toggleNoti}
@@ -541,28 +544,29 @@ const Sidebar = () => {
           <hr className="border-neutral-800" />
           <div>
             {/* {user.followers.map((fallower) => {
-              return (
-                <div
-                  key={fallower._id}
-                  onClick={() => handleProfile(fallower)}
-                  className="flex items-center gap-4 my-2 rounded-lg cursor-pointer p-3 hover:bg-neutral-800"
-                >
-                  <div>
-                    <img
-                      src={
-                        user ? `http://localhost:5000${fallower.avatar}` : UserImg
-                      }
-                      alt="user"
-                      className="w-17 h-17 rounded-full cursor-pointer"
-                    />{" "}
+                return (
+                  <div
+                    className="flex items-center justify-between"
+                    key={fallower._id}
+                  >
+                    <Link to={`/user/${fallower._id}`}>
+                      <div className="flex gap-3">
+                        <img
+                          className="w-8 h-8 object-cover rounded-full"
+                          src={`http://localhost:5000${fallower.avatar}`}
+                          alt="userimg"
+                        />
+                        {fallower.username}
+                      </div>
+                    </Link>
+                    <Link to={`/user/${fallower._id}`}>
+                      <button className="bg-[#474747] hover:bg-[#707070] cursor-pointer px-5 h-8 rounded-md">
+                        view
+                      </button>
+                    </Link>
                   </div>
-                  <div>
-                    <h1>{fallower.username}</h1>
-                    <h1 className="text-neutral-400">{fallower.name}</h1>
-                  </div>
-                </div>
-              );
-            })} */}
+                );
+              })} */}
           </div>
         </div>
       </div>

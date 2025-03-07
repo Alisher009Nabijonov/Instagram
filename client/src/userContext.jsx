@@ -13,7 +13,7 @@ const UserProvider = ({ children }) => {
       .then(({ data }) => {
         setUser(data);
         // toast.success(`Signed as ${user.username}`);
-        toast.success("usert topildi.")
+        toast.success("Login succesfly")
       })
       .catch((error) => {
         console.log("error while get profile", error);

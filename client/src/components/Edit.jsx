@@ -37,6 +37,7 @@ export default function Edit() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    // navigator("/profil ")
 
     const formData = new FormData();
     formData.append("userId", user._id);

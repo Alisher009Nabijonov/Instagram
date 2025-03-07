@@ -441,7 +441,7 @@ const Home = () => {
                 <img src={LogoImg} alt="" className="mx-auto my-2" />
                 <div>
                   <h1 className="my-4">Email: {user.email}</h1>
-                  <h1>Profile: {user.createdAt}</h1>
+                  <h1>profile creation date: {user.createdAt}</h1>
                   <button
                     onClick={closeModal}
                     className="px-6 mx-auto text-center rounded-sm flex mt-10 py-2 bg-blue-600 hover:bg-blue-700"
@@ -477,7 +477,7 @@ const Home = () => {
                     <p className="text-neutral-400 text-sm">{item.name}</p>
                   </div>
                 </div>
-                <div onClick={handleIsFallow} className="bg-white/50">
+                <div onClick={handleIsFallow} className="">
                   {visibleButtons[item._id] && (
                     <button
                       key={item._id}

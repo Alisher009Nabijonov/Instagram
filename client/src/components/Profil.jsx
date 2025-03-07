@@ -139,7 +139,7 @@ const Profil = () => {
             </Tooltip>
           </div>
           <div>
-            <h1>{user.username}</h1>
+            <h1 className="text-xl">{user ? user.username : "user name"}</h1>
           </div>
           <div>
             <h1>@</h1>
@@ -242,7 +242,7 @@ const Profil = () => {
               onClick={() => handleCategoryClick(1)}
             >
               <MdOutlineGridOn className="h-3 w-3" />
-             <h1 id="profile_h1_"> Publications</h1>
+              <h1 id="profile_h1_"> Publications</h1>
             </h3>
             <h3
               className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
@@ -253,7 +253,7 @@ const Profil = () => {
               onClick={() => handleCategoryClick(2)}
             >
               <IoBookmarkSharp className="h-3 w-3" />
-            <h1 id="profile_h1_">  Saved</h1>
+              <h1 id="profile_h1_"> Saved</h1>
             </h3>
             <h3
               className={`flex cursor-pointer items-center gap-2 border-t-2 py-4 text-xs font-semibold uppercase tracking-wider ${
