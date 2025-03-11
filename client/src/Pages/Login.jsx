@@ -23,7 +23,7 @@ const Login = () => {
       window.location.reload()
     } catch (error) {
       console.log("login error", error);
-      toast.error(error.response.data.message);
+      toast.error("LOgin vaqtida hato.");
     }
   };
 
