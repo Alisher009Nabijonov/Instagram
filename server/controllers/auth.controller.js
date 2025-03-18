@@ -140,7 +140,7 @@ const profile = async (req, res) => {
           gender: user.gender,
           followers: user.followers,
           following: user.following,
-          createdAt : user.createdAt,
+          createdAt: user.createdAt,
         });
       } catch (error) {
         res.status(500).json({
